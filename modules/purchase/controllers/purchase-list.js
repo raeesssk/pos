@@ -54,7 +54,7 @@ angular.module('purchase').controller('purchaseListCtrl', function ($rootScope, 
 	    .success(function(purchase)
 	    {
 	      purchase.forEach(function (value, key) {
-                  $scope.purchaseList.push(value);
+                  $scope.purchaseListcount=value.total;
               });
 
               $scope.$watch("currentPage + numPerPage",
