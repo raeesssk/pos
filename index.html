@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pos">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="LeafUI Admin - UI Admin Kit Powered by Bootstrap 4">
+        <meta name="author" content="Lukasz Holeczek">
+        <meta name="keyword" content="LeafUI Admin - UI Admin Kit Powered by Bootstrap 4">
+        <title>POS</title>
+        <!-- virtual Keyboard -->
+        <link rel="stylesheet" type="text/css" href="resources/assets/css/keyboard.css">
+        <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery-ui.css">
+
+
+        <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.datetimepicker.css"/>
+        <!-- Main styles for this application -->
+        <link href="resources/assets/css/style.css" rel="stylesheet">
+
+        <!-- virtual Keyboard -->
+        <style type="text/css">
+            .ui-keyboard-nav button {}
+
+            /* position keyboard at bottom of the screen - jQuery UI isn't even loaded! */
+            .ui-keyboard {
+                -moz-box-shadow: 0 -15px 15px #FFFFFF;
+                -webkit-box-shadow: 0 -15px 15px #FFFFFF;
+                -ms-box-shadow: 0 -15px 15px #FFFFFF;
+                -o-box-shadow: 0 -15px 15px #FFFFFF;
+                box-shadow: 0 -15px 15px #FFFFFF;
+                -moz-border-radius: 0 0 0 0 !important;
+                -webkit-border-radius: 0 0 0 0 !important;
+                -ms-border-radius: 0 0 0 0 !important;
+                -o-border-radius: 0 0 0 0 !important;
+                border-radius: 0 0 0 0 !important;
+                font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+                left: 0px !important;
+                top: auto !important;
+                bottom: 0px;
+                position: fixed !important;
+                width: 100%;
+            }
+            .ui-keyboard button {
+                padding: 0.257em 0.65em 0.397em !important;
+                width: auto !important;
+            }
+            .ui-keyboard button.ui-keyboard-space {width: 15em !important;}
+            .ui-widget select, .ui-widget textarea, .ui-widget button {
+                font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+                font-size: 0.9em !important;
+            }
+            .ui-widget input {
+                font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+                font-size: 1.75em !important;
+                padding: 0.5em !important;
+            }
+            input.ui-keyboard-input {
+                background: #ffffff !important;
+            }
+
+            input.current {
+                border: 1px solid #1581EF !important;
+                box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 4px rgba(21, 129, 239, 0.5) inset !important;
+            }
+        </style>
+    </head>
+    <body class="navbar-fixed sidebar-nav fixed-nav" ng-controller="GlobalCtrl">
+        <header class="navbar">
+            <div class="container-fluid">
+                <button class="navbar-toggler mobile-toggler hidden-lg-up" type="button">&#9776;</button>
+                <a class="navbar-brand" href="#/"></a>
+                <ul class="nav navbar-nav hidden-md-down">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-toggler layout-toggler" href="#">☰</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/category/add"><i class="fa fa-plus-circle"></i> Category</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/product/add"><i class="fa fa-plus-circle"></i> Dishes</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/subcategory/add"><i class="fa fa-plus-circle"></i> Sub Category</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/unit/add"><i class="fa fa-plus-circle"></i> Unit</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/inventory/add"><i class="fa fa-plus-circle"></i> Product</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/recipe/add"><i class="fa fa-plus-circle"></i> Recipe</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/area/add"><i class="fa fa-plus-circle"></i> Table Area</a>
+                    </li>
+                    <li class="nav-item p-x-1">
+                        <a class="nav-link" href="#/table/add"><i class="fa fa-plus-circle"></i> Table</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right hidden-md-down">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img ng-src="{{iconimage}}" class="img-avatar" alt="icon">
+                            <span class="hidden-md-down">{{userid}}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#/profile"><i class="fa fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="#/settings"><i class="fa fa-wrench"></i> Settings</a>
+                            <div class="divider"></div>
+                            <a class="dropdown-item" href="" ng-click="backup()"><i class="fa fa-database"></i> Backup</a>
+                            <a class="dropdown-item" href="" ng-click="logOut()"><i class="fa fa-lock"></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#/"><i class="icon-speedometer"></i> DASHBOARD</a>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-cup"></i> Dishes</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/category"><i class="icon-energy"></i> Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/product"><i class="icon-cup"></i> Dishes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/subcategory"><i class="icon-magic-wand"></i> Sub Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/unit"><i class="icon-puzzle"></i> Unit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/inventory"><i class="icon-basket-loaded"></i> Product</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/recipe"><i class="icon-doc"></i> Recipe</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-layers"></i> Tables</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/area"><i class="icon-compass"></i> Table Area</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/table"><i class="icon-layers"></i> Table</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-energy"></i> Purchase</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/dealer/add"><i class="icon-plus"></i> Add Dealer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/dealer"><i class="icon-list"></i> Dealer List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/purchase/add"><i class="icon-plus"></i> Add Purchase</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/purchase"><i class="icon-list"></i> Purchase List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/purcashbook/add"><i class="icon-plus"></i> Add Cashbook</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/purcashbook"><i class="icon-list"></i> Cashbook List</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-note"></i> Order</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/customer/add"><i class="icon-plus"></i> Add Customer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/customer"><i class="icon-list"></i> Customer List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/order"><i class="icon-list"></i> Order List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/dinein"><i class="icon-plus"></i> Dine In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="plugins-tables.html"><i class="icon-list"></i> Take Away</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-note"></i> Dinning</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="plugins-tables.html"><i class="icon-list"></i> Book Table</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="plugins-tables.html"><i class="icon-list"></i> Take Away</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li class="divider"></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Main content -->
+        <main class="main">
+            <div ng-view></div>
+        </main>
+        
+        <footer class="footer ng-scope">
+            <span class="pull-right text-muted">
+                © 2017 POS. Developed by <a href="http://www.3commastechnologies.com/" target="_blank">3 Commas Technologies</a>
+            </span>
+        </footer>
+
+        <script type="text/javascript" src="resources/vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/lib/angular.min.js"></script>
+        <script type="text/javascript" src="resources/lib/angular-route.min.js"></script>
+        <script type="text/javascript" src="resources/lib/angular-idle.min.js"></script>
+        <script type="text/javascript" src="resources/lib/ui-bootstrap-tpls-0.13.4.min.js"></script>
+        <script type="text/javascript" src="resources/lib/bootbox.min.js"></script>
+        <script type="text/javascript" src="resources/lib/jquery.datetimepicker.js"></script>
+        <script type="text/javascript" src="resources/lib/fileupload/angular-file-upload.min.js"></script>
+        <script type="text/javascript" src="resources/lib/ocLazyLoad.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/tether.min.js"></script>
+        <script type="text/javascript" src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/pace.min.js"></script>
+        <script type="text/javascript" src="resources/assets/js/views/shared.js"></script>
+        <script type="text/javascript" src="resources/assets/js/app.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/toastr.min.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/gauge.min.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/moment.min.js"></script>
+        <script type="text/javascript" src="resources/assets/js/libs/daterangepicker.min.js"></script><!-- 
+        <script type="text/javascript" src="resources/assets/js/views/main.js"></script> -->
+        
+
+
+        <!-- virtual Keyboard -->
+        <script type="text/javascript" src="resources/lib/jquery.keyboard.js"></script>
+        <script type="text/javascript" src="resources/lib/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="resources/lib/jquery.keyboard.extension-typing.js"></script>
+        <script type="text/javascript" src="resources/lib/jquery.keyboard.extension-autocomplete.js"></script>
+
+
+
+        <!-- Controllers-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/globalController.js"></script>
+
+        <!-- admin -->
+        <script src="modules/admin/config.js"></script>
+
+        <!-- Category-->
+        <script src="modules/category/config.js"></script>
+
+        <!-- Product-->
+        <script src="modules/product/config.js"></script>
+
+        <!-- Sub Category-->
+        <script src="modules/subcategory/config.js"></script>
+
+        <!-- Unit-->
+        <script src="modules/unit/config.js"></script>
+
+        <!-- Inventory-->
+        <script src="modules/inventory/config.js"></script>
+
+        <!-- Recipe-->
+        <script src="modules/recipe/config.js"></script>
+
+        <!-- Area-->
+        <script src="modules/area/config.js"></script>
+
+        <!-- Table-->
+        <script src="modules/table/config.js"></script>
+
+        <!-- Dealer-->
+        <script src="modules/dealer/config.js"></script>
+
+        <!-- Purchase-->
+        <script src="modules/purchase/config.js"></script>
+
+        <!-- Purchase Cashbook-->
+        <script src="modules/purcashbook/config.js"></script>
+
+        <!-- customer -->
+        <script src="modules/customer/config.js"></script>
+
+        <!-- dinein -->
+        <script src="modules/dinein/config.js"></script>
+
+
+        <!-- order -->
+        <script src="modules/order/config.js"></script>
+        
+    </body>
+    <script> 
+        $(document).ready(function(){
+            $("ul li a").click(function(){
+                $(".nav-item").removeClass("active");
+                $('a').removeClass('active');
+                $(this).addClass('active');
+            });     
+        });
+    </script>
+</html>
