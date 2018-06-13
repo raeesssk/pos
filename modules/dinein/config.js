@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 /* Account Module */
 angular.module('dinein', [])
     .config(['$routeProvider', function config($routeProvider) {
