@@ -1,0 +1,54 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/unit">Unit</a></li>
+    <li class="active">New Unit</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New Unit</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Unit Name</label>
+                                    <input type="text" id="um_name" class="form-control keyboard-normal" ng-model="unit.um_name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/'" id="btncancel">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addUnit()">Save Unit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- virtual Keyboard Start -->
+<script type="text/javascript">
+    // Keyboard Layouts
+    $('.keyboard-normal').keyboard({
+        layout: 'qwerty',
+        autoAccept: 'true',
+        usePreview: false,
+        visible: function(e, keyboard, el) {
+            // addNav(keyboard);
+        },
+        beforeClose: function(e, keyboard, el, accepted) {
+            $('input.current').removeClass('current');
+            $("body").css('padding-bottom', '0px');
+        }
+    });
+    // virtual Keyboard end
+</script>
+<!-- virtual Keyboard End -->
