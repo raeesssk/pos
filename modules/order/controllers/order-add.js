@@ -1,7 +1,11 @@
 // import admin
  angular.module('order').controller('orderAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
+<<<<<<< HEAD
     /*$scope.tableList=[];*/
+=======
+     
+>>>>>>> bf1f9db9be3041e519f55179f4c5dda7bca9e9dd
     $scope.categoryList = [];
   $scope.getAll = function () {
         

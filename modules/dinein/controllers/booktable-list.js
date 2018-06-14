@@ -1,7 +1,7 @@
  angular.module('dinein').controller('bookListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
  	$scope.loading1=0;
-    $scope.tableList = [];
+    $rootScope.tableList = [];
     // $scope.isreserved = 0;
 	$scope.getAll = function () {
         
@@ -19,6 +19,7 @@
 
               });
 	      $scope.loading1=1;
+        $scope.$apply();
 
 	    })
 	    .error(function(data) 
@@ -57,10 +58,9 @@
 			      	if (category.length > 0) {
 			    		$("#"+table.tm_id).removeClass('color');
 			    		$("#"+table.tm_id).addClass('btn-success');
-
+		    			$scope.tableList=[];
 			    		
-			    			window.location.href = '#/order/add';
-
+			    			 
 			    		
 		    		
 			    		
@@ -107,6 +107,7 @@
 			    });*/
 
 			    			window.location.href = '#/order/add';
+
 
     	}
 

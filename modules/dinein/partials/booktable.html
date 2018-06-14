@@ -25,7 +25,6 @@
                      <div class="card-block">
                         <div class="row">
                            <div class="col-lg-12">
-
                               <div class="col-lg-2" ng-repeat="table in tableList | filter : table"><br>
                                  <button ng-click="getid(table);" id="{{table.tm_id}}" style="border-radius: 5px;" class="color" ng-if="table.tm_isreserved == 0">
                                     <img ng-if="table.tm_size == '2 Seaters'" id="t2" height="80" width="80" src="resources/assets/img/t2.png">
@@ -71,32 +70,18 @@
                            </div>
                                  -->
 
-                          <div class="col-lg-4"><br>
-                              <div class="col-lg-12">
-                                 <div class="col-lg-2">
-                                    <div class="col-lg-12">
-                                       <button class="avail-seat" style="width: 30px;height: 20px; background-color: green; border: black solid 2px;">
-                                       </button>
-                                       <div class="col-lg-12">&nbsp;</div>
-                                    </div>                                    
-                                    <div class="col-lg-12">
-                                      <button class="booked" style="width: 30px;height: 20px;background-color:white; border: black solid 2px;">
-
-                                       </button>
-                                          <div class="col-lg-12">&nbsp;</div>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-6">
+                          <div class="col-lg-2"><br>
                                     <div class="row note">
-                                       <div class="col-md-12">
-                                          <p>Reserved Seat</p>
+                                       <div class="col-md-12" style="margin-top: 10px;">
+                                          <button class="avail-seat" style="width: 30px;height: 20px; background-color: green; border: black solid 2px;">
+                                       </button> Reserved Seat
                                        </div>
-                                       <div class="col-md-12">
-                                          <p style="margin-top: 4px;">Available Seat</p>
+                                       <div class="col-md-12" style="margin-top: 10px;">
+                                          <button class="booked" style="width: 30px;height: 20px;background-color:white; border: black solid 2px;">
+
+                                       </button> Available Seat 
                                        </div>
                                     </div>
-                                 </div>
-                              </div>
                            </div>
                                 
 
