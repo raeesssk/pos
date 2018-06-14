@@ -67,13 +67,13 @@ input:checked + .slider:before {
                         <small>Table No: {{table.tm_description}} ({{table.am_name}})</small>
 
                         <label class="switch">
-                          <input type="checkbox" checked>
+                          <input type="checkbox" id="getbox" ng-click="getBox();" checked>
                           <span class="slider round"></span>
                         </label>
                         
                     </div>
                     <!-- /.row -->
-                     <div class="card-block">
+                     <div class="card-block"> 
                         <div class="row">
                            <div class="col-lg-12">
 
@@ -103,3 +103,21 @@ input:checked + .slider:before {
     </div>
 </div>
 
+<div id="confirm-change" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Cancel Table</h4>
+      </div>
+      <div class="modal-body">
+        <button type="button" id="del" class="btn btn-danger" ng-click="deleteConfirm()">Change Table</button>
+        <button type="button" id="del" class="btn btn-warning" ng-click="changeTable(table)">Cancel Reservation</button>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+
+  </div>
+</div>
