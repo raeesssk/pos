@@ -1,7 +1,7 @@
  angular.module('dinein').controller('bookListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
  	$scope.loading1=0;
-    $rootScope.tableList = [];
+    $scope.tableList = [];
     // $scope.isreserved = 0;
 	$scope.getAll = function () {
         
@@ -19,7 +19,6 @@
 
               });
 	      $scope.loading1=1;
-        $scope.$apply();
 
 	    })
 	    .error(function(data) 
@@ -44,7 +43,6 @@
     	// $("#"+id).addClass('btn-success');
 
     	
-    $rootScope.table = table;
     if ($("#"+table.tm_id).hasClass('color')){
     		$http({
 			      method: 'post',
@@ -56,14 +54,32 @@
 			    .success(function(category) {
 			    	
 			      	if (category.length > 0) {
-			    		$("#"+table.tm_id).removeClass('color');
-			    		$("#"+table.tm_id).addClass('btn-success');
-		    			$scope.tableList=[];
-			    		
-			    			 
-			    		
-		    		
-			    		
+			    		$http({
+					      method: 'post',
+					      url: $rootScope.baseURL+'/order/add',
+		      			data: table,
+					      headers: {'Content-Type': 'application/json',
+				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+					    })
+					    .success(function(category) {
+					    	
+					    		$("#"+table.tm_id).removeClass('color');
+					    		$("#"+table.tm_id).addClass('btn-success');
+
+    							$rootScope.tableObj = table;
+					    		window.location.href = '#/order/add';
+					    })
+					    .error(function(data) 
+					    {   
+				              $scope.loading1 = 1;
+					       toastr.error('Oops, Something Went Wrong.', 'Error', {
+				              closeButton: true,
+				              progressBar: true,
+				            positionClass: "toast-top-center",
+				            timeOut: "500",
+				            extendedTimeOut: "500",
+				          });          
+					    });
 		    		}
 			    })
 			    .error(function(data) 
@@ -104,10 +120,11 @@
 		            timeOut: "500",
 		            extendedTimeOut: "500",
 		          });          
-			    });*/
+			    });*/	
+
+    						$rootScope.tableObj = table;
 
 			    			window.location.href = '#/order/add';
-
 
     	}
 
