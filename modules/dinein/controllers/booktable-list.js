@@ -2,6 +2,7 @@
 
  	$scope.loading1=0;
     $scope.tableList = [];
+    $scope.opmId = $routeParams.opmId;
     // $scope.isreserved = 0;
 	$scope.getAll = function () {
         
@@ -66,6 +67,7 @@
 					    		$("#"+table.tm_id).removeClass('color');
 					    		$("#"+table.tm_id).addClass('btn-success');
 
+				  	 			localStorage.setItem('orderObj',JSON.stringify(category[0]) );
 				  	 			localStorage.setItem('tableObj',JSON.stringify(table) );
 					    		window.location.href = '#/order/add';
 					    })
@@ -118,14 +120,33 @@
 		              progressBar: true,
 		            positionClass: "toast-top-center",
 		            timeOut: "500",
-		            extendedTimeOut: "500",
 		          });          
 			    });*/	
-
-				  	 			localStorage.setItem('tableObj', JSON.stringify(table) );
-
-			    			window.location.href = '#/order/add';
-
+		            
+			  	    $http({
+					      method: 'post',
+					      url: $rootScope.baseURL+'/order/check',
+      				 	  data: table,
+					      headers: {'Content-Type': 'application/json',
+				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+					    })
+					    .success(function(category) {
+					    	console.log(category);
+					    		localStorage.setItem('tableObj', JSON.stringify(table) );
+					    		localStorage.setItem('orderObj',JSON.stringify(category[0]) );
+					    		window.location.href = '#/order/add';
+					    })
+					    .error(function(data) 
+					    {   
+				            $scope.loading1 = 1;
+					       	toastr.error('Oops, Something Went Wrong.', 'Error', {
+				            closeButton: true,
+				            progressBar: true,
+				            positionClass: "toast-top-center",
+				            timeOut: "500",
+				            extendedTimeOut: "500",
+				        });          
+					});
     	}
 
     	};

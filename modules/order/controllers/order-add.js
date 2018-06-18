@@ -2,6 +2,8 @@
  angular.module('order').controller('orderAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
     $scope.tableObj = JSON.parse(localStorage.getItem("tableObj"));
+    $scope.orderObj = JSON.parse(localStorage.getItem("orderObj"));
+
     $scope.tab=0;
     $scope.categoryList = [];
     $scope.tableList = [];
@@ -48,43 +50,80 @@ $scope.closechk=function(){
 $scope.getBox=function(){
   $('#confirm-change').modal('show');
   // $('input').filter(':checkbox').prop('checked',true);
+
 };
 
   $scope.deleteTable=function(table){
-          $http({
-            method: 'post',
-            url: $rootScope.baseURL+'/table/notreserved',
-            data: table,
-            headers: {'Content-Type': 'application/json',
-                      'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-          })
-          .success(function(category) {
-            
-              if (category.length > 0) {
-              $('#'+table.tm_id).removeClass('btn-success');
-              $("#"+table.tm_id).addClass('color');
-              $('#confirm-change').modal('hide');
-              // $('#confirm-change').modal('hide');
-              window.location.href="#/dinein";
 
-            }
-          })
-          .error(function(data) 
-          {   
-                  $scope.loading1 = 1;
-             toastr.error('Oops, Something Went Wrong.', 'Error', {
-                  closeButton: true,
-                  progressBar: true,
-                positionClass: "toast-top-center",
-                timeOut: "500",
-                extendedTimeOut: "500",
-              });          
+          $http({
+                method: 'post',
+                url: $rootScope.baseURL+'/order/product/remove',
+                data: $scope.orderObj,
+                headers: {'Content-Type': 'application/json',
+                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+              })
+              .success(function(category) {
+                  if($(category.length == 0)){
+
+                      $http({
+                        method: 'post',
+                        url: $rootScope.baseURL+'/table/notreserved',
+                        data: table,
+                        headers: {'Content-Type': 'application/json',
+                                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                      })
+                      .success(function(category) {
+                        
+                          if (category.length > 0) {
+                          $('#'+table.tm_id).removeClass('btn-success');
+                          $("#"+table.tm_id).addClass('color');
+                          $('#confirm-change').modal('hide');
+                          // $('#confirm-change').modal('hide');
+                          window.location.href="#/dinein";
+
+                        }
+                      })
+                      .error(function(data) 
+                      {   
+                              $scope.loading1 = 1;
+                         toastr.error("Oops! Something Went Wrong", 'Error', {
+                              closeButton: true,
+                              progressBar: true,
+                            positionClass: "toast-top-center",
+                            timeOut: "500",
+                            extendedTimeOut: "500",
+                          });          
+                      });
+                      
+                  }
+                  else{
+                    toastr.warning("Some Pending Orders",'Warning',{
+                      closeButton: true,
+                              progressBar: true,
+                            positionClass: "toast-top-center",
+                            timeOut: "500",
+                            extendedTimeOut: "500",
+                    });
+                    
+                  }
+                
+              })
+              .error(function(data) 
+              {   
+                    $scope.loading1 = 1;
+                  toastr.error('Oops, Something Went Wrong.', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                    positionClass: "toast-top-center",
+                    timeOut: "500",
+                    extendedTimeOut: "500",
+                });          
           });
   };
 
 
   $scope.changeTable=function(table){
-
+    $('#del').attr("disabled","true");
     $scope.tableList = [];
     $http({
         method: 'GET',
@@ -111,6 +150,7 @@ $scope.getBox=function(){
             extendedTimeOut: "500",
           });          
       });
+
   };
 
   $scope.getid = function (table) {
@@ -127,21 +167,48 @@ $scope.getBox=function(){
           .success(function(category) {
             
               if (category.length > 0) {
+
                 $http({
                   method: 'post',
-                  url: $rootScope.baseURL+'/order/edit/'+rootScope.orderObj.om_id,
+                  url: $rootScope.baseURL+'/order/edit/'+$scope.orderObj.om_id,
                   data: table,
                   headers: {'Content-Type': 'application/json',
                             'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
                 })
-                .success(function(category) {
+                .success(function(category1) {
                   
-                    $("#"+table.tm_id).removeClass('color');
-                    $("#"+table.tm_id).addClass('btn-success');
-                    
-                    $scope.tableObj = table;
+                    $http({
+                        method: 'post',
+                        url: $rootScope.baseURL+'/table/notreserved/',
+                        data: $scope.tableObj,
+                        headers: {'Content-Type': 'application/json',
+                                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                    })
+                      .success(function(category2) {
+                        
+                          $("#"+table.tm_id).removeClass('btn-success');
+                          $("#"+table.tm_id).addClass('color');
+                          $("#"+$scope.tableObj.tm_id).removeClass('color');
+                          $("#"+$scope.tableObj.tm_id).addClass('btn-success');
 
-                    $('#confirm-change').modal('hide');
+                          localStorage.setItem('tableObj',JSON.stringify(table) );
+                          $scope.tableObj = JSON.parse(localStorage.getItem("tableObj"));
+                          $scope.tab=0;
+                          $('#del').removeAttr("disabled");
+                          $('#confirm-change').modal('hide');
+                      })
+                      .error(function(data) 
+                      {   
+                              $scope.loading1 = 1;
+                         toastr.error('Oops, Something Went Wrong.', 'Error', {
+                              closeButton: true,
+                              progressBar: true,
+                            positionClass: "toast-top-center",
+                            timeOut: "500",
+                            extendedTimeOut: "500",
+                          });          
+                      });
+              
                 })
                 .error(function(data) 
                 {   
@@ -155,8 +222,8 @@ $scope.getBox=function(){
                     });          
                 });
               
-              
-            }
+              }
+
           })
           .error(function(data) 
           {   
