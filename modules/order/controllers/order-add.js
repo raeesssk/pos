@@ -1,15 +1,13 @@
  // import admin
  angular.module('order').controller('orderAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
+    $scope.tableObj = JSON.parse(localStorage.getItem("tableObj"));
     $scope.tab=0;
     $scope.categoryList = [];
     $scope.tableList = [];
-
-    var taskData = localStorage['tasklist'];
-     if(taskData !== undefined) {
-      $scope.task = JSON.parse(taskData)
-    }
-
+    // console.log($scope.tableObj);
+// localStorage.setItem("tableObj");
+// localStorage["tablesList"]=JSON.stringify($scope.tableObj);
 
 
   $scope.getAll = function () {
@@ -141,7 +139,8 @@ $scope.getBox=function(){
                     $("#"+table.tm_id).removeClass('color');
                     $("#"+table.tm_id).addClass('btn-success');
                     
-                    $rootScope.tableObj = table;
+                    $scope.tableObj = table;
+
                     $('#confirm-change').modal('hide');
                 })
                 .error(function(data) 

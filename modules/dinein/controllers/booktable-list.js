@@ -66,7 +66,7 @@
 					    		$("#"+table.tm_id).removeClass('color');
 					    		$("#"+table.tm_id).addClass('btn-success');
 
-    							$rootScope.tableObj = table;
+				  	 			localStorage.setItem('tableObj',JSON.stringify(table) );
 					    		window.location.href = '#/order/add';
 					    })
 					    .error(function(data) 
@@ -122,7 +122,7 @@
 		          });          
 			    });*/	
 
-    						$rootScope.tableObj = table;
+				  	 			localStorage.setItem('tableObj', JSON.stringify(table) );
 
 			    			window.location.href = '#/order/add';
 
