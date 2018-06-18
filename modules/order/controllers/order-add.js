@@ -3,9 +3,10 @@
 
     $scope.tableObj = JSON.parse(localStorage.getItem("tableObj"));
     $scope.orderObj = JSON.parse(localStorage.getItem("orderObj"));
-
+    $scope.pro=0;
     $scope.tab=0;
     $scope.categoryList = [];
+    $scope.productList = [];
     $scope.tableList = [];
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
@@ -239,5 +240,33 @@ $scope.getBox=function(){
       }
       // else{
       // }
+      };
+      $scope.getPro=function(product){
+        
+          $http({
+        method: 'GET',
+        url: $rootScope.baseURL+'/product',
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+
+                  $scope.productList.push(value);
+
+              });
+              $scope.pro=1;
+      })
+      .error(function(data) 
+      {   
+         toastr.error('Oops, Something Went Wrong.', 'Error', {
+              closeButton: true,
+              progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
       };
 });

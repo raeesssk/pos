@@ -131,7 +131,7 @@
 				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
 					    })
 					    .success(function(category) {
-					    	console.log(category);
+					    	
 					    		localStorage.setItem('tableObj', JSON.stringify(table) );
 					    		localStorage.setItem('orderObj',JSON.stringify(category[0]) );
 					    		window.location.href = '#/order/add';
