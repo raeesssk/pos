@@ -5,9 +5,11 @@
     $scope.orderObj = JSON.parse(localStorage.getItem("orderObj"));
     $scope.pro=0;
     $scope.tab=0;
+    $scope.pro=0;
     $scope.categoryList = [];
     $scope.productList = [];
     $scope.tableList = [];
+    $scope.productList = [];
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);
@@ -241,14 +243,21 @@ $scope.getBox=function(){
       // else{
       // }
       };
+<<<<<<< HEAD
       $scope.getPro=function(product){
         
           $http({
+=======
+      $scope.getpro = function(product){
+
+        $http({
+>>>>>>> a171b2e6cee62ac11b4b8eaac5b7f5c18b73ee2f
         method: 'GET',
         url: $rootScope.baseURL+'/product',
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
+<<<<<<< HEAD
       .success(function(category)
       {
         category.forEach(function (value, key) {
@@ -260,6 +269,20 @@ $scope.getBox=function(){
       })
       .error(function(data) 
       {   
+=======
+      .success(function(product)
+      {
+        product.forEach(function (value, key) {
+
+                  $scope.categoryList.push(value);
+                  
+              });
+        $scope.pro=1;
+      })
+      .error(function(data) 
+      {   
+              $scope.loading1 = 1;
+>>>>>>> a171b2e6cee62ac11b4b8eaac5b7f5c18b73ee2f
          toastr.error('Oops, Something Went Wrong.', 'Error', {
               closeButton: true,
               progressBar: true,

@@ -34,7 +34,7 @@
                     <!-- /.row -->
                       <div class="card-block"> 
                         <div class="row">
-                           <div class="col-lg-12">
+                            <div class="col-lg-12">
 
                               <div class="col-lg-2" ng-repeat="category in categoryList | filter : category"><br>
                                  <button ng-click="getPro(category);" id="{{category.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
@@ -46,9 +46,16 @@
                                     <div>{{category.ctm_type}}</div>
                                  </button>
                               </div>
-
-                           </div>
-                            <!-- col-lg-12 -->
+                            </div>
+                                <!-- col-lg-12 -->
+                            <div class="col-lg-12" ng-show="pro==1">
+                              <div class="col-lg-2" ng-repeatng-repeat="product in productList | filter : product">
+                                <button ng-click="getpro(product);" id="{{product.pm_id}}" style="border-radius: 5px;" class="btn form-control">
+                                  <div>{{product.pm_description}}</div>
+                                 </button>
+                              </div>
+                            </div>
+                                
                         </div>
                         <div ng-show="pro == 1">
                           <div class="row">
