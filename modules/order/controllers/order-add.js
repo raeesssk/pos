@@ -5,6 +5,13 @@
     $scope.categoryList = [];
     $scope.tableList = [];
 
+    var taskData = localStorage['tasklist'];
+     if(taskData !== undefined) {
+      $scope.task = JSON.parse(taskData)
+    }
+
+
+
   $scope.getAll = function () {
         
       $http({
