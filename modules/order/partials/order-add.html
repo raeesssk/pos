@@ -24,10 +24,6 @@
                         <strong>Order</strong><br>
                         <small>Table No: {{tableObj.tm_description}} ({{tableObj.am_name}})</small>
 
-                        <!-- <label class="switch">
-                          <input type="checkbox" id="getbox" ng-click="getBox()" checked>
-                          <span class="slider round"></span>
-                        </label> -->
                         <button class="btn btn-primary switch" id="getbox" ng-click="getBox()">Edit Order</button>
                         
                     </div>
@@ -38,35 +34,51 @@
 
                               <div class="col-lg-2" ng-repeat="category in categoryList | filter : category"><br>
                                  <button ng-click="getPro(category);" id="{{category.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                    <img ng-if="category.ctm_type == 'Starter'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/starter.png">
-                                    <img ng-if="category.ctm_type == 'Chineese-starter'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/chineesestart.png">
-                                    <img ng-if="category.ctm_type == 'Veg-main-course'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/veg.png">
-                                    <img ng-if="category.ctm_type == 'Non-veg-main-course'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/nonveg.png">
+                                    <img ng-if="category.ctm_type == 'Starters'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/starter.png">
+                                    <img ng-if="category.ctm_type == 'Chineese-Starters'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/chineesestart.png">
+                                    <img ng-if="category.ctm_type == 'Veg-Meal'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/veg.png">
+                                    <img ng-if="category.ctm_type == 'Non-Veg-Meal'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/nonveg.png">
                                     <img ng-if="category.ctm_type == 'Desserts'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/dessert.png">
                                     <div>{{category.ctm_type}}</div>
                                  </button>
                               </div>
                             </div>
                                 <!-- col-lg-12 -->
-                            <div class="col-lg-12" ng-show="pro==1">
-                              <div class="col-lg-2" ng-repeatng-repeat="product in productList track by $index | filter : product">
-                                <button ng-click="getpro(product);" id="{{product.pm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                  <div>{{product.pm_description}}</div>
-                                 </button>
-                              </div>
-                            </div>
+                            
                                 
                         </div>
                         <div ng-show="pro == 1">
                           <div class="row">
-                            <div class="col-lg-12">
-                              <div class="col-lg-2" ng-repeat="product in productList | filter : product">
-                                <button ng-click="addOrder(product);" id="{{category.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                  <div>{{product.pm_image}}{{product.pm_description}}</div>
+                            <div class="col-lg-6"><hr>
+                              <div class="col-lg-4" ng-repeat="product in productList | filter : product">
+                                <button ng-click="addOrder(product);" id="{{product.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
+                                  <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80"><p>{{product.pm_description}}</p></div>
                                 </button>
                               </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6"><hr>
+                              <div class="col-lg-12">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th> 
+                                        <th>Price</th>
+                                        <th>Action</th> 
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr ng-repeat="item in itemList track by $index">
+                                        <td>{{item.pm_description}}</td>
+                                        <td>{{item.pm_quantity}}</td>
+                                        <td>{{item.pm_rate}}</td>
+
+                                        <td><button class="btn-danger" id="om_min" ng-click="om_min(item)"><b>-</b></button></td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-lg-offset-6"><b>Total:</b><input type="text" readonly></div>
+                              </div>
 
                             </div>
                           </div>

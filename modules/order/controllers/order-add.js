@@ -8,6 +8,8 @@
     $scope.categoryList = [];
     $scope.productList = [];
     $scope.tableList = [];
+    $scope.itemList = [];
+    $scope.om_add=0;
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);
@@ -42,10 +44,6 @@
       });
     };
     $scope.getAll();
-
-$scope.closechk=function(){
-  $('input').filter(':checkbox').prop('checked',true);
-};
 
 // ### switch always on
 $scope.getBox=function(){
@@ -244,8 +242,9 @@ $scope.getBox=function(){
       $scope.getPro=function(product){
         
           $http({
-        method: 'GET',
-        url: $rootScope.baseURL+'/product',
+        method: 'POST',
+        url: $rootScope.baseURL+'/product/items',
+        data: product,
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
@@ -268,5 +267,19 @@ $scope.getBox=function(){
             extendedTimeOut: "500",
           });          
       });
+
+        $scope.productList=[];
+      };
+
+      $scope.addOrder = function (product){
+        
+        $scope.itemList.push(product);
+
+
+      };
+      $scope.om_min = function (item){
+        
+        $scope.item.pm_price = $scope.item.pm_price/2;
+        
       };
 });
