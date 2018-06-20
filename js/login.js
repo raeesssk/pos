@@ -5,7 +5,6 @@
 function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	$scope.apiURL = 'http://localhost:3000';
-
 	// if(localStorage.getItem("pos_admin_access_token") != null)
  //      {
  //          window.location = '/greenair/';

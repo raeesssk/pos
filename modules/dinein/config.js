@@ -6,13 +6,13 @@ angular.module('dinein', [])
             
             .when('/dinein',
                 {
-                    templateUrl: 'modules/dinein/partials/booktable.html',
+                    templateUrl: 'modules/dinein/partials/dinein-list.html',
                     controller: 'bookListCtrl',
                     resolve: {
                         lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
-                                files: ['modules/dinein/controllers/booktable-list.js']
+                                files: ['modules/dinein/controllers/dinein-list.js']
                             }]);
                         }]
                     }

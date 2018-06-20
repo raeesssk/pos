@@ -79,8 +79,7 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
 
    //Pagination Function
   
-
-     $scope.resetpagination = function () {
+      $scope.resetpagination = function () {
         var begin = (($scope.currentPage - 1) * $scope.numPerPage);
         var end = begin + $scope.numPerPage;
         $scope.filterUserend = begin + 1;
@@ -105,7 +104,7 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
                 if (product.length > 0) {
                  
                   product.forEach(function (value, key) {
-                      $scope.filteredTodos.push(value);
+                    $scope.filteredTodos.push(value);
                   });
                 }
                 else{

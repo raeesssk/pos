@@ -5,7 +5,7 @@
 }
 .color{
       background-color: white;
-   }
+}
 </style>
 
 <!-- Breadcrumb -->
@@ -52,7 +52,7 @@
                             <div class="col-lg-6"><hr>
                               <div class="col-lg-4" ng-repeat="product in productList | filter : product">
                                 <button ng-click="addOrder(product);" id="{{product.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                  <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80"><p>{{product.pm_description}}</p></div>
+                                  <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80" style="border-radius: 5px;"><p>{{product.pm_description}} {{product.pm_quantity}}</p></div>
                                 </button>
                               </div>
                             </div>
@@ -64,20 +64,27 @@
                                         <th>Product Name</th>
                                         <th>Quantity</th> 
                                         <th>Price</th>
+                                        <th>Total</th>
                                         <th>Action</th> 
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr ng-repeat="item in itemList track by $index">
-                                        <td>{{item.pm_description}}</td>
-                                        <td>{{item.pm_quantity}}</td>
+                                        <td>{{item.pm_description}} {{item.pm_quantity}}</td>
+                                        <td>{{item.quantity}}</td>
                                         <td>{{item.pm_rate}}</td>
-
-                                        <td><button class="btn-danger" id="om_min" ng-click="om_min(item)"><b>-</b></button></td>
+                                        <td>{{item.total | number}}</td>
+                                        <td><button class="btn-danger form-control"  id="om_min" ng-click="om_min($index)"><b>-</b></button></td>
                                       </tr>
                                     </tbody>
+                                    <tfoot>
+                                      <tr>
+                                        <td align="right" colspan="3">Total:</td>
+                                        <td>{{orderObj.om_total | number}}</td>
+                                        <td><button class="btn btn-success" ng-click="orderConfirm()">Place Order</button></td>
+                                      </tr>
+                                    </tfoot>
                                 </table>
-                                <div class="col-lg-offset-6"><b>Total:</b><input type="text" readonly></div>
                               </div>
 
                             </div>
@@ -105,7 +112,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" ng-click="closechk()">&times;</button>
         <h4 class="modal-title">Change / Cancel Table </h4>
-        <p style="color: green; font-family: "Bauhaus 93", Times, serif;"><b>Table No: {{tableObj.tm_description}} ({{tableObj.am_name}})</b></p>
+        <p style="color: green; font-family: Times, serif;"><b>Table No: {{tableObj.tm_description}} ({{tableObj.am_name}})</b></p>
       <div class="modal-body">
         <button type="button" id="del" class="btn btn-warning" ng-click="changeTable()">Change Table</button>
         <button type="button" class="btn btn-danger" ng-click="deleteTable(tableObj)">Cancel Reservation</button>

@@ -10,6 +10,8 @@
     $scope.tableList = [];
     $scope.itemList = [];
     $scope.om_add=0;
+    $scope.orderObj.om_total=0;
+
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);
@@ -109,8 +111,8 @@ $scope.getBox=function(){
               })
               .error(function(data) 
               {   
-                    $scope.loading1 = 1;
-                  toastr.error('Oops, Something Went Wrong.', 'Error', {
+                $scope.loading1 = 1;
+                toastr.error('Oops, Something Went Wrong.', 'Error', {
                     closeButton: true,
                     progressBar: true,
                     positionClass: "toast-top-center",
@@ -129,25 +131,23 @@ $scope.getBox=function(){
         url: $rootScope.baseURL+'/table',
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
+    })
       .success(function(category)
       {
         category.forEach(function (value, key) {
-
-                  $scope.tableList.push(value);
-
-              });
-              $scope.tab=1;
+          $scope.tableList.push(value);
+        });
+          $scope.tab=1;
       })
       .error(function(data) 
       {   
-         toastr.error('Oops, Something Went Wrong.', 'Error', {
-              closeButton: true,
-              progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
+        toastr.error('Oops, Something Went Wrong.', 'Error', {
+          closeButton: true,
+          progressBar: true,
+          positionClass: "toast-top-center",
+          timeOut: "500",
+          extendedTimeOut: "500",
+        });          
       });
 
   };
@@ -198,50 +198,49 @@ $scope.getBox=function(){
                       })
                       .error(function(data) 
                       {   
-                              $scope.loading1 = 1;
-                         toastr.error('Oops, Something Went Wrong.', 'Error', {
-                              closeButton: true,
-                              progressBar: true,
-                            positionClass: "toast-top-center",
-                            timeOut: "500",
-                            extendedTimeOut: "500",
-                          });          
+                        $scope.loading1 = 1;
+                        toastr.error('Oops, Something Went Wrong.', 'Error', {
+                          closeButton: true,
+                          progressBar: true,
+                          positionClass: "toast-top-center",
+                          timeOut: "500",
+                          extendedTimeOut: "500",
+                        });          
                       });
               
                 })
                 .error(function(data) 
                 {   
-                        $scope.loading1 = 1;
-                   toastr.error('Oops, Something Went Wrong.', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
+                  $scope.loading1 = 1;
+                    toastr.error('Oops, Something Went Wrong.', 'Error', {
+                      closeButton: true,
+                      progressBar: true,
                       positionClass: "toast-top-center",
                       timeOut: "500",
                       extendedTimeOut: "500",
                     });          
                 });
-              
               }
-
           })
           .error(function(data) 
           {   
-                  $scope.loading1 = 1;
-             toastr.error('Oops, Something Went Wrong.', 'Error', {
-                  closeButton: true,
-                  progressBar: true,
-                positionClass: "toast-top-center",
-                timeOut: "500",
-                extendedTimeOut: "500",
-              });          
+            $scope.loading1 = 1;
+            toastr.error('Oops, Something Went Wrong.', 'Error', {
+              closeButton: true,
+              progressBar: true,
+              positionClass: "toast-top-center",
+              timeOut: "500",
+              extendedTimeOut: "500",
+            });          
           });
       }
-      // else{
-      // }
-      };
-      $scope.getPro=function(product){
-        
-          $http({
+    };
+
+
+    $scope.getPro=function(product){
+      $scope.productList=[];
+
+      $http({
         method: 'POST',
         url: $rootScope.baseURL+'/product/items',
         data: product,
@@ -251,35 +250,98 @@ $scope.getBox=function(){
       .success(function(category)
       {
         category.forEach(function (value, key) {
-
-                  $scope.productList.push(value);
-
-              });
-              $scope.pro=1;
+          value.quantity = 1;
+          $scope.productList.push(value);
+        });
+        $scope.pro=1;
       })
       .error(function(data) 
       {   
-         toastr.error('Oops, Something Went Wrong.', 'Error', {
-              closeButton: true,
-              progressBar: true,
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
           });          
       });
-
-        $scope.productList=[];
-      };
-
-      $scope.addOrder = function (product){
-        
-        $scope.itemList.push(product);
-
-
-      };
-      $scope.om_min = function (item){
-        
-        $scope.item.pm_price = $scope.item.pm_price/2;
         
       };
+
+    $scope.addOrder = function (product){
+      var flag = 0;
+        if ($scope.itemList.length == 0) 
+        {
+          $scope.itemList.push(product);
+          product.total = product.pm_rate * product.quantity;
+          $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + product.pm_rate);
+        }
+        else{
+          $scope.itemList.forEach(function (value, key) {
+            if (value.pm_id == product.pm_id) 
+              {
+                value.quantity++;
+                value.total = value.pm_rate * value.quantity;
+                $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + value.pm_rate);;
+                flag=1;
+              }
+          });
+            if (flag==0)
+              {
+                product.total = product.pm_rate * product.quantity;
+                $scope.orderObj.om_total =  parseFloat($scope.orderObj.om_total + product.pm_rate);
+                $scope.itemList.push(product);
+              }
+        }
+      };
+
+    $scope.om_min = function (index){
+        if($scope.itemList[index].quantity == 1){
+          $scope.itemList[index].total = $scope.itemList[index].pm_rate * $scope.itemList[index].quantity;
+          $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total - $scope.itemList[index].pm_rate);
+          $scope.itemList.splice(index, 1);
+        }
+        else
+        {
+          $scope.itemList[index].quantity--;
+          $scope.itemList[index].total = $scope.itemList[index].pm_rate * $scope.itemList[index].quantity;
+          $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total - $scope.itemList[index].pm_rate);
+          // $scope.itemList = value.pm_rate * value.quantity;
+        }
+      };
+
+    $scope.orderConfirm = function(){
+      $scope.objList={
+        list:$scope.itemList, 
+        obj:$scope.orderObj
+      };
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/',
+        data: $scope.objList,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        toastr.error('Order Placed', 'Success', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });  
+        window.location.href = '#/dinein';
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 });
