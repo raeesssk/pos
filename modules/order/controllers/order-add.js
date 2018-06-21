@@ -11,6 +11,7 @@
     $scope.itemList = [];
     $scope.om_add=0;
     $scope.orderObj.om_total=0;
+    $scope.printList=[];
 
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
@@ -249,6 +250,7 @@ $scope.getBox=function(){
       })
       .success(function(category)
       {
+      $('#stop').attr("disabled","true");
         category.forEach(function (value, key) {
           value.quantity = 1;
           $scope.productList.push(value);
@@ -269,7 +271,10 @@ $scope.getBox=function(){
       };
 
     $scope.addOrder = function (product){
-      var flag = 0;
+
+         var flag = 0;
+      
+      $('#stop').removeAttr("disabled");
         if ($scope.itemList.length == 0) 
         {
           $scope.itemList.push(product);
@@ -310,28 +315,38 @@ $scope.getBox=function(){
         }
       };
 
+    // $scope.om_status = function (index){
+    //   if($scope.printList[index].opm_status_type == "completed"){
+    //     $scope.om_status = hide(index);
+    //   }
+    // };
+
+
     $scope.orderConfirm = function(){
+     
+
       $scope.objList={
         list:$scope.itemList, 
         obj:$scope.orderObj
       };
+      
       $http({
         method: 'POST',
-        url: $rootScope.baseURL+'/',
+        url: $rootScope.baseURL+'/order/placeorder',
         data: $scope.objList,
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
       .success(function(category)
       {
-        toastr.error('Order Placed', 'Success', {
+        toastr.success('Order Placed', 'Success', {
             closeButton: true,
             progressBar: true,
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
-          });  
-        window.location.href = '#/dinein';
+          });          
+        
       })
       .error(function(data) 
       {   
@@ -344,4 +359,36 @@ $scope.getBox=function(){
           });          
       });
     };
+
+     $scope.getPrintDetails = function () {
+
+        $scope.total_amount = 0;  
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/ongoing/orders',
+        data: $scope.orderObj,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+                  $scope.total_amount = parseFloat($scope.total_amount + value.opm_total);
+                  $scope.printList.push(value);
+                  
+              });
+      })
+      .error(function(data) 
+      {   
+              $scope.loading1 = 1;
+         toastr.error('Oops, Something Went Wrong.', 'Error', {
+              closeButton: true,
+              progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
+      $scope.getPrintDetails();
 });
