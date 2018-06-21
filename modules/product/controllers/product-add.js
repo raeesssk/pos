@@ -10,7 +10,21 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	$scope.product = {};
 	$scope.product.pm_username = $rootScope.userid;
 
-	$scope.onFileSelect = function ($files) {
+	/*$scope.onFileSelect = function ($files) {
+        var reader = new FileReader();
+        reader.readAsDataURL($files[0]);
+
+        reader.onloadend = function () {
+            var img_data = reader.result;
+            var spl_dt = img_data.split(',');
+            $scope.displayImages = 'data:image/png;base64, ' + spl_dt[1];
+            $scope.displayImagesdb = spl_dt[1];
+            $scope.$apply();
+        };
+    };*/
+    $scope.onFileSelect = function ($files) {
+        $scope.speakerIcon.photo = $files[0];
+        $scope.fileName = $scope.speakerIcon.photo.name;
         var reader = new FileReader();
         reader.readAsDataURL($files[0]);
 
