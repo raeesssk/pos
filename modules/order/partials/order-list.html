@@ -2,7 +2,7 @@
 <!-- Breadcrumb -->
 <ol class="breadcrumb m-b-0">
     <li><a href="#/">Home</a></li>
-    <li class="active">Order</li>
+    <li class="active">Orders</li>
 </ol>
 
 <div class="container-fluid">
@@ -17,20 +17,46 @@
                     <!-- /.row -->
                      <div class="card-block">
                         <div class="row">
-                           <div class="col-lg-12">
-
-                              <!-- <div class="col-lg-2" ng-repeat="category in categoryList | filter : category"><br>
-                                 <button ng-click="getid(category);" id="{{category.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                    <img ng-if="category.ctm_type == 'Starter'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/starter.png">
-                                    <img ng-if="category.ctm_type == 'Chineese-starter'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/chineesestart.png">
-                                    <img ng-if="category.ctm_type == 'Veg-main-course'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/veg.png">
-                                    <img ng-if="category.ctm_type == 'Non-veg-main-course'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/nonveg.png">
-                                    <img ng-if="category.ctm_type == 'Desserts'" id="t2" height="80" width="80" style="border-radius: 5px;" src="resources/assets/img/dessert.png">
-                                    <div>{{category.ctm_type}}</div>
-                                 </button>
-                              </div> -->
-
-                           </div>
+                          <div class="col-lg-12">
+                            <input type="text" class="form-control" id="searchtext" ng-model="searchtext" onkeyup="angular.element(this).scope().getSearch();" placeholder = "Order No, Customer No, Table Name"/><br>
+                          </div>
+                          <div class="col-lg-12">
+                            <table class="table table-bordered table-striped" id="checkrecord">
+                              <thead>
+                                <tr>
+                                  <th>Order Number</th>
+                                  <th>Customer</th>
+                                  <th>Table</th>
+                                  <th>Amount</th>
+                                  <th>Status</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="orderli in orderList">
+                                  <td>{{orderli.om_no}}</td>
+                                  <td>{{orderli.cm_name}} {{orderli.cm_mobile}}</td>
+                                  <td>{{orderli.tm_description}} {{orderli.am_name}}</td>
+                                  <td>{{orderli.om_total}}</td>
+                                  <td>{{orderli.opm_status_type}}</td>
+                                  <td>
+                                    <a href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i></a>
+                                    <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)"></i>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <span id="pagination_detail" ng-show="filteredTodos.length > 0" class="pagination_ds">Showing {{ filterUserend }} to {{filterUser}} of {{orderListcount}} Order's</span>
+                          <span id="pagination_div" align="right" ng-show="filteredTodos.length > 0" style="float: right;margin-top: -27px;">
+                            <pagination class="inline"
+                                ng-model="currentPage"
+                                total-items="productListcount"
+                                max-size="maxSize"
+                                boundary-links="true" data-num-pages="noOfPages"
+                                items-per-page="numPerPage">
+                            </pagination>
+                          </span>
                         </div>
                             <!-- row -->
                      </div>

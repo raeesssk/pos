@@ -27,8 +27,20 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr ng-repeat="kitchen in kitchenList">
-                              <td>{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                            <tr  ng-if="kitchen.opm_status_type == 'cancel'" ng-style=" {'background-color': 'red'}"  ng-repeat="kitchen in kitchenList">
+                              <td >{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                              <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
+                              <td>{{kitchen.opm_quantity}}</td>
+                              <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>
+                            </tr>
+                            <tr  ng-if="kitchen.opm_status_type == 'update'" ng-style=" {'background-color': 'yellow'}"  ng-repeat="kitchen in kitchenList">
+                              <td >{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                              <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
+                              <td>{{kitchen.opm_quantity}}</td>
+                              <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>
+                            </tr>
+                            <tr  ng-if="kitchen.opm_status_type == 'pending'" ng-repeat="kitchen in kitchenList">
+                              <td >{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
                               <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
                               <td>{{kitchen.opm_quantity}}</td>
                               <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>

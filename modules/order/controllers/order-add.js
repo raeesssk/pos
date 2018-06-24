@@ -28,101 +28,120 @@
       })
       .success(function(category)
       {
-        category.forEach(function (value, key) {
-
-                  $scope.categoryList.push(value);
-                  
-              });
+          category.forEach(function (value, key) {
+            $scope.categoryList.push(value);
+          });
       })
       .error(function(data) 
       {   
-              $scope.loading1 = 1;
-         toastr.error('Oops, Something Went Wrong.', 'Error', {
-              closeButton: true,
-              progressBar: true,
+          $scope.loading1 = 1;
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
           });          
       });
     };
-    $scope.getAll();
+
+  $scope.getPrintDetails = function () {
+      $scope.printList = [];
+      $scope.orderObj.total_amount = 0;  
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/ongoing/orders',
+        data: $scope.orderObj,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+          value.opm_quantity_old = value.opm_quantity;
+          $scope.orderObj.total_amount = parseFloat(parseFloat($scope.orderObj.total_amount) + parseFloat(value.opm_total));
+          $scope.printList.push(value);
+          });
+      })
+      .error(function(data) 
+      {   
+        $scope.loading1 = 1;
+         toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 
 // ### switch always on
-$scope.getBox=function(){
-  $('#confirm-change').modal('show');
-  // $('input').filter(':checkbox').prop('checked',true);
+  $scope.getBox=function(){
+    $('#confirm-change').modal('show');
+    // $('input').filter(':checkbox').prop('checked',true);
 
-};
-
-  $scope.deleteTable=function(table){
-
-          $http({
-                method: 'post',
-                url: $rootScope.baseURL+'/order/product/remove',
-                data: $scope.orderObj,
-                headers: {'Content-Type': 'application/json',
-                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-              })
-              .success(function(category) {
-                  if($(category.length == 0)){
-
-                      $http({
-                        method: 'post',
-                        url: $rootScope.baseURL+'/table/notreserved',
-                        data: table,
-                        headers: {'Content-Type': 'application/json',
-                                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-                      })
-                      .success(function(category) {
-                        
-                          if (category.length > 0) {
-                          $('#'+table.tm_id).removeClass('btn-success');
-                          $("#"+table.tm_id).addClass('color');
-                          $('#confirm-change').modal('hide');
-                          // $('#confirm-change').modal('hide');
-                          window.location.href="#/dinein";
-
-                        }
-                      })
-                      .error(function(data) 
-                      {   
-                              $scope.loading1 = 1;
-                         toastr.error("Oops! Something Went Wrong", 'Error', {
-                              closeButton: true,
-                              progressBar: true,
-                            positionClass: "toast-top-center",
-                            timeOut: "500",
-                            extendedTimeOut: "500",
-                          });          
-                      });
-                      
-                  }
-                  else{
-                    toastr.warning("Some Pending Orders",'Warning',{
-                      closeButton: true,
-                              progressBar: true,
-                            positionClass: "toast-top-center",
-                            timeOut: "500",
-                            extendedTimeOut: "500",
-                    });
-                    
-                  }
-                
-              })
-              .error(function(data) 
-              {   
-                $scope.loading1 = 1;
-                toastr.error('Oops, Something Went Wrong.', 'Error', {
-                    closeButton: true,
-                    progressBar: true,
-                    positionClass: "toast-top-center",
-                    timeOut: "500",
-                    extendedTimeOut: "500",
-                });          
-          });
   };
 
+  $scope.deleteTable=function(table){
+      $http({
+        method: 'post',
+        url: $rootScope.baseURL+'/order/product/remove',
+        data: $scope.orderObj,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category) {
+        if($(category.length == 0)){
+            $http({
+              method: 'post',
+              url: $rootScope.baseURL+'/table/notreserved',
+              data: table,
+              headers: {'Content-Type': 'application/json',
+                        'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+            })
+            .success(function(category) {
+              if (category.length > 0) {
+                $('#'+table.tm_id).removeClass('btn-success');
+                $("#"+table.tm_id).addClass('color');
+                $('#confirm-change').modal('hide');
+                // $('#confirm-change').modal('hide');
+                window.location.href="#/dinein";
+              }
+            })
+            .error(function(data){   
+              $scope.loading1 = 1;
+              toastr.error("Oops! Something Went Wrong", 'Error', {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-center",
+                timeOut: "500",
+                extendedTimeOut: "500",
+              });          
+            });
+        }
+        else {
+          toastr.warning("Some Pending Orders",'Warning',{
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });
+        }
+      })
+      .error(function(data) 
+        {   
+          $scope.loading1 = 1;
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+        });
+  };
 
   $scope.changeTable=function(table){
     $('#del').attr("disabled","true");
@@ -315,12 +334,82 @@ $scope.getBox=function(){
         }
       };
 
-    // $scope.om_status = function (index){
-    //   if($scope.printList[index].opm_status_type == "completed"){
-    //     $scope.om_status = hide(index);
-    //   }
-    // };
+    $scope.orderchange = function(){
+        $scope.orderObj.total_amount = 0;
+        $scope.printList.forEach(function (value, key) {
+          $scope.orderObj.total_amount = parseFloat($scope.orderObj.total_amount + (value.opm_quantity * value.opm_rate));
+        });
+    };
 
+    $scope.om_update = function(index){
+      $scope.updateList={
+        list:$scope.printList[index], 
+        total:$scope.orderObj.total_amount
+      };
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/product/update',
+        data: $scope.updateList,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      { 
+        toastr.success('Order Updated', 'Successfully', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          }); 
+        $scope.getPrintDetails();
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
+
+    $scope.om_status = function(index){
+      $scope.cancelList={
+        list:$scope.printList[index], 
+        total:$scope.orderObj.total_amount
+      };
+       $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/product/cancel',
+        data: $scope.cancelList,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      { 
+        toastr.success('Order Updated', 'Successfully', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          }); 
+        $scope.getPrintDetails();
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 
     $scope.orderConfirm = function(){
      
@@ -359,36 +448,4 @@ $scope.getBox=function(){
           });          
       });
     };
-
-     $scope.getPrintDetails = function () {
-
-        $scope.total_amount = 0;  
-      $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/ongoing/orders',
-        data: $scope.orderObj,
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      {
-        category.forEach(function (value, key) {
-                  $scope.total_amount = parseFloat($scope.total_amount + value.opm_total);
-                  $scope.printList.push(value);
-                  
-              });
-      })
-      .error(function(data) 
-      {   
-              $scope.loading1 = 1;
-         toastr.error('Oops, Something Went Wrong.', 'Error', {
-              closeButton: true,
-              progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
-    };
-      $scope.getPrintDetails();
 });
