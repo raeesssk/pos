@@ -73,14 +73,16 @@
                                         <td>{{item.quantity}}</td>
                                         <td>{{item.pm_rate}}</td>
                                         <td>{{item.total | number}}</td>
-                                        <td><button class="btn-danger form-control"  id="om_min" ng-click="om_min($index)"><b>-</b></button></td>
+                                        <td>  
+                                          <button class="btn-danger form-control"  id="om_min" ng-click="om_min($index)"><b>-</b></button></td>
                                       </tr>
                                     </tbody>
                                     <tfoot>
                                       <tr>
                                         <td align="right" colspan="3">Total:</td>
                                         <td>{{orderObj.om_total | number:2}}</td>
-                                        <td><button class="btn btn-success" id="stop" ng-click="orderConfirm()">Place Order</button></td>
+                                        <td>
+                                          <button class="btn btn-success" id="stop" ng-click="orderConfirm()">Place Order</button></td>
                                       </tr>
                                     </tfoot>
                                 </table>
@@ -199,5 +201,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- // end modal for switch -->

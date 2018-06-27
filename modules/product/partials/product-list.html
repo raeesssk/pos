@@ -22,6 +22,7 @@
                       <div class="col-lg-1">
                         <a class="btn btn-outline btn-info" href="#/product/add">Add</a>
                       </div>
+
                         <table class="table table-bordered table-striped" id="checkrecord">
                           <thead>
                             <tr>
@@ -46,6 +47,7 @@
                               <td>{{product.pm_quantity}}</td>
                               <td>{{product.pm_rate}}</td>
                               <td>
+                                <i class="icon icon-info" data-toggle="modal" data-target="#orderDetails" ng-click="recipeDetails($index)"></i>
                                 <a href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i></a>
                                 <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)"></i>
                               </td>
@@ -92,3 +94,36 @@
 
   </div>
 </div>
+
+
+<!-- // modal for view -->
+<div id="recipeDetails" class="modal" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <div ng-repeat="product in filteredTodos">{{product.pm_description}}</div> --> 
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Dishes</th>
+              <th>Product</th>
+              <th>Quantity</th>
+            </tr>                              
+          </thead>
+          <tbody>
+            <tr ng-repeat="recipe in viewList | filter : recipe">
+              <td>{{recipe.ctm_type}} {{recipe.pm_description}} ({{recipe.pm_quantity}})</td>
+              <td>{{recipe.im_name}} ({{recipe.um_name}})</td>
+              <td>{{recipe.rm_quantity}}</td>
+            </tr>
+          </tbody>
+        </table>     
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- // end modal for view -->

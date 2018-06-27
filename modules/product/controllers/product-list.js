@@ -23,6 +23,8 @@ angular.module('product').controller('productListCtrl', function ($rootScope, $h
   $('#quatationreportindex').removeClass("active");
   $('#expensereportindex').removeClass("active");
   $('#productindex').addClass("active");
+
+  // $scope.productObj = JSON.parse(localStorage.getItem("productObj"));
   $scope.filteredTodos = [];
     $scope.currentPage = 1;
     $scope.maxSize = 5;
@@ -36,6 +38,7 @@ angular.module('product').controller('productListCtrl', function ($rootScope, $h
     $scope.loading1 = 0;
     $scope.limit={};
     $scope.parseInt = parseInt;
+    $scope.viewList=[]; 
 
 $scope.apiURL = $rootScope.baseURL+'/product/product/total';
    $scope.getAll = function () {
@@ -166,5 +169,41 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
           $('#del').removeAttr('disabled'); 
 	    });
 	};
+
+  $scope.recipeDetails = function(index){
+      $('#recipeDetails').modal('show');
+
+     
+      // $scope.objList={
+      // list:$scope.viewList[index]
+      $scope.viewList=[];
+      
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/product/recipe',
+        data: $scope.filteredTodos[index],
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+            
+            $scope.viewList.push(value);
+          });    
+        // console.log($scope.viewList);
+        // localStorage.setItem('productObj',JSON.stringify(product) )
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 
 });

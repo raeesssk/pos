@@ -12,6 +12,7 @@
     $scope.om_add=0;
     $scope.orderObj.om_total=0;
     $scope.printList=[];
+    
 
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
@@ -82,6 +83,7 @@
     // $('input').filter(':checkbox').prop('checked',true);
 
   };
+
 
   $scope.deleteTable=function(table){
       $http({
@@ -412,8 +414,6 @@
     };
 
     $scope.orderConfirm = function(){
-     
-
       $scope.objList={
         list:$scope.itemList, 
         obj:$scope.orderObj
@@ -448,4 +448,6 @@
           });          
       });
     };
+
+    
 });

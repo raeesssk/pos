@@ -3,6 +3,7 @@
  	$scope.loading1=0;
     $scope.tableList = [];
     $scope.opmId = $routeParams.opmId;
+    $scope.dinein = "dinein";
     // $scope.isreserved = 0;
 	$scope.getAll = function () {
         

@@ -11,6 +11,7 @@
     $scope.loading1 = 0;
     $scope.orderList = [];
     $scope.orderListcount=0;
+    $scope.viewList=[];   
 
 $scope.apiURL = $rootScope.baseURL+'/order/order/total';
   $scope.getAll = function () {
@@ -21,7 +22,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
         $scope.limit.search = $scope.searchtext;
 
       }
-      console.log($scope.limit);
+      // console.log($scope.limit);
       $http({
         method: 'POST',
         url: $scope.apiURL,
@@ -39,7 +40,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
                     $scope.resetpagination();
                   });
 
-              console.log($scope.orderListcount);
+              // console.log($scope.orderListcount);
               // $scope.$apply(); 
       })
       .error(function(data) 
@@ -110,5 +111,36 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       $scope.getAll();
     };
  
-
+    $scope.orderDetails = function (index) {
+      $('#orderDetails').modal('show');
+      $scope.viewList=[];
+      $scope.objList={
+        list:$scope.viewList[index]
+      };      
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/complete',
+        data: $scope.filteredTodos[index],
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+            
+            $scope.viewList.push(value);
+          });    
+        // console.log($scope.viewList);
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 });
