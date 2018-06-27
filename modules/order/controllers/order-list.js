@@ -1,10 +1,18 @@
 // import admin
  angular.module('order').controller('orderListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
+    $scope.filteredTodos = [];
+    $scope.currentPage = 1;
+    $scope.maxSize = 5;
+    $scope.entryLimit = 5;
+    $scope.filterUser = 0;
+    $scope.filterUserend = 1;
+    $scope.numPerPage = 10;
+    $scope.limit = {};
+    $scope.loading1 = 0;
+    $scope.orderList = [];
+    $scope.orderListcount=0;
 
-
-    $scope.categoryList = [];
-
-$scope.apiURL = $rootScope.baseURL+'/order/order';
+$scope.apiURL = $rootScope.baseURL+'/order/order/total';
   $scope.getAll = function () {
           if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
@@ -13,6 +21,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order';
         $scope.limit.search = $scope.searchtext;
 
       }
+      console.log($scope.limit);
       $http({
         method: 'POST',
         url: $scope.apiURL,
@@ -25,12 +34,12 @@ $scope.apiURL = $rootScope.baseURL+'/order/order';
         category.forEach(function (value, key) {
                   $scope.orderListcount=value.total;
               });
-
               $scope.$watch("currentPage + numPerPage",
                   function () {
                     $scope.resetpagination();
                   });
 
+              console.log($scope.orderListcount);
               // $scope.$apply(); 
       })
       .error(function(data) 
@@ -63,7 +72,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order';
               $scope.limit.end = end;
               $http({
                 method: 'POST',
-                url: $rootScope.baseURL+'/order/order',
+                url: $rootScope.baseURL+'/order/order/limit',
                 data: $scope.limit,
                 headers: {'Content-Type': 'application/json',
                           'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}

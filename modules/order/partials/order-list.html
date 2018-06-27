@@ -5,7 +5,7 @@
     <li class="active">Orders</li>
 </ol>
 
-<div class="container-fluid">
+<div class="container-fluid" ng-init="getAll();">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12">
@@ -33,12 +33,12 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr ng-repeat="orderli in orderList">
+                                <tr ng-repeat="orderli in filteredTodos">
                                   <td>{{orderli.om_no}}</td>
                                   <td>{{orderli.cm_name}} {{orderli.cm_mobile}}</td>
                                   <td>{{orderli.tm_description}} {{orderli.am_name}}</td>
-                                  <td>{{orderli.om_total}}</td>
-                                  <td>{{orderli.opm_status_type}}</td>
+                                  <td>{{orderli.om_amount}}</td>
+                                  <td>{{orderli.om_status_type}}</td>
                                   <td>
                                     <a href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i></a>
                                     <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)"></i>
@@ -51,7 +51,7 @@
                           <span id="pagination_div" align="right" ng-show="filteredTodos.length > 0" style="float: right;margin-top: -27px;">
                             <pagination class="inline"
                                 ng-model="currentPage"
-                                total-items="productListcount"
+                                total-items="orderListcount"
                                 max-size="maxSize"
                                 boundary-links="true" data-num-pages="noOfPages"
                                 items-per-page="numPerPage">
