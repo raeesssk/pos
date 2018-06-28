@@ -38,9 +38,13 @@
                               <td>{{purchase.prm_payment_date | date : 'mediumDate'}}</td>
                               <td>{{purchase.prm_amount}}</td>
                               <td ng-if="purchase.prm_status == 0">
-                                <i class="fa fa-info-circle" data-toggle="modal" data-target="#view-details" ng-click="viewPurchaseDetails($index)"></i>
-                                <a href="#/purchase/edit/{{purchase.prm_id}}"><i class="fa fa-pencil"></i></a>
-                                <i class="fa fa-ban" data-toggle="modal" data-target="#confirm-delete" ng-click="deletePurchase(purchase)"></i>
+                                <button class="btn btn-info form-control"  data-toggle="modal" data-target="#view-details" ng-click="viewPurchaseDetails($index)" style="width: 100px;">
+                                  <i class="icon icon-info"></i> View
+                                </button>
+                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/purchase/edit/{{purchase.prm_id}}"><i class="icon icon-pencil"></i> Edit</a>
+                                <button class="btn btn-danger form-control"  data-toggle="modal" data-target="#confirm-delete" ng-click="deletePurchase(purchase)" style="width: 100px;">
+                                  <i class="icon icon-trash"></i> Delete
+                                </button>
                               </td>
                               <td ng-if="purchase.prm_status == 1">
                                 <i class="fa fa-info-circle" data-toggle="modal" data-target="#view-details" ng-click="viewPurchaseDetails($index)"></i>

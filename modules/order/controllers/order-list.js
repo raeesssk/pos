@@ -1,5 +1,6 @@
 // import admin
  angular.module('order').controller('orderListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
+    
     $scope.filteredTodos = [];
     $scope.currentPage = 1;
     $scope.maxSize = 5;
@@ -14,13 +15,14 @@
     $scope.viewList=[];   
 
 $scope.apiURL = $rootScope.baseURL+'/order/order/total';
+
+  // Main Function
   $scope.getAll = function () {
           if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
       }
       else{
         $scope.limit.search = $scope.searchtext;
-
       }
       // console.log($scope.limit);
       $http({
@@ -34,13 +36,14 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       {
         category.forEach(function (value, key) {
                   $scope.orderListcount=value.total;
+                  // console.log($scope.filteredTodos.om_amount);
+                  // console.log($scope.orderListcount);
               });
               $scope.$watch("currentPage + numPerPage",
                   function () {
                     $scope.resetpagination();
                   });
-
-              // console.log($scope.orderListcount);
+              
               // $scope.$apply(); 
       })
       .error(function(data) 
@@ -56,9 +59,101 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       });
     };
 
+   //search Data
+    $scope.getSearch = function () {
+      $scope.getAll();
+    };
+
+    // icon-info VIEW 
+    $scope.orderDetails = function (index) {
+      $('#orderDetails').modal('show');
+      $scope.viewList=[];
+
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/complete',
+        data: $scope.filteredTodos[index],
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+            value.opm_quantity_old = value.opm_quantity;
+          
+            $scope.viewList.push(value);
+
+          });    
+
+      $scope.total_amount = $scope.filteredTodos[index].om_amount; 
+        // console.log($scope.viewList);
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
+
+    // order Stop
+    $scope.deleteOrder = function(index){
+      $scope.obj = $scope.filteredTodos[index];
+      $('#confirm-delete').modal('show');
+    };
+
+    // cancel Order conformation
+    $scope.cancelOrder = function(){
+      $scope.viewList=[];
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/order/cancel',
+        data: $scope.obj,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        $('#confirm-delete').modal('hide');
+        if(category == "completed"){
+          toastr.success('Your Order cannot be Cancelled.', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          }); 
+        }
+        else
+        {
+          toastr.success('Your Order has been Cancelled.', {
+              closeButton: true,
+              progressBar: true,
+              positionClass: "toast-top-center",
+              timeOut: "500",
+              extendedTimeOut: "500",
+            });  
+          $scope.getAll();
+        }
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
 
 
-   //Pagination Function
+    //Pagination Function
     $scope.resetpagination = function () {
         var begin = (($scope.currentPage - 1) * $scope.numPerPage);
         var end = begin + $scope.numPerPage;
@@ -84,7 +179,9 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
                 if (customer.length > 0) {
                  
                   customer.forEach(function (value, key) {
+                    // console.log(value);
                       $scope.filteredTodos.push(value);
+
                   });
                 }
                 else{
@@ -106,41 +203,4 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
               });
     };
     
-   //search Data
-    $scope.getSearch = function () {
-      $scope.getAll();
-    };
- 
-    $scope.orderDetails = function (index) {
-      $('#orderDetails').modal('show');
-      $scope.viewList=[];
-      $scope.objList={
-        list:$scope.viewList[index]
-      };      
-      $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/complete',
-        data: $scope.filteredTodos[index],
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      {
-        category.forEach(function (value, key) {
-            
-            $scope.viewList.push(value);
-          });    
-        // console.log($scope.viewList);
-      })
-      .error(function(data) 
-      {   
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
-    };
 });

@@ -25,6 +25,7 @@
                               <thead>
                                 <tr>
                                   <th>Order Number</th>
+                                  <th>Where</th>
                                   <th>Customer</th>
                                   <th>Table</th>
                                   <th>Amount</th>
@@ -35,14 +36,19 @@
                               <tbody>
                                 <tr ng-repeat="orderli in filteredTodos">
                                   <td>{{orderli.om_no}}</td>
+                                  <td>{{orderli.om_where}}</td>
                                   <td>{{orderli.cm_name}} {{orderli.cm_mobile}}</td>
                                   <td>{{orderli.tm_description}} {{orderli.am_name}}</td>
                                   <td>{{orderli.om_amount}}</td>
                                   <td>{{orderli.om_status_type}}</td>
-                                  <td>
-                                     <i class="icon icon-info" data-toggle="modal" data-target="#order-details" ng-click="orderDetails($index)"></i>&nbsp;
-                                    <a href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i></a>&nbsp;
-                                    <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)"></i>
+                                  <td ng-if="orderli.om_status_type == 'cancel'">
+
+                                  </td>
+                                  <td ng-if="orderli.om_status_type != 'cancel'">
+                                    <button class="btn btn-info form-control" style="width: 100px;" data-toggle="modal" data-target="#order-details" ng-click="   orderDetails($index)">
+                                      <i class="icon icon-info"></i> View
+                                    </button>
+                                    <button class="btn btn-danger form-control" style="width: 100px;" ng-click="deleteOrder($index)"><i class="icon icon-trash"></i> Cancel</button>
                                   </td>
                                 </tr>
                               </tbody>
@@ -72,7 +78,7 @@
     </div>
 </div>
 
-<!-- // modal for switch -->
+<!-- // modal for view -->
 <div id="orderDetails" class="modal" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
@@ -87,15 +93,14 @@
                   <th>Product Name</th>
                   <th>Quantity</th> 
                   <th>Price</th>
-                  <th>Total</th>
-                  <th>Action</th> 
+                  <th>Total</th> 
                 </tr>
               </thead>
               <tbody>
                 <tr ng-if="print.opm_status_type != 'cancel'" ng-repeat="print in viewList track by $index">
                   <td>{{print.opm_status_type}}</td>
                   <td>{{print.pm_description}} {{print.pm_quantity}}</td>
-                  <td><input type="number" ng-model="print.opm_quantity" min="1" ng-change="orderchange()" /></td>
+                  <td>{{print.opm_quantity}}</td>
                   <td>{{print.opm_rate}}</td>
                   <td>{{print.opm_quantity * print.opm_rate | number:2}}</td>
                 </tr>
@@ -103,8 +108,7 @@
               <tfoot>
                 <tr>
                   <td align="right" colspan="4">Total:</td>
-                  <td>{{print.om_amount | number :2}}</td>
-                  <td></td>
+                  <td>{{total_amount | number :2}}</td>
                 </tr>
               </tfoot>
             </table>
@@ -118,5 +122,28 @@
     </div>
   </div>
 </div></div>
-<!-- // end modal for switch -->
+<!-- // end modal for view -->
+
+<!-- Modal Stop -->
+<div id="confirm-delete" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Cancel Order</h4>
+      </div>
+      <div class="modal-body">
+        <p>You are about to cancel the <b><i class="title"></i></b> order, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="del" class="btn btn-danger" ng-click="cancelOrder()">Cancel Order</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 

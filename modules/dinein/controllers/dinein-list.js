@@ -3,7 +3,6 @@
  	$scope.loading1=0;
     $scope.tableList = [];
     $scope.opmId = $routeParams.opmId;
-    $scope.dinein = "dinein";
     // $scope.isreserved = 0;
 	$scope.getAll = function () {
         
@@ -45,6 +44,7 @@
     	// $("#"+id).addClass('btn-success');
 
     	
+    table.om_where = "dinein";
     if ($("#"+table.tm_id).hasClass('color')){
     		$http({
 			      method: 'post',

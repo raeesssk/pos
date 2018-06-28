@@ -36,9 +36,13 @@
                               <td>{{dealer.dm_debit}}</td>
                               <td>{{dealer.dm_credit}}</td>
                               <td>
-                                <i class="icon icon-info" data-toggle="modal" data-target="#dealer-details" ng-click="dealerDetails($index)"></i>
-                                <a href="#/dealer/edit/{{dealer.dm_id}}"><i class="icon icon-pencil"></i></a>
-                                <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteDealer(dealer.dm_id)"></i>
+                                <button class="btn btn-info form-control" data-toggle="modal" data-target="#dealer-details" ng-click="dealerDetails($index)" style="width: 100px;">
+                                  <i class="icon icon-info"></i> View
+                                </button>
+                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/dealer/edit/{{dealer.dm_id}}"><i class="icon icon-pencil"></i> Edit</a>
+                                <button class="btn btn-danger form-control" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteDealer(dealer.dm_id)" style="width: 100px;">
+                                  <i class="icon icon-trash"></i> Delete
+                                </button>
                               </td>
                             </tr>
                           </tbody>

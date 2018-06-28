@@ -30,8 +30,10 @@
                               <td>{{subcategory.ctm_type}} {{subcategory.pm_description}} ({{subcategory.pm_quantity}})</td>
                               <td>{{subcategory.sctm_type}}</td>
                               <td>
-                                <a href="#/subcategory/edit/{{subcategory.sctm_id}}"><i class="icon icon-pencil"></i></a>
-                                <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteSubCategory(subcategory.sctm_id)"></i>
+                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/subcategory/edit/{{subcategory.sctm_id}}"><i class="icon icon-pencil"></i> Edit</a>
+                                <button class="btn btn-danger form-control" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteSubCategory(subcategory.sctm_id)" style="width: 100px;">
+                                  <i class="icon icon-trash"></i> Delete
+                                </button>
                               </td>
                             </tr>
                           </tbody>

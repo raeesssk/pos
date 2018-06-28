@@ -28,8 +28,10 @@
                             <tr ng-repeat="category in filteredTodos | filter : category">
                               <td>{{category.ctm_type}}</td>
                               <td>
-                                <a href="#/category/edit/{{category.ctm_id}}"><i class="icon icon-pencil"></i></a>
-                                <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteCategory(category.ctm_id)"></i>
+                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/category/edit/{{category.ctm_id}}"><i class="icon icon-pencil"></i> Edit</a>
+                                <button class="btn btn-danger form-control"  data-toggle="modal" data-target="#confirm-delete" ng-click="deleteCategory(category.ctm_id)" style="width: 100px;">
+                                  <i class="icon icon-trash"></i>
+                                </button>
                               </td>
                             </tr>
                           </tbody>

@@ -12,13 +12,13 @@
     $scope.om_add=0;
     $scope.orderObj.om_total=0;
     $scope.printList=[];
-    
+    // $scope.orderObj.where='dinein';
 
-    // console.log($scope.tableObj);
+// console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);
 
-
+  // Main function
   $scope.getAll = function () {
         
       $http({
@@ -46,6 +46,7 @@
       });
     };
 
+  // After place Order tableList
   $scope.getPrintDetails = function () {
       $scope.printList = [];
       $scope.orderObj.total_amount = 0;  
@@ -77,14 +78,14 @@
       });
     };
 
-// ### switch always on
+// ### CONFIRM / CHANGE show Modal
   $scope.getBox=function(){
     $('#confirm-change').modal('show');
     // $('input').filter(':checkbox').prop('checked',true);
 
   };
 
-
+// ### Cancel Reservation in Modal
   $scope.deleteTable=function(table){
       $http({
         method: 'post',
@@ -145,6 +146,7 @@
         });
   };
 
+// ### Change Reservation in Modal
   $scope.changeTable=function(table){
     $('#del').attr("disabled","true");
     $scope.tableList = [];
@@ -418,7 +420,7 @@
         list:$scope.itemList, 
         obj:$scope.orderObj
       };
-      
+      // console.log($scope.objList.obj);
       $http({
         method: 'POST',
         url: $rootScope.baseURL+'/order/placeorder',

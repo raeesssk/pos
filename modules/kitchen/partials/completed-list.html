@@ -20,18 +20,20 @@
                         <table class="table table-bordered table-striped" id="checkrecord">
                           <thead>
                             <tr>
+                              <th>Order No</th>
+                              <th>Where</th>
                               <th>Table</th>
                               <th>Product</th>
                               <th>Quantity</th>
-                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr ng-repeat="complete in completeList">
+                              <td>{{complete.om_no}}</td>
+                              <td>{{complete.om_where}}</td>
                               <td>{{complete.tm_description}} ({{complete.am_name}})</td>
                               <td>{{complete.pm_description}} {{complete.pm_quantity}}</td>
                               <td>{{complete.opm_quantity}}</td>
-                              <td><i class="fa fa-check fa-2x" aria-hidden="true" style="color: green"></i></td>
                             </tr>
                           </tbody>
                         </table>

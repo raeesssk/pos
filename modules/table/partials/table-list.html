@@ -32,8 +32,10 @@
                               <td>{{table.tm_description}}</td>
                               <td>{{table.tm_size}}</td>
                               <td>
-                                <a href="#/table/edit/{{table.tm_id}}"><i class="icon icon-pencil"></i></a>
-                                <i class="icon icon-trash" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteTable(table.tm_id)"></i>
+                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/table/edit/{{table.tm_id}}"><i class="icon icon-pencil"></i> Edit</a>
+                                <button class="btn btn-danger form-control"  data-toggle="modal" data-target="#confirm-delete" ng-click="deleteTable(table.tm_id)" style="width: 100px;">
+                                  <i class="icon icon-trash"></i> Delete
+                                </button> 
                               </td>
                             </tr>
                           </tbody>
