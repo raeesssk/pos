@@ -32,26 +32,29 @@
                             <tr  ng-if="kitchen.opm_status_type == 'cancel'" ng-style=" {'background-color': 'red'}"  ng-repeat="kitchen in kitchenList">
                               <td>{{kitchen.om_no}}</td>
                               <td>{{kitchen.om_where}}</td>
-                              <td>{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                              <td>{{kitchen.tm_description}} {{kitchen.am_name}}</td>
                               <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
                               <td>{{kitchen.opm_quantity}}</td>
-                              <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>
+                              <td><button class="btn btn-info" ng-click="ordercomplete($index)">
+                                <i class="fa fa-check"> Done</button></td>
                             </tr>
                             <tr  ng-if="kitchen.opm_status_type == 'update'" ng-style=" {'background-color': 'yellow'}"  ng-repeat="kitchen in kitchenList">
                               <td>{{kitchen.om_no}}</td>
                               <td>{{kitchen.om_where}}</td>
-                              <td >{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                              <td >{{kitchen.tm_description}} {{kitchen.am_name}}</td>
                               <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
                               <td>{{kitchen.opm_quantity}}</td>
-                              <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>
+                              <td><button class="btn btn-info" ng-click="ordercomplete($index)">
+                                <i class="fa fa-check"> Done</button></td>
                             </tr>
                             <tr  ng-if="kitchen.opm_status_type == 'pending'" ng-repeat="kitchen in kitchenList">
                               <td>{{kitchen.om_no}}</td>
                               <td>{{kitchen.om_where}}</td>
-                              <td >{{kitchen.tm_description}} ({{kitchen.am_name}})</td>
+                              <td >{{kitchen.tm_description}} {{kitchen.am_name}}</td>
                               <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
                               <td>{{kitchen.opm_quantity}}</td>
-                              <td><button class="btn btn-primary" ng-click="ordercomplete($index)">Done</button></td>
+                              <td><button class="btn btn-info" ng-click="ordercomplete($index)">
+                                 <i class="fa fa-check"></i> Done</button></td>
                             </tr>
                           </tbody>
                         </table>
