@@ -14,8 +14,10 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
     $scope.loading1 = 0;
     $scope.limit={};
     $scope.parseInt = parseInt;
-
+    var socket = io.connect($rootScope.baseURL);
    $scope.getAll = function () {
+
+    $scope.completeList = [];
       $http({
         method: 'POST',
         url: $rootScope.baseURL+'/kitchen/complete',
@@ -28,6 +30,9 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
         $scope.completeList.push(value);
         });
         $scope.loading1 = 1;
+        socket.emit('order-complete',{
+          obj:$scope.category[0]
+        })
       })
       .error(function(data) 
       {   
@@ -40,6 +45,12 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
           extendedTimeOut: "500",
           }); 
       });
+      
    };
+   
+   socket.on('order-complete',function(data){
+
+      $scope.getAll();
+   });
 
 });

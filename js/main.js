@@ -12,6 +12,7 @@ angular.module('pos',
         //'Modular Dependencies',
         'admin',
         'category',
+        'chat',
         'product',
         'subcategory',
         'unit',
@@ -46,7 +47,12 @@ angular.module('pos',
 .run(function(Idle){
   // start watching when the app runs. also starts the Keepalive service by default.
   Idle.watch();
-});
+});/*
+factory('mySocket', function (socketFactory) {
+  var mySocket = socketFactory();
+  mySocket.forward('error');
+  return mySocket;
+});*/
 // function cityMotorRouter($routeProvider, IdleProvider, KeepaliveProvider, $controllerProvider) {
 //     $controllerProvider.allowGlobals();
 //     $routeProvider

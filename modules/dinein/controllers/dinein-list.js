@@ -4,8 +4,10 @@
     $scope.tableList = [];
     $scope.opmId = $routeParams.opmId;
     // $scope.isreserved = 0;
+	// var socket = io.connect($rootScope.baseURL);
 	$scope.getAll = function () {
         
+    $scope.tableList = [];
       $http({
 	      method: 'GET',
 	      url: $rootScope.baseURL+'/table',
@@ -34,7 +36,7 @@
           });          
 	    });
     };
-    
+    $scope.getAll();
 
     
 
@@ -70,7 +72,10 @@
 
 				  	 			localStorage.setItem('orderObj',JSON.stringify(category[0]) );
 				  	 			localStorage.setItem('tableObj',JSON.stringify(table) );
+				  	 			
 					    		window.location.href = '#/order/add';
+
+		    					
 					    })
 					    .error(function(data) 
 					    {   
@@ -84,6 +89,10 @@
 				          });          
 					    });
 		    		}
+
+					    $rootScope.socket.emit('booktable',{
+				  	 				obj:category[0]
+				  	 			});
 			    })
 			    .error(function(data) 
 			    {   
@@ -148,10 +157,18 @@
 				            extendedTimeOut: "500",
 				        });          
 					});
-    	}
+    		}
 
     	};
-
+    	$rootScope.socket.on('booktable',function(data){
+      		$scope.getAll();
+    	});
+    	$rootScope.socket.on('remove-reserve',function(data){
+    		$scope.getAll();
+    	});
+    	$rootScope.socket.on('changeTable',function(data){
+    		$scope.getAll();
+    	});
 
     });
 

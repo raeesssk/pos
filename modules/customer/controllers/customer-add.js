@@ -74,7 +74,7 @@ angular.module('customer').controller('customerAddCtrl', function ($rootScope, $
 $scope.getAll=function(){
   $scope.loading1=1;
 };
-
+    var socket = io.connect('http://localhost:3000');
 	$scope.apiURL = $rootScope.baseURL+'/customer/add';
     $scope.addCustomer = function () {
 		var nameRegex = /^\d+$/;
@@ -223,6 +223,9 @@ $scope.getAll=function(){
                   {
                       $('#btnsave').text("Save Dishes");
                       $('#btnsave').removeAttr('disabled');
+                      
+                      socket.emit('tobackend', {customer:login})
+                        $scope.customer.push(login);
                       window.location.href = '#/'; 
                   })
                   .error(function(data) 

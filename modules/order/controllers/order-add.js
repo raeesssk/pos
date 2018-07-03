@@ -132,6 +132,9 @@
             extendedTimeOut: "500",
           });
         }
+        $rootScope.socket.emit('remove-reserve',{
+          obj:category[0]
+        });
       })
       .error(function(data) 
         {   
@@ -145,6 +148,7 @@
           });          
         });
   };
+
 
 // ### Change Reservation in Modal
   $scope.changeTable=function(table){
@@ -162,6 +166,9 @@
           $scope.tableList.push(value);
         });
           $scope.tab=1;
+        $rootScope.socket.emit('changeTable',{
+          obj:category[0]
+        }); 
       })
       .error(function(data) 
       {   
@@ -231,7 +238,7 @@
                           extendedTimeOut: "500",
                         });          
                       });
-              
+                      
                 })
                 .error(function(data) 
                 {   
@@ -245,6 +252,7 @@
                     });          
                 });
               }
+              
           })
           .error(function(data) 
           {   
@@ -294,7 +302,7 @@
       };
 
     $scope.addOrder = function (product){
-
+        
          var flag = 0;
       
       $('#stop').removeAttr("disabled");
@@ -416,6 +424,7 @@
     };
 
     $scope.orderConfirm = function(){
+      
       $scope.objList={
         list:$scope.itemList, 
         obj:$scope.orderObj
@@ -436,8 +445,11 @@
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
-          });          
-        
+          });     /*
+          window.location.href = '#/kitchen/pending'; */
+        $rootScope.socket.emit('orderPlace',{
+            obj:category[0]
+          });
       })
       .error(function(data) 
       {   
@@ -451,5 +463,7 @@
       });
     };
 
-    
+      /*socket.on('orderPlace',function(data){
+
+        });*/
 });

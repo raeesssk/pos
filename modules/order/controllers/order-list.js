@@ -13,7 +13,7 @@
     $scope.orderList = [];
     $scope.orderListcount=0;
     $scope.viewList=[];   
-
+var socket = io.connect($rootScope.baseURL);
 $scope.apiURL = $rootScope.baseURL+'/order/order/total';
 
   // Main Function
@@ -47,7 +47,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
               // $scope.$apply(); 
       })
       .error(function(data) 
-      {   
+      {     
               $scope.loading1 = 1;
         toastr.error('Oops, Something Went Wrong.', 'Error', {
               closeButton: true,
@@ -57,6 +57,58 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
             extendedTimeOut: "500",
           });             
       });
+    };
+
+    //Pagination Function
+    $scope.resetpagination = function () {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+        var end = begin + $scope.numPerPage;
+        $scope.filterUserend = begin + 1;
+        $scope.filterUser = end;
+        if ($scope.filterUser >= $scope.orderListcount)
+            $scope.filterUser = $scope.orderListcount;
+
+              $scope.filteredTodos = [];
+              $scope.limit.number = $scope.numPerPage;
+              $scope.limit.begin = begin;
+              $scope.limit.end = end;
+              $http({
+                method: 'POST',
+                url: $rootScope.baseURL+'/order/order/limit',
+                data: $scope.limit,
+                headers: {'Content-Type': 'application/json',
+                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+              })
+              .success(function(customer)
+              {
+                $scope.filteredTodos = [];
+                if (customer.length > 0) {
+                 
+                  customer.forEach(function (value, key) {
+                    // console.log(value);
+                      $scope.filteredTodos.push(value);
+
+                  });
+                }
+                else{
+                }                
+                      // $scope.obj_Main = $scope.vendorList;
+                      $scope.loading1 = 1;
+                      // $scope.$apply(); 
+                      
+                  
+              })
+              .error(function(data) 
+              {   
+                  $scope.loading1 = 1;
+                    var dialog = bootbox.dialog({
+                    message: '<p class="text-center">Oops, Something Went Wrong! Please Refresh the Page.</p>',
+                        closeButton: false
+                    });
+                    setTimeout(function(){
+                        dialog.modal('hide'); 
+                    }, 3001);             
+              });
     };
 
    //search Data
@@ -109,6 +161,8 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
     // cancel Order conformation
     $scope.cancelOrder = function(){
       $scope.viewList=[];
+      
+      // socket.on('deleteshow',function(data){
       $http({
         method: 'POST',
         url: $rootScope.baseURL+'/order/order/cancel',
@@ -118,6 +172,8 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       })
       .success(function(category)
       {
+
+        
         $('#confirm-delete').modal('hide');
         if(category == "completed"){
           toastr.success('Your Order cannot be Cancelled.', {
@@ -137,8 +193,12 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
               timeOut: "500",
               extendedTimeOut: "500",
             });  
-          $scope.getAll();
         }
+
+        socket.emit('deleteshow',{
+          objs:category[0]
+        });
+          // $scope.getAll();
       })
       .error(function(data) 
       {   
@@ -150,57 +210,13 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
             extendedTimeOut: "500",
           });          
       });
+        // });
+     
     };
 
+    socket.on('deleteshow',function(data){
+      $scope.getAll();
+    });
 
-    //Pagination Function
-    $scope.resetpagination = function () {
-        var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-        var end = begin + $scope.numPerPage;
-        $scope.filterUserend = begin + 1;
-        $scope.filterUser = end;
-        if ($scope.filterUser >= $scope.orderListcount)
-            $scope.filterUser = $scope.orderListcount;
-
-              $scope.filteredTodos = [];
-              $scope.limit.number = $scope.numPerPage;
-              $scope.limit.begin = begin;
-              $scope.limit.end = end;
-              $http({
-                method: 'POST',
-                url: $rootScope.baseURL+'/order/order/limit',
-                data: $scope.limit,
-                headers: {'Content-Type': 'application/json',
-                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-              })
-              .success(function(customer)
-              {
-                $scope.filteredTodos = [];
-                if (customer.length > 0) {
-                 
-                  customer.forEach(function (value, key) {
-                    // console.log(value);
-                      $scope.filteredTodos.push(value);
-
-                  });
-                }
-                else{
-                }                
-                      // $scope.obj_Main = $scope.vendorList;
-                      $scope.loading1 = 1;
-                      // $scope.$apply(); 
-              })
-              .error(function(data) 
-              {   
-                  $scope.loading1 = 1;
-                    var dialog = bootbox.dialog({
-                    message: '<p class="text-center">Oops, Something Went Wrong! Please Refresh the Page.</p>',
-                        closeButton: false
-                    });
-                    setTimeout(function(){
-                        dialog.modal('hide'); 
-                    }, 3001);             
-              });
-    };
     
 });

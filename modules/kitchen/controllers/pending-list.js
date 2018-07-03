@@ -15,7 +15,6 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
     $scope.limit={};
     $scope.parseInt = parseInt;
 
-
    $scope.getAll = function () {
       $http({
         method: 'POST',
@@ -29,6 +28,10 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
         $scope.kitchenList.push(value);
         });
         $scope.loading1 = 1;
+        /*$rootScope.socket.emit('orderPlace',{
+            obj:category[0]
+          });*/
+        
       })
       .error(function(data) 
       {   
@@ -41,8 +44,11 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
           extendedTimeOut: "500",
           }); 
       });
+      
    };
+   
    $scope.ordercomplete = function (index) {
+    
     $http({
         method: 'POST',
         url: $rootScope.baseURL+'/kitchen/order/update',
@@ -59,7 +65,9 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
             timeOut: "500",
             extendedTimeOut: "500",
           });
-        $route.reload();
+          $rootScope.socket.emit('order-update',{
+            obj:category[0]
+          });
       })
       .error(function(data) 
       {   
@@ -72,4 +80,14 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
           });
    });
  };
+       $rootScope.socket.on('order-update', function(data){
+        $route.reload();
+       });
+       $rootScope.socket.on('orderPlace', function(data){
+        $route.reload();
+       });
+       $rootScope.socket.on('takeaway', function(data){
+        $route.reload();
+       });
+    
 });

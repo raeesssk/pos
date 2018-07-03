@@ -44,6 +44,7 @@
             extendedTimeOut: "500",
           });          
       });
+
     };
 
   $scope.getPrintDetails = function () {
@@ -180,7 +181,9 @@
             timeOut: "500",
             extendedTimeOut: "500",
           });          
-        
+        $rootScope.socket.emit('takeaway',{
+            obj:category[0]
+        });
       })
       .error(function(data) 
       {   
