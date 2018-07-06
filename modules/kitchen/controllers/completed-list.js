@@ -31,7 +31,7 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
         });
         $scope.loading1 = 1;
         socket.emit('order-complete',{
-          obj:$scope.category[0]
+          obj:category[0]
         })
       })
       .error(function(data) 
@@ -50,7 +50,7 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
    
    socket.on('order-complete',function(data){
 
-      $scope.getAll();
+      
    });
 
 });

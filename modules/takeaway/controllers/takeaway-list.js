@@ -112,7 +112,7 @@
       };
 
     $scope.addOrder = function (product){
-
+        $scope.itemList=[];
          var flag = 0;
       
       $('#stop').removeAttr("disabled");
