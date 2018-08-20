@@ -125,7 +125,7 @@
                           <tr>
                             <td align="right" colspan="4">Total:</td>
                             <td>{{orderObj.total_amount | number :2}}</td>
-                            <td><button class="btn btn-primary">PRINT</button></td>
+                            <td><button class="btn btn-primary" ng-click="orderCompleted(table)">PRINT</button></td>
                           </tr>
                         </tfoot>
                       </table>

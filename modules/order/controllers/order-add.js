@@ -61,7 +61,8 @@
       {
         category.forEach(function (value, key) {
           value.opm_quantity_old = value.opm_quantity;
-          $scope.orderObj.total_amount = parseFloat(parseFloat($scope.orderObj.total_amount) + parseFloat(value.opm_total));
+          // $scope.orderObj.total_amount = parseFloat(parseFloat($scope.orderObj.total_amount) + parseFloat(value.opm_total));
+          $scope.orderObj.total_amount = parseFloat($scope.orderObj.total_amount + (value.opm_quantity * value.opm_rate));
           $scope.printList.push(value);
           });
       })
@@ -86,69 +87,294 @@
   };
 
 // ### Cancel Reservation in Modal
+  // $scope.deleteTable=function(table){
+  //     $http({
+  //       method: 'post',
+  //       url: $rootScope.baseURL+'/order/product/remove',
+  //       data: $scope.orderObj,
+  //       headers: {'Content-Type': 'application/json',
+  //                 'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //     })
+  //     .success(function(category) {
+  //       if($(category.length == 0)){
+  //           $http({
+  //             method: 'post',
+  //             url: $rootScope.baseURL+'/table/notreserved',
+  //             data: table,
+  //             headers: {'Content-Type': 'application/json',
+  //                       'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //           })
+  //           .success(function(category) {
+  //             // if (category.length > 0) {
+  //               $('#'+table.tm_id).removeClass('btn-success');
+  //               $("#"+table.tm_id).addClass('color');
+  //               $('#confirm-change').modal('hide');
+  //               // $('#confirm-change').modal('hide');
+  //               $scope.tableList = [];
+  //               window.location.href="#/dinein";
+  //             // }
+  //           })
+  //           .error(function(data){   
+  //             $scope.loading1 = 1;
+  //             toastr.error("Oops! Something Went Wrong", 'Error', {
+  //               closeButton: true,
+  //               progressBar: true,
+  //               positionClass: "toast-top-center",
+  //               timeOut: "500",
+  //               extendedTimeOut: "500",
+  //             });          
+  //           });
+  //       }
+  //       else {
+  //         toastr.warning("Some Pending Orders",'Warning',{
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });
+  //       }
+  //       $rootScope.socket.emit('remove-reserve',{
+  //         obj:category[0]
+  //       });
+  //     })
+  //     .error(function(data) 
+  //       {   
+  //         $scope.loading1 = 1;
+  //         toastr.error('Oops, Something Went Wrong.', 'Error', {
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });          
+  //       });
+  // };
+
+
+  // $http({
+  //       method: 'post',
+  //       url: $rootScope.baseURL+'/order/product/remove',
+  //       data: $scope.orderObj,
+  //       headers: {'Content-Type': 'application/json',
+  //                 'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //     })
+  //     .success(function(category) {
+  //       // if($(category.length != 0 || $scope.opm_status_type != 'pending')){
+
+  //         if($scope.opm_status_type != 'pending'){
+  //         console.log(category.length);
+  //         console.log($scope.opm_status_type);
+  //           $http({
+  //             method: 'post',
+  //             url: $rootScope.baseURL+'/table/notreserved',
+  //             data: table,
+  //             headers: {'Content-Type': 'application/json',
+  //                       'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //           })
+  //           .success(function(category) {
+  //             // if ($(category.length == 0 )) {
+  //               $('#'+table.tm_id).removeClass('btn-success');
+  //               $("#"+table.tm_id).addClass('color');
+  //               $('#confirm-change').modal('hide');
+  //               // $('#confirm-change').modal('hide');
+  //               $scope.tableList = [];
+  //               window.location.href="#/dinein";
+  //             // }
+  //           })
+  //           .error(function(data){   
+  //             $scope.loading1 = 1;
+  //             toastr.error("Oops! Something Went Wrong", 'Error', {
+  //               closeButton: true,
+  //               progressBar: true,
+  //               positionClass: "toast-top-center",
+  //               timeOut: "500",
+  //               extendedTimeOut: "500",
+  //             });          
+  //           });
+  //       }
+  //       else {
+  //         toastr.warning("Some Completed Orders, Cannot Be Cancelled",'Warning',{
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });
+  //       }
+  //       $rootScope.socket.emit('remove-reserve',{
+  //         obj:category[0]
+  //       });
+  //     })
+  //     .error(function(data) 
+  //       {   
+  //         $scope.loading1 = 1;
+  //         toastr.error('Oops, Something Went Wrong.', 'Error', {
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });          
+  //       });
+
+// $scope.opm_status_type = 'complete'
   $scope.deleteTable=function(table){
-      $http({
-        method: 'post',
-        url: $rootScope.baseURL+'/order/product/remove',
-        data: $scope.orderObj,
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category) {
-        if($(category.length == 0)){
-            $http({
-              method: 'post',
-              url: $rootScope.baseURL+'/table/notreserved',
-              data: table,
-              headers: {'Content-Type': 'application/json',
-                        'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-            })
-            .success(function(category) {
-              if (category.length > 0) {
-                $('#'+table.tm_id).removeClass('btn-success');
-                $("#"+table.tm_id).addClass('color');
-                $('#confirm-change').modal('hide');
-                // $('#confirm-change').modal('hide');
-                window.location.href="#/dinein";
-              }
-            })
-            .error(function(data){   
-              $scope.loading1 = 1;
-              toastr.error("Oops! Something Went Wrong", 'Error', {
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-center",
-                timeOut: "500",
-                extendedTimeOut: "500",
-              });          
-            });
-        }
-        else {
-          toastr.warning("Some Pending Orders",'Warning',{
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });
-        }
-        $rootScope.socket.emit('remove-reserve',{
-          obj:category[0]
-        });
-      })
-      .error(function(data) 
-        {   
-          $scope.loading1 = 1;
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-        });
+    var flag = 0;
+
+    $scope.printList.forEach(function(value, key)){
+      // console.log(value);
+      if($scope.opm_status_type != 'pending'){
+          flag = 1;
+      }
+    else {
+          $http({
+                method: 'post',
+                url: $rootScope.baseURL+'/table/notreserved',
+                data: table,
+                headers: {'Content-Type': 'application/json',
+                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+              })
+              .success(function(category) {
+                // if ($(category.length == 0 )) {
+                  $('#'+table.tm_id).removeClass('btn-success');
+                  $("#"+table.tm_id).addClass('color');
+                  $('#confirm-change').modal('hide');
+                  // $('#confirm-change').modal('hide');
+                  $scope.tableList = [];
+                  window.location.href="#/dinein";
+                // }
+              })
+              .error(function(data){   
+                $scope.loading1 = 1;
+                toastr.error("Oops! Something Went Wrong", 'Error', {
+                  closeButton: true,
+                  progressBar: true,
+                  positionClass: "toast-top-center",
+                  timeOut: "500",
+                  extendedTimeOut: "500",
+                });          
+              });
+      }
+    };
+
+
+
+
+
+
+      // if($scope.opm_status_type != 'pending'){
+
+      // }
+      // else {
+      //     $http({
+      //           method: 'post',
+      //           url: $rootScope.baseURL+'/table/notreserved',
+      //           data: table,
+      //           headers: {'Content-Type': 'application/json',
+      //                     'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      //         })
+      //         .success(function(category) {
+      //           // if ($(category.length == 0 )) {
+      //             $('#'+table.tm_id).removeClass('btn-success');
+      //             $("#"+table.tm_id).addClass('color');
+      //             $('#confirm-change').modal('hide');
+      //             // $('#confirm-change').modal('hide');
+      //             $scope.tableList = [];
+      //             window.location.href="#/dinein";
+      //           // }
+      //         })
+      //         .error(function(data){   
+      //           $scope.loading1 = 1;
+      //           toastr.error("Oops! Something Went Wrong", 'Error', {
+      //             closeButton: true,
+      //             progressBar: true,
+      //             positionClass: "toast-top-center",
+      //             timeOut: "500",
+      //             extendedTimeOut: "500",
+      //           });          
+      //         });
+      // }
+      // $rootScope.socket.emit('remove-reserve',{
+      //     obj:category[0]
+      // });
+      // .error(function(data) 
+      //   {   
+      //     $scope.loading1 = 1;
+      //     toastr.error('Oops, Something Went Wrong.', 'Error', {
+      //       closeButton: true,
+      //       progressBar: true,
+      //       positionClass: "toast-top-center",
+      //       timeOut: "500",
+      //       extendedTimeOut: "500",
+      //     });          
+      //   });
   };
 
+// orderCompleted PRINT table
+  // $scope.orderCompleted=function(table){
+  //     $http({
+  //       method: 'post',
+  //       url: $rootScope.baseURL+'/order/product/remove',
+  //       data: $scope.orderObj,
+  //       headers: {'Content-Type': 'application/json',
+  //                 'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //     })
+  //     .success(function(category) {
+  //       if($(category.length == 0)){
+  //           $http({
+  //             method: 'post',
+  //             url: $rootScope.baseURL+'/table/notreserved',
+  //             data: table,
+  //             headers: {'Content-Type': 'application/json',
+  //                       'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+  //           })
+  //           .success(function(category) {
+  //             if (category.length > 0) {
+  //               $('#'+table.tm_id).removeClass('btn-success');
+  //               $("#"+table.tm_id).addClass('color');
+  //               $('#confirm-change').modal('hide');
+  //               // $('#confirm-change').modal('hide');
+  //               $scope.tableList = [];
+  //               window.location.href="#/dinein";
+  //             }
+  //           })
+  //           .error(function(data){   
+  //             $scope.loading1 = 1;
+  //             toastr.error("Oops! Something Went Wrong", 'Error', {
+  //               closeButton: true,
+  //               progressBar: true,
+  //               positionClass: "toast-top-center",
+  //               timeOut: "500",
+  //               extendedTimeOut: "500",
+  //             });          
+  //           });
+  //       }
+  //       else {
+  //         toastr.warning("Some Pending Orders",'Warning',{
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });
+  //       }
+  //       $rootScope.socket.emit('remove-reserve',{
+  //         obj:category[0]
+  //       });
+  //     })
+  //     .error(function(data) 
+  //       {   
+  //         $scope.loading1 = 1;
+  //         toastr.error('Oops, Something Went Wrong.', 'Error', {
+  //           closeButton: true,
+  //           progressBar: true,
+  //           positionClass: "toast-top-center",
+  //           timeOut: "500",
+  //           extendedTimeOut: "500",
+  //         });          
+  //       });
+  // };
 
 // ### Change Reservation in Modal
   $scope.changeTable=function(table){
@@ -281,12 +507,12 @@
       })
       .success(function(category)
       {
-      $('#stop').attr("disabled","true");
-        category.forEach(function (value, key) {
-          value.quantity = 1;
-          $scope.productList.push(value);
-        });
-        $scope.pro=1;
+          $('#stop').attr("disabled","true");
+            category.forEach(function (value, key) {
+              value.quantity = 1;
+              $scope.productList.push(value);
+            });
+            $scope.pro=1;
       })
       .error(function(data) 
       {   
@@ -346,6 +572,7 @@
         }
       };
 
+// quantity change
     $scope.orderchange = function(){
         $scope.orderObj.total_amount = 0;
         $scope.printList.forEach(function (value, key) {
@@ -445,8 +672,9 @@
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
-          });     /*
-          window.location.href = '#/kitchen/pending'; */
+          });     
+          // window.location.href = '#/kitchen/pending'; 
+          window.location.reload(true);
         $rootScope.socket.emit('orderPlace',{
             obj:category[0]
           });

@@ -8,7 +8,8 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.firstname=localStorage.getItem("pos_admin_firstname");
     $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");
     
-    $rootScope.baseURL = 'http://localhost:3000';
+    // $rootScope.baseURL = 'http://localhost:3000';
+    $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
     $rootScope.socket = io.connect($rootScope.baseURL); 
     
     if(localStorage.getItem("pos_admin_access_token") === null)
