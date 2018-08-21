@@ -119,6 +119,10 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
   		}
 	}
 
+	$scope.signup = function(){
+		window.location = 'signup.html';
+	};
+
 }
 
 

@@ -220,14 +220,16 @@
 
 // $scope.opm_status_type = 'complete'
   $scope.deleteTable=function(table){
-    var flag = 0;
+      var flag = 0;
 
-    $scope.printList.forEach(function(value, key)){
-      // console.log(value);
-      if($scope.opm_status_type != 'pending'){
-          flag = 1;
-      }
-    else {
+      $scope.printList.forEach(function(value, key){
+        // console.log(value);
+      if(value.opm_status_type != 'pending'){
+            flag = 1;
+        }
+      });
+
+      if(flag = 0) {
           $http({
                 method: 'post',
                 url: $rootScope.baseURL+'/table/notreserved',
@@ -236,14 +238,33 @@
                           'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
               })
               .success(function(category) {
-                // if ($(category.length == 0 )) {
-                  $('#'+table.tm_id).removeClass('btn-success');
-                  $("#"+table.tm_id).addClass('color');
-                  $('#confirm-change').modal('hide');
-                  // $('#confirm-change').modal('hide');
-                  $scope.tableList = [];
-                  window.location.href="#/dinein";
-                // }
+                  
+                    $http({
+                        method: 'post',
+                        url: $rootScope.baseURL+'/order/status',
+                        data: $scope.orderObj,
+                        headers: {'Content-Type': 'application/json',
+                                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                      })
+                      .success(function(category) {
+                        $('#'+table.tm_id).removeClass('btn-success');
+                        $("#"+table.tm_id).addClass('color');
+                        $('#confirm-change').modal('hide');
+                        $scope.tableList = [];
+                        window.location.href="#/dinein";
+
+                      })
+                      .error(function(data){   
+                        $scope.loading1 = 1;
+                        toastr.error("Oops! Something Went Wrong", 'Error', {
+                          closeButton: true,
+                          progressBar: true,
+                          positionClass: "toast-top-center",
+                          timeOut: "500",
+                          extendedTimeOut: "500",
+                        });          
+                      });
+
               })
               .error(function(data){   
                 $scope.loading1 = 1;
@@ -255,61 +276,18 @@
                   extendedTimeOut: "500",
                 });          
               });
-      }
+        }
+        else{
+            toastr.warning("Cannot Be Cancelled", 'Warning', {
+                  closeButton: true,
+                  progressBar: true,
+                  positionClass: "toast-top-center",
+                  timeOut: "500",
+                  extendedTimeOut: "500",
+                });           
+        }
     };
 
-
-
-
-
-
-      // if($scope.opm_status_type != 'pending'){
-
-      // }
-      // else {
-      //     $http({
-      //           method: 'post',
-      //           url: $rootScope.baseURL+'/table/notreserved',
-      //           data: table,
-      //           headers: {'Content-Type': 'application/json',
-      //                     'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      //         })
-      //         .success(function(category) {
-      //           // if ($(category.length == 0 )) {
-      //             $('#'+table.tm_id).removeClass('btn-success');
-      //             $("#"+table.tm_id).addClass('color');
-      //             $('#confirm-change').modal('hide');
-      //             // $('#confirm-change').modal('hide');
-      //             $scope.tableList = [];
-      //             window.location.href="#/dinein";
-      //           // }
-      //         })
-      //         .error(function(data){   
-      //           $scope.loading1 = 1;
-      //           toastr.error("Oops! Something Went Wrong", 'Error', {
-      //             closeButton: true,
-      //             progressBar: true,
-      //             positionClass: "toast-top-center",
-      //             timeOut: "500",
-      //             extendedTimeOut: "500",
-      //           });          
-      //         });
-      // }
-      // $rootScope.socket.emit('remove-reserve',{
-      //     obj:category[0]
-      // });
-      // .error(function(data) 
-      //   {   
-      //     $scope.loading1 = 1;
-      //     toastr.error('Oops, Something Went Wrong.', 'Error', {
-      //       closeButton: true,
-      //       progressBar: true,
-      //       positionClass: "toast-top-center",
-      //       timeOut: "500",
-      //       extendedTimeOut: "500",
-      //     });          
-      //   });
-  };
 
 // orderCompleted PRINT table
   // $scope.orderCompleted=function(table){
