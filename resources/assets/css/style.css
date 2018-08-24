@@ -5129,14 +5129,16 @@ header.navbar {
     min-width: 200px; }
   header.navbar a.navbar-brand {
     display: inline-block;
-    width: 55px;
+    width: 95px;
     height: 55px;
     padding: 0 1rem;
-    background-color: #4dbd74;
+    /*background-color: #4dbd74;*/
     background-image: url("../img/logo.png");
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 30px auto; }
+    background-position: center ;
+    background-size: 90px;
+    margin-left: 5px;
+     }
 
 header.navbar .navbar-brand {
   margin-right: 0; }

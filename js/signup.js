@@ -122,6 +122,7 @@ function SignupCtrl($scope, $location, $http, $routeParams, $rootScope) {
 		window.location = 'login.html';
 	};
 	
+// Eye open to see password
 	$scope.viewpassowrd = function() {
 	    var x = document.getElementById("password");
 	    if (x.type === "password") {
@@ -145,7 +146,7 @@ function SignupCtrl($scope, $location, $http, $routeParams, $rootScope) {
             $(this).toggleClass('fa-eye fa-eye-slash');
         });
     });
-
+//END  Eye open to see password
 
 
 
