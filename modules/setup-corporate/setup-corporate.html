@@ -1,0 +1,109 @@
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Setup Corporate</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Corporate Name</label>
+                                    <input type="text" id="scm_corp_name" class="form-control" ng-model="setupCorp.scm_corp_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Corporate Location</label>
+                                    <input type="text" id="scm_corp_location" class="form-control" ng-model="setupCorp.scm_corp_location">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Address Line</label>
+                                    <textarea id="scm_address" class="form-control" ng-model="setupCorp.scm_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Landmark</label>
+                                    <!-- <textarea type="text" id="scm_landmark" class="form-control" ng-model="purchase.scm_landmark"></textarea> -->
+                                    <input type="text" id="scm_landmark" class="form-control" ng-model="setupCorp.scm_landmark">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Area</label>
+                                    <input type="text" id="scm_area" class="form-control" ng-model="setupCorp.scm_area">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">City</label>
+                                    <input type="text" id="scm_city" class="form-control" ng-model="setupCorp.scm_city">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Pincode</label>
+                                    <input type="text" id="scm_pincode" class="form-control" ng-model="setupCorp.scm_pincode">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">State</label>
+                                    <input type="text" id="scm_state" class="form-control" ng-model="setupCorp.scm_state">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Currency</label>
+                                    <input type="text" id="scm_currency" class="form-control" ng-model="setupCorp.scm_currency">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Contact Name</label>
+                                    <input type="text" id="scm_contact_name" class="form-control" ng-model="setupCorp.scm_contact_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Contact Number</label>
+                                    <input type="text" id="scm_contact_no" class="form-control" ng-model="setupCorp.scm_contact_no">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Email ID</label>
+                                    <input type="text" id="scm_email" class="form-control" ng-model="setupCorp.scm_email">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type='file' id="scm_image" name="dm_image" multiple/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" id="btncancel" ng-click="backSetupCorp()">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupCorp()">Save & Next</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>   
+

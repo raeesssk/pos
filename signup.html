@@ -8,6 +8,14 @@
         <meta name="description" content="ROOT Admin - UI Admin Kit Powered by Bootstrap 4">
         <meta name="author" content="Lukasz Holeczek">
         <meta name="keyword" content="ROOT Admin - UI Admin Kit Powered by Bootstrap 4">
+
+        <!-- <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="d3bX0AZa7SRExW25Zl1i3lZK.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+       <!--  <meta name="google-signin-client_id" content="460316668107-sr8062q0h3s9uic5uga7204h9omq89o7.apps.googleusercontent.com"> -->
+       <meta name="google-signin-client_id" content="464508280846-gap2ef51tgbq3hp5gdusi8r5oj2m3p4v.apps.googleusercontent.com">
+
         <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
         <title>POS</title>
         <!-- virtual Keyboard --><!-- 
@@ -15,6 +23,8 @@
         <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery-ui.css"> -->
         <!-- Main styles for this application -->
         <link href="resources/assets/css/style.css" rel="stylesheet">
+       
+
     </head>
     <body class="" ng-controller="SignupCtrl">
         <div class="container">
@@ -50,8 +60,15 @@
 
                                     <div class="row">
                                         <div class="col-xs-offset-4">
-                                            <button type="submit" class="btn btn-success p-x-2" id="signup" ng-click="signup()">Register</button>
+                                            <button type="submit" class="btn btn-success p-x-2" id="signup" ng-click="signuptemp()">Register</button>
+                                            <!-- <a class="nav-link" href="#/setup-corporate"><i class="fa fa-plus-circle"></i> Register</a> -->
                                         </div>
+                                       <!--  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                        <div id="body-to-be-shown-before-gapi-load"></div> -->
+                                        <div id="my-signin2"></div>
+
+
+
                                         <!-- <div class="col-xs-6 text-xs-right">
                                             <button type="button" class="btn btn-link p-x-0" ng-click="passwordmeans()">What is your password?</button>
                                         </div> -->
@@ -76,7 +93,27 @@
                 </div>
             </div>
         </div>
+<script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
 
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
         <script type="text/javascript" src="resources/vendor/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="resources/lib/angular.min.js"></script>
@@ -92,6 +129,9 @@
         <script type="text/javascript" src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="resources/assets/js/libs/toastr.min.js"></script>
 
+        <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
+
+
 
         <!-- socket io lib -->
         <script type="text/javascript" src="resources/lib/socket-min.js"></script>
@@ -100,6 +140,7 @@
         <script type="text/javascript" src="resources/lib/jquery.mousewheel.js"></script>
         <script type="text/javascript" src="resources/lib/jquery.keyboard.extension-typing.js"></script>
         <script type="text/javascript" src="resources/lib/jquery.keyboard.extension-autocomplete.js"></script> -->
+        
         
 
         <!-- Controllers-->
@@ -158,167 +199,10 @@
 
         <!-- takeaway -->
         <script src="modules/takeaway/config.js"></script>
-    
-        <script>
-        /*function verticalAlignMiddle()
-        {
-            var bodyHeight = $(window).height();
-            var formHeight = $('.vamiddle').height();
-            var marginTop = (bodyHeight / 2) - (formHeight / 2);
-            if (marginTop > 0)
-            {
-                $('.vamiddle').css('margin-top', marginTop);
-            }
-        }
-        $(document).ready(function()
-        {
-            verticalAlignMiddle();
-        });
-        $(window).bind('resize', verticalAlignMiddle);*/
 
-// virtual Keyboard Start
-
-        // Add next/previous buttons
-/*var addNav = function(base) {
-    base.$el.addClass('current');
-    $("body").css('padding-bottom', '250px'); // keep Donate Now button in view
-    var inputs = $('input'),
-        len = inputs.length - 1,
-        indx = inputs.index(base.$el),
-        topPadding = 50; // distance from top where the focused input is placed
-    // make sure input is in view
-    $(window).scrollTop(inputs.eq(indx).offset().top - topPadding);
-
-    // see if nav is already set up
-    if (base.$keyboard.find('.ui-keyboard-nav').length) {
-        return;
-    }*/
-
-    // add nav window & buttons
-    // base.$keyboard.append('<div class="ui-keyboard-nav"><button class="prev ui-state-default ui-corner-all">prev</button><button class="next ui-state-default ui-corner-all">next</button></div>');
-
-    // base.$keyboard.find('.next').hover(function() {
-    //     $(this).addClass('ui-state-hover');
-    // }, function() {
-    //     $(this).removeClass('ui-state-hover');
-    // }).click(function() {
-    //     var n = indx + 1;
-    //     if (n >= len) {
-    //         return;
-    //     }
-    //     base.close(true);
-    //     inputs.eq(n).focus();
-    //     $(window).scrollTop(inputs.eq(n).offset().top - topPadding);
-    // });
-
-    // base.$keyboard.find('.prev').hover(function() {
-    //     $(this).addClass('ui-state-hover');
-    // }, function() {
-    //     $(this).removeClass('ui-state-hover');
-    // }).click(function() {
-    //     var n = indx - 1;
-    //     if (n < 0) {
-    //         return;
-    //     }
-    //     base.close(true);
-    //     inputs.eq(n).focus();
-    //     $(window).scrollTop(inputs.eq(n).offset().top - topPadding);
-    // });
-
-   // }; // end prev/next button code
-    // Keyboard Layouts
-    /*$('.keyboard-normal').keyboard({
-        layout: 'qwerty',
-        autoAccept: 'true',
-        usePreview: false,
-        visible: function(e, keyboard, el) {
-            addNav(keyboard);
-        },
-        beforeClose: function(e, keyboard, el, accepted) {
-            $('input.current').removeClass('current');
-            $("body").css('padding-bottom', '0px');
-        }
-    });
-
-    $('.keyboard-zip').keyboard({
-        layout: 'custom',
-        autoAccept: 'true',
-        maxLength: 5,
-        customLayout: {
-            'default': [
-                '7 8 9',
-                '4 5 6',
-                '1 2 3',
-                '0 {bksp}',
-                '{accept}'
-                ]
-        },
-        usePreview: false,
-        visible: function(e, keyboard, el) {
-            addNav(keyboard);
-        },
-        beforeClose: function(e, keyboard, el, accepted) {
-            $('input.current').removeClass('current');
-            $("body").css('padding-bottom', '0px');
-        }
-    });
-
-    $('.keyboard-num').keyboard({
-        layout: 'custom',
-        autoAccept: 'true',
-        customLayout: {
-            'default': [
-                '7 8 9',
-                '4 5 6',
-                '1 2 3',
-                '0 {bksp}',
-                '{accept}'
-                ]
-        },
-        usePreview: false,
-        visible: function(e, keyboard, el) {
-            addNav(keyboard);
-        },
-        beforeClose: function(e, keyboard, el, accepted) {
-            $('input.current').removeClass('current');
-            $("body").css('padding-bottom', '0px');
-        }
-    });
-
-    $('.keyboard-states').keyboard({
-        layout: 'custom',
-        customLayout: {
-            'default': [
-                'AL AK AZ AR CA CO CT DE FL GA',
-                'HI ID IL IN IA KS KY LA ME MD',
-                'MA MI MN MS MO MT NE NV NH NJ',
-                'NM NY NC ND OH OK OR PA RI SC',
-                'SD TN TX UT VT VA WA WV WI WY',
-                '{accept}{clear}'
-                ]
-        },
-        usePreview: false,
-        visible: function(e, keyboard, el) {
-            addNav(keyboard);
-        },
-        // prevent entering more than one state
-        change: function(e, keyboard, el) {
-            var v = keyboard.$el.val();
-            if (v.length > 2) {
-                keyboard.$el.val(v.slice(-2));
-            }
-        },
-        beforeClose: function(e, keyboard, el, accepted) {
-            $('input.current').removeClass('current');
-            $("button.ui-keyboard-widekey").removeClass('state-button');
-            $("body").css('padding-bottom', '0px');
-        }
-    });*/
-
-// virtual Keyboard end
-
-        </script>
-        
+        <!-- setup-corporate -->
+        <script src="modules/setup-corporate/config.js"></script>
+         
         
     </body>
 

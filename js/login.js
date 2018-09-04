@@ -57,7 +57,15 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        $('#back').show();
 			        }
 			        else{
-
+			        	 var dialog = bootbox.dialog({
+                      message: '<p class="text-center">Please Enter the correct Username.</p>',
+                          closeButton: false
+                      });
+                      setTimeout(function(){
+                      $('#btnsave').html("SAVE");
+                      $('#btnsave').removeAttr('disabled');
+                          dialog.modal('hide'); 
+                      }, 1500);
 			        }
                   })
                   .error(function(data) 
