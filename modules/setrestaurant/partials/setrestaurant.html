@@ -1,0 +1,108 @@
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Setup Restaurant</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Restaurant Name</label>
+                                    <input type="text" id="srm_restaurant_name" class="form-control" ng-model="setRest.srm_restaurant_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Restaurant Location</label>
+                                    <input type="text" id="srm_restaurant_location" class="form-control" ng-model="setRest.srm_restaurant_location">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Address Line</label>
+                                    <textarea id="srm_address" class="form-control" ng-model="setRest.srm_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Landmark</label>
+                                    <!-- <textarea type="text" id="srm_landmark" class="form-control" ng-model="setRest.srm_landmark"></textarea> -->
+                                    <input type="text" id="srm_landmark" class="form-control" ng-model="setRest.srm_landmark">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Area</label>
+                                    <input type="text" id="srm_area" class="form-control" ng-model="setRest.srm_area">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">City</label>
+                                    <input type="text" id="srm_city" class="form-control" ng-model="setRest.srm_city">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Pincode</label>
+                                    <input type="text" id="srm_pincode" class="form-control" ng-model="setRest.srm_pincode">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">State</label>
+                                    <input type="text" id="srm_state" class="form-control" ng-model="setRest.srm_state">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Currency</label>
+                                    <input type="text" id="srm_currency" class="form-control" ng-model="setRest.srm_currency">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Contact Name</label>
+                                    <input type="text" id="srm_contact_name" class="form-control" ng-model="setRest.srm_contact_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Contact Number</label>
+                                    <input type="text" id="srm_contact_number" class="form-control" ng-model="setRest.srm_contact_number">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Email ID</label>
+                                    <input type="text" id="srm_email" class="form-control" ng-model="setRest.srm_email">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type='file' id="srm_image" name="dm_image" multiple/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <!-- <button type="button" class="btn btn-sm btn-danger" id="btncancel" ng-click="backSetupRest()">Back</button> -->
+                                <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupRest()">Finish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>   

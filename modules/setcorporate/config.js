@@ -1,24 +1,24 @@
 'use strict';
 /* Account Module */
-angular.module('setup-corporate', [])
+angular.module('setcorporate', [])
     .config(['$routeProvider', function config($routeProvider) {
         
 
         $routeProvider
             
-            .when('/setup-corporate',
+            .when('/setcorporate',
                 {
-                    templateUrl: 'modules/setup-corporate/partials/setup-corporate.html',
-                    controller: 'setup-corporateAddCtrl',
+                    templateUrl: 'modules/setcorporate/partials/setcorporate.html',
+                    controller: 'corporateCtrl',
                     resolve: {
                         lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
-                                files: ['modules/setup-corporate/controllers/setup-corporate-list.js']
+                                files: ['modules/setcorporate/controllers/setcorporate.js']
                             }]);
                         }]
                     }
-                })
+                });
 
             // .when('/order/add',
             //     {

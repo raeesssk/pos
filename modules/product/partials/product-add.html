@@ -28,16 +28,35 @@
                                     <input type="text" id="pm_description" class="form-control" ng-model="product.pm_description"/>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Quantity</label>
                                     <input type="text" id="pm_quantity" class="form-control keyboard-num" ng-model="product.pm_quantity"/>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
+                            </div> -->
+                            <!-- <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Price</label>
                                     <input type="text" id="pm_rate" class="form-control keyboard-num" ng-model="product.pm_rate"/>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Product Number</label>
+                                    <input type="text" id="pm_product_no" class="form-control keyboard-num" ng-model="product.pm_product_no"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Expected In</label>
+                                    <select class="form-control" id="stm_size" ng-model="settable.stm_size">
+                                        <option value="">Select time</option>
+                                        <option class="form-control">10 Mins</option>
+                                        <option class="form-control">15 Mins</option>
+                                        <option class="form-control">20 Mins</option>
+                                        <option class="form-control">25 Mins</option>
+                                        <option class="form-control">30 Mins</option>
+                                    </select> 
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -46,6 +65,57 @@
                                     <img src="{{displayImages}}" onclick="document.getElementById('img-path').click(); return false; " id="app-file-btn" title="Click to add Photo" height="100" width="100">
                                     <input  type="file" 3d="img-path" name="file" id="profilePhotoFileUpload" placeholder="" ng-file-select="onFileSelect($files)" accept="" />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="text-align: center;" colspan="2">FULL</th>
+                                            <th style="text-align: center;" colspan="2">HALF&nbsp;
+                                                <input type="checkbox" class="custom-control-input" id="check_half">
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align: center;">Prices</th>
+                                            <th style="text-align: center;">Day</th>
+                                            <th style="text-align: center;">Night
+                                                <input type="checkbox" class="custom-control-input" id="check_full_night">
+                                            </th>
+                                            <th style="text-align: center;">
+                                                <span id="id_of_half_t1" >Day</span>
+                                            </th>
+                                            <th style="text-align: center;">
+                                                <span id="id_of_half_t2" >Night</span>
+                                                <input type="checkbox" class="custom-control-input" id="check_half_night">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="id_of_2th_td" class="form-control" ng-model="product.pm_fullday_price" placeholder='₹'/>
+                                            </td>
+
+                                            <td>
+                                                <input type="text" id="id_of_3th_td" class="form-control" ng-model="product.pm_fullnight_price" placeholder='₹'/>
+                                            </td>
+
+                                            <td>
+                                                <input type="text" id="id_of_4th_td" class="form-control" ng-model="product.pm_halfday_price" placeholder='₹'/>
+                                            </td>
+
+                                            <td>
+                                                <input type="text" id="id_of_5th_td" class="form-control" ng-model="product.pm_halfnight_price" placeholder='₹'/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

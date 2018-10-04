@@ -38,11 +38,11 @@
                                     <p class="text-muted">Create Your Account</p>
                                     <div class="input-group m-b-1">
                                         <span class="input-group-addon"><i class="icon-user"></i></span>
-                                        <input type="text" id="email" class="form-control keyboard-normal" ng-model="email" placeholder="Email">
+                                        <input type="text" id="email" class="form-control keyboard-normal" ng-model="limit.email" placeholder="Email">
                                     </div>
                                     <div class="input-group m-b-1">
                                         <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                        <input type="password" id="password" class="form-control keyboard-normal" ng-model="password" placeholder="Password" maxlength="20">
+                                        <input type="password" id="password" class="form-control keyboard-normal" ng-model="limit.password" placeholder="Password" maxlength="20">
                                         <span class="input-group-addon"style="background: transparent;">
                                             <i class="fa fa-eye-slash" ng-click="viewpassowrd()" id="eyeopen"></i>
                                         </span>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="input-group m-b-2">
                                         <span class="input-group-addon"><i class="icon-key"></i></span>
-                                        <input type="password" id="conpassword" class="form-control keyboard-normal" ng-model="conpassword" placeholder="Confirm Password" maxlength="20">
+                                        <input type="password" id="conpassword" class="form-control keyboard-normal" ng-model="limit.conpassword" placeholder="Confirm Password" maxlength="20">
                                         <span class="input-group-addon"style="background: transparent;">
                                             <i class="fa fa-eye-slash" ng-click="viewconpassowrd()" id="eyeopen"></i>
                                         </span>
@@ -60,7 +60,7 @@
 
                                     <div class="row">
                                         <div class="col-xs-offset-4">
-                                            <button type="submit" class="btn btn-success p-x-2" id="signup" ng-click="signuptemp()">Register</button>
+                                            <button type="submit" class="btn btn-success p-x-2" id="signup" ng-click="signup()">Register</button>
                                             <!-- <a class="nav-link" href="#/setup-corporate"><i class="fa fa-plus-circle"></i> Register</a> -->
                                         </div>
                                        <!--  <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -74,7 +74,7 @@
                                         </div> -->
                                     </div><br>
                                     <b>Note:</b>
-                                    <label style="font-size: 12px;">Use 8 or maximum of 20 characters with a mix of letters (uppercase & lowercase), numbers & symbols <b> @ # $ % </b></label>Have an account?
+                                    <label style="font-size: 12px;"><b>For Password :</b> Use 8 or maximum of 20 characters with a mixture of letters (uppercase & lowercase), numbers & symbols <b> @ # $ % </b></label>Have an account?
                                     <button type="button" class="btn btn-link p-x-0" ng-click="login()" style="color:#4dbd74;"><b>Sign In</b></button>
                                 <!-- </form> -->
                             </div>
@@ -201,7 +201,19 @@
         <script src="modules/takeaway/config.js"></script>
 
         <!-- setup-corporate -->
-        <script src="modules/setup-corporate/config.js"></script>
+        <script src="modules/setcorporate/config.js"></script>
+
+        <!-- setup-restaurant -->
+        <script src="modules/setrestaurant/config.js"></script>
+
+        <!-- settablearea -->
+        <script src="modules/settablearea/config.js"></script>
+
+        <!-- settable -->
+        <script src="modules/settable/config.js"></script>
+
+        <!-- setcategory -->
+        <script src="modules/setcategory/config.js"></script>
          
         
     </body>

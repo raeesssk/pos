@@ -1,0 +1,47 @@
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New Tables</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Table Area Name</label>
+                                    <input type="text" id="stm_am_id" class="form-control" ng-model="settable.stm_am_id" placeholder="Select table area name" typeahead="state as state.sam_name for state in areaList | filter:$viewValue | limitTo:8" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Table Name</label>
+                                    <input type="text" id="stm_description" class="form-control" ng-model="settable.stm_description"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Table Size</label>
+                                    <select class="form-control" id="stm_size" ng-model="settable.stm_size">
+                                        <option value="">select table size</option>
+                                        <option class="form-control">2 Seaters</option>
+                                        <option class="form-control">4 Seaters</option>
+                                        <option class="form-control">6 Seaters</option>
+                                    </select> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <!-- <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/'" id="btncancel">Back</button> -->
+                        <button type="button" class="btn btn-sm btn-primary" id="btnsave" ng-click="addArea()">Save</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addArea()">Save & Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,17 +28,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			  	extendedTimeOut: "500",
 		    });
   		}
-  		// else if($scope.password == undefined || $scope.password == ""){
-  		// 	toastr.error('please enter password.', 'Error', {
-		  //       closeButton: true,
-		  //       progressBar: true,
-			 //  	positionClass: "toast-top-center",
-			 //  	timeOut: "500",
-			 //  	extendedTimeOut: "500",
-		  //   });
-  		// }
   		if ($("#login").text() == 'Next'){
-  			console.log($scope.loginmaster);
   			$http({
                     method: 'POST',
                     url: $scope.apiURL+'/login/check',
@@ -117,7 +107,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			 })
 		  	 .success(function(data, status, headers, config)
 		  	 {
-		  	 	if($scope.loginmaster.username == 'admin'){
+		  	 	
 
 			        $http({
 			          method: 'POST',
@@ -155,29 +145,6 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 		                $('#login').removeAttr('disabled');
 			        });
 
-		  	 		
-		  	 	}
-		  	 	else{
-			  	 	$scope.username = undefined;
-		  	 		$scope.password = undefined;
-		  	 		localStorage.removeItem('pos_admin_access_token');
-			        localStorage.removeItem('pos_admin_expires_in');
-			        localStorage.removeItem('pos_admin_refresh_token');
-			        localStorage.removeItem('pos_admin_token_type');
-			  	 	localStorage.removeItem('pos_admin_username');
-			  	 	localStorage.removeItem('pos_admin_firstname');
-			  	 	localStorage.removeItem('pos_admin_iconimage');
-			        localStorage.clear();
-			        var dialog = bootbox.dialog({
-		            message: '<p class="text-center">You Are Not Right User To Login!</p>',
-		                closeButton: false
-		            });
-		            setTimeout(function(){
-                $('#login').text("Login");
-                $('#login').removeAttr('disabled');
-		                dialog.modal('hide'); 
-		            }, 2000); 
-		  	 	}
 		  	 })
 		  	 .error(function(data, status, headers, config)
 		  	 {

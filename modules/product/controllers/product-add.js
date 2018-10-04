@@ -138,4 +138,62 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	    
 	};
 
+// CheckBox
+	$('#id_of_3th_td').hide();
+	$('#id_of_5th_td').hide();
+	$('#id_of_half_t1').hide();
+	$('#id_of_half_t2').hide();
+	$('#check_half_night').hide();
+	$('#id_of_4th_td').hide();	
+
+
+	$('#check_full_night').click(function()
+	{
+	   	if ($(this).is(':checked'))
+	   	{
+	        $('#id_of_3th_td').show();
+	   	}
+	    else
+	    {	    	
+			$scope.product.pm_fullnight_price = ""; 
+	        $('#id_of_3th_td').hide();
+	    }
+	});
+
+	$('#check_half_night').click(function()
+	{
+	   	if ($(this).is(':checked'))
+	   	{
+	        $('#id_of_5th_td').show();
+	   	}
+	    else
+	    {	    	
+			$scope.product.pm_halfnight_price = ""; 
+	        $('#id_of_5th_td').hide();
+	    }
+	});
+
+	$('#check_half').click(function()
+	{
+	   	if ($(this).is(':checked'))
+	   	{
+	        $('#id_of_half_t1').show();
+	        $('#id_of_half_t2').show();
+	        $('#check_half_night').show();
+	        $('#id_of_4th_td').show();	
+	   	}
+	    else
+	    {	 
+	    	$scope.product.pm_halfnight_price = "";
+	    	$scope.product.pm_halfday_price = "";
+	        $('#id_of_half_t1').hide();
+	        $('#id_of_half_t2').hide();
+	        $('#check_half_night').hide();
+	        $('#id_of_4th_td').hide();	
+	        $('#id_of_5th_td').hide();
+	        $("#check_half_night").prop("checked", false);
+	    }
+	});
+// END CheckBox
+
 });
