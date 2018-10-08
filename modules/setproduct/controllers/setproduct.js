@@ -1,12 +1,13 @@
 // import admin
-angular.module('product').controller('productAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
+angular.module('setproduct').controller('setproductListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 	
 
-	$scope.apiURL = $rootScope.baseURL+'/product/add';
+	$scope.apiURL = $rootScope.baseURL+'/setproduct/add';
 
 	$scope.displayImages = "resources/assets/img/default-image.png";
 
-
+	$('#navbar_hide').hide();
+	$('#sidebar_hide').hide();
 	$scope.tableAreaDetails=[];
 	$scope.categoryList = [];
 	$scope.product = {};
@@ -131,6 +132,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	    }
 	    else
 	    {
+	    	
 		    $scope.formEntry = {
 		    	image : $scope.displayImagesdb,
 		    	product : $scope.product
