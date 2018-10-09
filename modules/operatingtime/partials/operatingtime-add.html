@@ -1,0 +1,64 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/operatingtime">Operating Time</a></li>
+    <li class="active">New Operating Time</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New Operating Time</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;" colspan="3">OPERATING TIME</th>
+                                        <tr>
+                                            <th></th>
+                                            <th style="text-align: center;">Start Time</th>
+                                            <th style="text-align: center;">End Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th style="text-align: center;">Day</th>
+                                            <td>
+                                                <input type="text" id="otm_day_start_time" class="form-control" ng-model="operatingtime.otm_day_start_time" readonly placeholder="Start Time" />
+                                            </td>
+                                            <td>
+                                                <input type="text" id="otm_day_end_time" class="form-control" ng-model="operatingtime.otm_day_end_time" readonly placeholder="End Time" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align: center;">Night</th>
+                                            <td  style="text-align: center;">
+                                                <input type="text" id="otm_night_start_time" class="form-control" ng-model="operatingtime.otm_night_start_time" readonly placeholder="Start Time" />
+                                            </td>
+                                            <td>
+                                                <input type="text" id="otm_night_end_time" class="form-control" ng-model="operatingtime.otm_night_end_time" readonly placeholder="End Time" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/'" id="btncancel">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addOperatingTime()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

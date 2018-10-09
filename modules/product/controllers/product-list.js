@@ -206,4 +206,38 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
       });
     };
 
+    $scope.priceDetails = function(pm_id){
+      $('#priceDetails').modal('show');
+
+      // $scope.objList={
+      // list:$scope.priceList[index]
+      $scope.priceList=[];
+      
+      $http({
+        method: 'GET',
+        url: $rootScope.baseURL+'/product/price/'+ pm_id,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        category.forEach(function (value, key) {
+            
+            $scope.priceList.push(value);
+          });    
+        // console.log($scope.priceList);
+        // localStorage.setItem('productObj',JSON.stringify(product) )
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
+
 });

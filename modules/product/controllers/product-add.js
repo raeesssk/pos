@@ -109,30 +109,30 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 		    });
 		    $('#pm_description').focus();		    
 	    } 
-	    else if($('#pm_quantity').val() == undefined || $('#pm_quantity').val() == ""){
-	    	toastr.error('please enter quantity.', 'Error', {
+	    else if($('#pm_dish_no').val() == undefined || $('#pm_dish_no').val() == ""){
+	    	toastr.error('please enter dish number.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
 			  	positionClass: "toast-top-center",
 			  	timeOut: "500",
 			  	extendedTimeOut: "500",
 		    });
-		    $('#pm_quantity').focus();
+		    $('#pm_dish_no').focus();
 	    }
-	    else if($('#pm_rate').val() == undefined || $('#pm_rate').val() == ""){
-	    	toastr.error('please enter price.', 'Error', {
+	    else if($('#pm_expected_in').val() == undefined || $('#pm_expected_in').val() == ""){
+	    	toastr.error('please enter expected time.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
 			  	positionClass: "toast-top-center",
 			  	timeOut: "500",
 			  	extendedTimeOut: "500",
 		    });
-		    $('#pm_rate').focus();
+		    $('#pm_expected_in').focus();
 	    }
 	    else
 	    {
 		    $scope.formEntry = {
-		    	image : $scope.displayImagesdb,
+		    	productList : $scope.tableAreaDetails,
 		    	product : $scope.product
 		    }
             $('#btnsave').attr('disabled','true');
@@ -166,14 +166,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	    
 	};
 
-// CheckBox
-	// $('.id_of_3th_td').hide();
-	// $('.id_of_5th_td').hide();
-	// $('#id_of_half_t1').hide();
-	// $('#id_of_half_t2').hide();
-	// $('#check_half_night').hide();
-	// $('.id_of_4th_td').hide();	
-	
+// CheckBoxs
 	$("#check_full_night").change(function() {
 	     var is_checked = $(this).is(":checked");
 	     if(!is_checked) {
@@ -181,23 +174,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	     }
 	     $(".id_of_3th_td").prop("readonly", !is_checked);
 	});	
-	// $('#check_full_night').click(function()
-	// {
-	//    	if ($(this).is(':checked'))
-	//    	{
-	//         // $('.id_of_3th_td').show();
-	//         console.log('checked');
-	//    	}
-	//     else
-	//     {	    	
-	// 		 // $(this).closest('form').find(".id_of_3th_td, textarea").val("");
-	//         // $('.id_of_3th_td').hide();
-	//          $('.id_of_3th_td').find('input:text').val('');
-	//          console.log('unchecked');
-
-	//     }
-	// });
-	
+		
 	$("#check_half_night").change(function() {
 	     var is_checked = $(this).is(":checked");
 	     if(!is_checked) {
@@ -205,19 +182,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	     }
 	     $(".id_of_5th_td").prop("readonly", !is_checked);
 	});
-	// $('#check_half_night').click(function()
-	// {
-	//    	if ($(this).is(':checked'))
-	//    	{
-	//         $('.id_of_5th_td').show();
-	//    	}
-	//     else
-	//     {	    	
-	// 		$scope.pm_halfnight_price = ""; 
-	//         $('.id_of_5th_td').hide();
-	//     }
-	// });
-
+	
 	$("#check_half").change(function() {
 	     var is_checked = $(this).is(":checked");
 	     if(!is_checked) {
@@ -227,28 +192,6 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	     }
 	     $(".id_of_4th_td").prop("readonly", !is_checked);
 	});
-		// $('#check_half').click(function()
-	// {	
-	// 		$scope.pm_halfnight_price = "";
-	//     $scope.pm_halfday_price = "";
-	//    	if ($(this).is(':checked'))
-	//    	{
-	//         $('#id_of_half_t1').show();
-	//         $('#id_of_half_t2').show();
-	//         $('#check_half_night').show();
-	//         $('.id_of_4th_td').show();	
-	//    	}
-	//     else
-	//     {	 
-	    	
-	//         $('#id_of_half_t1').hide();
-	//         $('#id_of_half_t2').hide();
-	//         $('#check_half_night').hide();
-	//         $('.id_of_4th_td').hide();	
-	//         $('.id_of_5th_td').hide();
-	//         $("#check_half_night").prop("checked", false);
-	//     }
-	// });
 // END CheckBox
 
 });

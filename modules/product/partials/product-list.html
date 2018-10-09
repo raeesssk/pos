@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-block">
                       <div class="col-lg-11">
-                        <input type="text" class="form-control" id="searchtext" ng-model="searchtext" onkeyup="angular.element(this).scope().getSearch();" placeholder = "Search Here..."/><br>
+                        <input type="text" class="form-control" id="searchtext" ng-model="searchtext" onkeyup="angular.element(this).scope().getSearch();" placeholder = "Search By- Dish Name / Dish Number . . . "/><br>
                       </div>
                       <div class="col-lg-1">
                         <a class="btn btn-outline btn-info" href="#/product/add">Add</a>
@@ -30,8 +30,8 @@
                             <th>Dish</th>
                             <th>Category</th>
                             <th>Dish Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
+                            <th>Dish Number</th>
+                            <th>Expected In</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -45,11 +45,14 @@
                             </td>
                             <td>{{product.ctm_type}}</td>
                             <td>{{product.pm_description}}</td>
-                            <td>{{product.pm_quantity}}</td>
-                            <td>{{product.pm_rate}}</td>
+                            <td>{{product.pm_dish_no}}</td>
+                            <td>{{product.pm_expected_in}}</td>
                             <td>
+                              <button class="btn btn-success form-control"  data-toggle="modal" data-target="#orderDetails" ng-click="priceDetails(product.pm_id)" style="width: 100px;">
+                                <i class="icon icon-info"></i> Price
+                              </button>
                               <button class="btn btn-info form-control"  data-toggle="modal" data-target="#orderDetails" ng-click="recipeDetails($index)" style="width: 100px;">
-                                <i class="icon icon-info"></i> View
+                                <i class="icon icon-info"></i> Recipe
                               </button>
                               <a class="btn btn-warning form-control" style="width: 100px;" href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i> Edit</a>
                               <button class="btn btn-danger form-control" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)" style="width: 100px;">
@@ -102,7 +105,51 @@
 </div>
 
 
-<!-- // modal for view -->
+<!-- // modal for price -->
+<div id="priceDetails" class="modal" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <div ng-repeat="product in filteredTodos">{{product.pm_description}}</div> --> 
+        <button type="button" class="close" data-dismiss="modal" ng-click="closechk()">&times;</button>
+        <h4 class="modal-title">Recipe</h4>
+      </div>
+      <div class="modal-body"> 
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="text-align: center;" colspan="2">FULL (Price)</th>
+                    <th style="text-align: center;" colspan="2">HALF (Price)</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">Area</th>
+                    <th style="text-align: center;">Day</th>
+                    <th style="text-align: center;">Night</th>
+                    <th style="text-align: center;">Day</th>
+                    <th style="text-align: center;">Night</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="view in priceList track by $index">
+                    <td>{{view.am_name}}</td>
+                    <td>{{view.ppm_fullday_price}}</td>
+                    <td>{{view.ppm_fullnight_price}}</td>
+                    <td>{{view.ppm_halfday_price}}</td>
+                    <td>{{view.ppm_halfnight_price}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>   
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- // end modal for price -->
+
+<!-- // modal for recepi -->
 <div id="recipeDetails" class="modal" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
@@ -129,10 +176,11 @@
             </tr>
           </tbody>
         </table>  
-      </div>   
+
+        </div>   
       <div class="modal-footer">
       </div>
     </div>
   </div>
 </div> 
-<!-- // end modal for view -->
+<!-- // end modal for recepi -->
