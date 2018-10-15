@@ -121,9 +121,11 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        	$scope.user = deliverycount[0].username;
 			        	$scope.firstname = deliverycount[0].first_name;
 			        	$scope.iconimage = deliverycount[0].icon_image;
+			        	$scope.uid = deliverycount[0].id;
 				  	 	localStorage.setItem('pos_admin_username', $scope.user);
 				  	 	localStorage.setItem('pos_admin_firstname', $scope.firstname);
-				  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);
+				  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);				  	 	
+				  	 	localStorage.setItem('pos_admin_uid', $scope.uid);
 				  	 	localStorage.setItem('pos_admin_access_token', data.access_token);
 				        localStorage.setItem('pos_admin_expires_in', data.expires_in);
 				        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);

@@ -1,3 +1,5 @@
+<!-- Bootstrap Form Helpers -->
+    <link href="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.css" rel="stylesheet" media="screen">
 
 <div class="container-fluid">
     <div class="animated fadeIn">
@@ -10,6 +12,7 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
+                            
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Corporate Name</label>
@@ -18,10 +21,18 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="name">Corporate Location</label>
-                                    <input type="text" id="scm_corp_location" class="form-control" ng-model="setCorp.scm_corp_location">
+                                    <label for="name">Country</label>
+                                   <!--  <input type="text" id="scm_country" class="form-control" ng-model="setCorp.scm_country"> -->
+                                    <form action="">
+                                      <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="IN" ng-model="setCorp.scm_country" onchange="currency()"></select>
+                                    </form>
                                 </div>
                             </div>
+                            <!-- <div class="col-sm-4">
+                                <div class="form-group">
+    
+                                </div>
+                            </div> -->  
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Address Line</label>
@@ -56,13 +67,21 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">State</label>
-                                    <input type="text" id="scm_state" class="form-control" ng-model="setCorp.scm_state">
+                                    <!-- <input type="text" id="scm_state" class="form-control" ng-model="setCorp.scm_state"> -->
+                                    <form action="">
+                                        <select class="form-control input-medium bfh-states" data-country="countries_states1" ng-model="setCorp.scm_state">
+                                        </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Currency</label>
-                                    <input type="text" id="scm_currency" class="form-control" ng-model="setCorp.scm_currency">
+                                    <!-- <input type="text" id="scm_currency" class="form-control" ng-model="setCorp.scm_currency"> -->
+                                    <form action="#">
+                                      <select class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="setCorp.scm_currency" ></select>
+                                    </form>
+
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -74,7 +93,10 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Contact Number</label>
-                                    <input type="text" id="scm_contact_no" class="form-control" ng-model="setCorp.scm_contact_no">
+                                   <!--  <input type="text" id="scm_contact_no" class="form-control" ng-model="setCorp.scm_contact_no"> -->
+                                    <form action="#">
+                                      <input type="text" id="scm_contact_no" class="form-control bfh-phone" data-country="countries_states1" ng-model="setCorp.scm_contact_no">
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -83,14 +105,22 @@
                                     <input type="text" id="scm_email" class="form-control" ng-model="setCorp.scm_email">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div class="form-group">
-                                    <input type='file' id="scm_image" name="dm_image" multiple/>
+                                    <input type='file' id="scm_image" name="scm_image" multiple/>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div> -->
+
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="name">Company Logo</label><br>
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                    <input type='file' id="scm_image" name="scm_image" multiple/>
                                 </div>
                             </div>
 
@@ -108,3 +138,13 @@
     </div>
 </div>   
 
+
+
+ <!-- Bootstrap Form Helpers -->
+<script src="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.js"></script>
+  <script>
+  function getVal() {
+    // This will get the value of #timepicker
+    alert($("#timepicker").val())
+  }
+  </script>

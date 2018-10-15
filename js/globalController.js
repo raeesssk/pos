@@ -6,7 +6,8 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.tokken=localStorage.getItem("pos_admin_access_token");
     $rootScope.userid=localStorage.getItem("pos_admin_username");
     $rootScope.firstname=localStorage.getItem("pos_admin_firstname");
-    $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");
+    $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");    
+    $rootScope.uid=localStorage.getItem("pos_admin_uid");
     
     // $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.21:3000';
