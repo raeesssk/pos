@@ -291,6 +291,7 @@ var BFHCountriesList = {
 
 
 var BFHCurrenciesList = {
+  'INR':{'label':'Indian rupee (INR)','currencyflag':'','symbol':''},
   'AED':{'label':'United Arab Emirates dirham (AED)','currencyflag':'','symbol':'د.إ'},
   'AFN':{'label':'Afghan afghani (AFN)','currencyflag':'','symbol':'؋'},
   'ALL':{'label':'Albanian lek (ALL)','currencyflag':'','symbol':'L'},
@@ -350,7 +351,7 @@ var BFHCurrenciesList = {
   'IDR':{'label':'Indonesian rupiah (IDR)','currencyflag':'','symbol':'Rp'},
   'ILS':{'label':'Israeli new shekel (ILS)','currencyflag':'','symbol':'₪'},
   'IMP':{'label':'Manx pound (IMP)','currencyflag':'','symbol':'£'},
-  'INR':{'label':'Indian rupee (INR)','currencyflag':'','symbol':''},
+  // 'INR':{'label':'Indian rupee (INR)','currencyflag':'','symbol':''},
   'IQD':{'label':'Iraqi dinar (IQD)','currencyflag':'','symbol':'ع.د'},
   'IRR':{'label':'Iranian rial (IRR)','currencyflag':'','symbol':'﷼'},
   'ISK':{'label':'Icelandic króna (ISK)','currencyflag':'','symbol':'kr'},
@@ -452,14 +453,6 @@ var BFHCurrenciesList = {
   'ZWL':{'label':'Zimbabwean dollar (ZWL)','currencyflag':'','symbol':'$'}
 };
 
- function currency(){
-  console.log('hi');
-    BFHCurrenciesList.forEach(function (value, key) {
-                  if ($('#countries_states1').val() ==value.label){
-                    
-                  }
-              });
-};
 /* ==========================================================
  * bootstrap-formhelpers-datepicker.en_US.js
  * https://github.com/vlamanna/BootstrapFormHelpers
@@ -14160,10 +14153,12 @@ var BFHTimezonesList = {
    * ====================== */
 
   var BFHCountries = function (element, options) {
+
     this.options = $.extend({}, $.fn.bfhcountries.defaults, options);
     this.$element = $(element);
 
     if (this.$element.is('select')) {
+
       this.addCountries();
     }
 
@@ -17135,6 +17130,7 @@ var BFHTimezonesList = {
       var country,
           $country;
 
+
       country = this.options.country;
 
       if (country !== '') {
@@ -17152,7 +17148,7 @@ var BFHTimezonesList = {
     loadStates: function (country) {
       var value,
           state;
-
+        // console.log(country);
       value = this.options.state;
 
       this.$element.html('');
@@ -17317,7 +17313,6 @@ var BFHTimezonesList = {
   $(document).ready( function () {
     $('form select.bfh-states, span.bfh-states, div.bfh-states').each(function () {
       var $states;
-
       $states = $(this);
 
       if ($states.hasClass('bfh-selectbox')) {

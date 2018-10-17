@@ -24,7 +24,7 @@
                                     <label for="name">Country</label>
                                    <!--  <input type="text" id="scm_country" class="form-control" ng-model="setCorp.scm_country"> -->
                                     <form action="">
-                                      <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="IN" ng-model="setCorp.scm_country" onchange="currency()"></select>
+                                      <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="IN" ng-model="setCorp.scm_country"></select>
                                     </form>
                                 </div>
                             </div>
@@ -81,7 +81,6 @@
                                     <form action="#">
                                       <select class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="setCorp.scm_currency" ></select>
                                     </form>
-
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -102,7 +101,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Email ID</label>
-                                    <input type="text" id="scm_email" class="form-control" ng-model="setCorp.scm_email">
+                                    <input type="email" id="scm_email" class="form-control" ng-model="setCorp.scm_email">
                                 </div>
                             </div>
                             <!-- <div class="col-lg-2">
@@ -128,7 +127,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button>
+                        <!-- <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button> -->
 
                         <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupCorp()">Save & Next</button>
                     </div>

@@ -5,7 +5,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 	$('#sidebar_hide').hide();
 	 // Main register Function
 	 $('#scm_corp_name').focus();
-
+	 console.log($rootScope.uid);
  	$scope.setCorp = {};
   	$scope.addSetupCorp = function () {
 	    
@@ -135,7 +135,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 
 	    		$scope.setCorp.scm_country = $('#countries_states1').val();
                         var fd = new FormData();
-                        fd.append('scm_user_id', $rootScope.uid);
+                        
                         fd.append('scm_corp_name', $scope.setCorp.scm_corp_name);
                         fd.append('scm_country', $scope.setCorp.scm_country);
                         fd.append('scm_address', $scope.setCorp.scm_address);
@@ -149,6 +149,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
                         fd.append('scm_contact_no', $scope.setCorp.scm_contact_no);
                         fd.append('scm_email', $scope.setCorp.scm_email);
                         fd.append('scm_image', $scope.setCorp.file);
+                        fd.append('scm_user_id', $rootScope.uid);
 
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait..."); 
@@ -162,9 +163,10 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 			    })
 			    .success(function(category)
 			    {
+			    	$rootScope.corporateObj = category[0];
 	                $('#btnsave').text("Save & Next");
 	                $('#btnsave').removeAttr('disabled');
-			       	window.location = '#/setrestaurant';  
+			       	window.location = "#";  
 			    }) 	
 			    .error(function(data) 
 			    {   

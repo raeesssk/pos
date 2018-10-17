@@ -1,3 +1,5 @@
+<!-- Bootstrap Form Helpers -->
+    <link href="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.css" rel="stylesheet" media="screen">
 
 <div class="container-fluid">
     <div class="animated fadeIn">
@@ -10,99 +12,129 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
+                            <div class="col-sm-12">
+                                <input type="checkbox" id="corpdetails" ng-model="restaurant.select" ng-change="getCorpDetails()"> Same As for Corporate details!
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Restaurant Name</label>
-                                    <input type="text" id="srm_restaurant_name" class="form-control" ng-model="setRest.srm_restaurant_name">
+                                    <input type="text" id="srm_restaurant_name" class="form-control" ng-model="restaurant.srm_restaurant_name">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="name">Restaurant Location</label>
-                                    <input type="text" id="srm_restaurant_location" class="form-control" ng-model="setRest.srm_restaurant_location">
+                                    <label for="name">Country</label>
+                                   <!--  <input type="text" id="srm_country" class="form-control" ng-model="setRest.srm_country"> -->
+                                    <form action="">
+                                      <select id="countries_states1" class="form-control input-medium bfh-countries">
+                                      </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Address Line</label>
-                                    <textarea id="srm_address" class="form-control" ng-model="setRest.srm_address"></textarea>
+                                    <textarea id="srm_address" class="form-control" ng-model="restaurant.srm_address"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Landmark</label>
                                     <!-- <textarea type="text" id="srm_landmark" class="form-control" ng-model="setRest.srm_landmark"></textarea> -->
-                                    <input type="text" id="srm_landmark" class="form-control" ng-model="setRest.srm_landmark">
+                                    <input type="text" id="srm_landmark" class="form-control" ng-model="restaurant.srm_landmark">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Area</label>
-                                    <input type="text" id="srm_area" class="form-control" ng-model="setRest.srm_area">
+                                    <input type="text" id="srm_area" class="form-control" ng-model="restaurant.srm_area">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">City</label>
-                                    <input type="text" id="srm_city" class="form-control" ng-model="setRest.srm_city">
+                                    <input type="text" id="srm_city" class="form-control" ng-model="restaurant.srm_city">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Pincode</label>
-                                    <input type="text" id="srm_pincode" class="form-control" ng-model="setRest.srm_pincode">
+                                    <input type="text" id="srm_pincode" class="form-control" ng-model="restaurant.srm_pincode">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">State</label>
-                                    <input type="text" id="srm_state" class="form-control" ng-model="setRest.srm_state">
+                                    <!-- <input type="text" id="srm_state" class="form-control" ng-model="setRest.srm_state"> -->
+                                    <form action="">
+                                        <select id="srm_state" class="form-control input-medium bfh-states" >
+                                        </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Currency</label>
-                                    <input type="text" id="srm_currency" class="form-control" ng-model="setRest.srm_currency">
+                                    <!-- <input type="text" id="srm_currency" class="form-control" ng-model="setRest.srm_currency"> -->
+                                    <form action="#">
+                                      <select id="srm_currency" class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="restaurant.srm_currency" ></select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Contact Name</label>
-                                    <input type="text" id="srm_contact_name" class="form-control" ng-model="setRest.srm_contact_name">
+                                    <input type="text" id="srm_contact_name" class="form-control" ng-model="restaurant.srm_contact_name">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Contact Number</label>
-                                    <input type="text" id="srm_contact_number" class="form-control" ng-model="setRest.srm_contact_number">
+                                   <!--  <input type="text" id="srm_contact_number" class="form-control" ng-model="setRest.srm_contact_number"> -->
+                                    <form action="#">
+                                      <input type="text" id="srm_contact_number" class="form-control bfh-phone" ng-model="restaurant.srm_contact_number">
+                                    </form>
                                 </div>
                             </div>
+
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Email ID</label>
-                                    <input type="text" id="srm_email" class="form-control" ng-model="setRest.srm_email">
+                                    <input type="text" id="srm_email" class="form-control" ng-model="restaurant.srm_email">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div class="form-group">
                                     <input type='file' id="srm_image" name="dm_image" multiple/>
                                 </div>
-                            </div>
-                            <div class="col-lg-2">
+                            </div> -->
+                            <!-- <div class="col-lg-2">
                                 <div class="form-group">
                                     <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                         </div>
                     </div>
                     <div class="card-footer">
                         <!-- <button type="button" class="btn btn-sm btn-danger" id="btncancel" ng-click="backSetupRest()">Back</button> -->
-                                <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupRest()">Finish</button>
+                                <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupRest()">Save & Next</button>
                             </div>
                         </div>
                     </div>
                 </div> 
             </div>
         </div>   
+
+ <!-- Bootstrap Form Helpers -->
+<script src="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.js"></script>
+  <script>
+  function getVal() {
+    // This will get the value of #timepicker
+    alert($("#timepicker").val())
+  }
+  </script>

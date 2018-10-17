@@ -23,6 +23,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     //     window.history.back();
     // };
 
+
     $rootScope.logOut = function(){
 
         $http({
@@ -86,6 +87,36 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
             });
         });
       };
+
+      $rootScope.getCorporateId = function(){
+          $http({
+            method: 'GET',
+            url: $rootScope.baseURL+'/corporate/' + $rootScope.uid,
+            // data: 'username='+$rootScope.userid,
+            headers: {'Content-Type': 'application/json',
+            'Authorization' :'Bearer '+$rootScope.tokken}
+          })
+          .success(function(deliverycount)
+          {   
+            if (deliverycount.length == 1) {
+              $rootScope.corporateObj = deliverycount[0];
+            }
+            else {
+              window.location = "#/setcorporate";
+            }
+          })
+          .error(function(data) 
+          {   
+              toastr.error('Oops, Something Went Wrong.', 'Error', {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-center",
+                timeOut: "500",
+                extendedTimeOut: "500",
+              });
+          });
+      };
+      $rootScope.getCorporateId();
 
     // $scope.Log_Out = function () {
 

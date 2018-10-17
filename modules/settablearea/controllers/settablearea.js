@@ -7,10 +7,11 @@ angular.module('settablearea').controller('settableareaCtrl', function ($rootSco
 	
 	$('#navbar_hide').hide();
 	$('#sidebar_hide').hide();
-	$('#sam_name').focus();
+	$scope.settablearea = {};
+	$('#am_name').focus();
   	$scope.addArea = function () {
 	    
-	    if($('#sam_name').val() == undefined || $('#sam_name').val() == ""){
+	    if($('#am_name').val() == undefined || $('#am_name').val() == ""){
 	    	toastr.error('Please Enter Table Area Name.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
@@ -18,20 +19,22 @@ angular.module('settablearea').controller('settableareaCtrl', function ($rootSco
 			  	timeOut: "500",
 			  	extendedTimeOut: "500",
 		    });
-		    $('#sam_name').focus();
+		    $('#am_name').focus();
 	    }
 	    else{
+	    		$scope.settablearea.am_srm_id = $rootScope.restaurantObj.srm_id;
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait...");
 	    	$http({
 		      method: 'POST',
-		      url: $scope.apiURL,
-		      data: $scope.area,
+		      url: $rootScope.baseURL+'/area/add',
+		      data: $scope.settablearea,
 		      headers: {'Content-Type': 'application/json',
 	                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
 		    })
 		    .success(function(area)
 		    {
+		    	$rootScope.tableareaObj = area[0];
                 $('#btnsave').text("Save Table Area");
                 $('#btnsave').removeAttr('disabled');
 		       window.location.href = '#/';  
