@@ -26,6 +26,14 @@ function onSuccess(googleUser) {
               });
             }
 
+$scope.preventPaste= function() {
+ $('#password').bind('cut copy paste', function (e) {
+        e.preventDefault();
+    });
+  $('#conpassword').bind('cut copy paste', function (e) {
+        e.preventDefault();
+    });
+}
 
  // Main register Function
   	$scope.signup = function() {
@@ -94,8 +102,8 @@ function onSuccess(googleUser) {
 			  	extendedTimeOut: "500",
 		    });
 		    $('#password').focus(); 
-                $scope.password="";
-                $scope.conpassword=""; 
+                // $scope.limit.password="";
+                $scope.limit.conpassword=""; 
         }
   		else{
                 $('#signup').attr('disabled','true');
@@ -139,16 +147,18 @@ function onSuccess(googleUser) {
 					        	$scope.user = deliverycount[0].username;
 					        	$scope.firstname = deliverycount[0].first_name;
 					        	$scope.iconimage = deliverycount[0].icon_image;
+			        			$scope.uid = deliverycount[0].id;
 						  	 	localStorage.setItem('pos_admin_username', $scope.user);
 						  	 	localStorage.setItem('pos_admin_firstname', $scope.firstname);
-						  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);
+						  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);				  	 	
+				  	 			localStorage.setItem('pos_admin_uid', $scope.uid);
 						  	 	localStorage.setItem('pos_admin_access_token', data.access_token);
 						        localStorage.setItem('pos_admin_expires_in', data.expires_in);
 						        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
 						        localStorage.setItem('pos_admin_token_type', data.token_type);
 		                $('#signup').text("Register");
 		                $('#signup').removeAttr('disabled');
-						         window.location = "/pos/";
+						         window.location = "/pos/#/setcorporate";
 					        })
 					        .error(function(data) 
 					        {   
@@ -198,9 +208,9 @@ function onSuccess(googleUser) {
 	// 	// window.location = "/pos/";
 	// };
 
-	// $scope.login = function(){
-	// 	window.location = 'login.html';
-	// };
+	$scope.login = function(){
+		window.location = 'login.html';
+	};
 	
 // Eye open to see password
 	$scope.viewpassowrd = function() {

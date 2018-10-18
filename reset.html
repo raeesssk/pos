@@ -70,37 +70,34 @@
             }
         </style>
     </head>
-    <body class="" ng-controller="LoginCtrl">
+    <body class="" ng-controller="ResetCtrl">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2" style="margin-top: 90px;">
                     <div class="card-group vamiddle">
                         <div class="card  p-a-2" style="border-bottom: #4dbd74 solid 5px; border-top: #4dbd74 solid 5px; border-left: #4dbd74 solid 5px;">
                             <div class="card-block">
-                                <h1>Login</h1>
-                                <p class="text-muted">Sign In with your Account</p>
+                                <h2>Reset Password</h2>
+                                <p class="text-muted">Wow Looks That Easy!</p>
                                 <div class="input-group m-b-1">
-                                    <span class="input-group-addon"><i class="icon-user"></i></span>
-                                    <input type="text" class="form-control keyboard-normal" ng-model="loginmaster.username" placeholder="Email" id="username">
-                                </div>
-                                <div class="input-group m-b-2"  id="password">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                    <input type="password" class="form-control keyboard-normal" ng-model=" loginmaster.password" placeholder="Password">
+                                    <input type="password" class="form-control keyboard-normal" ng-model="reset.password" placeholder="New Password" id="password">
+                                    <span class="input-group-addon"style="background: transparent;">
+                                        <i class="fa fa-eye-slash" ng-click="viewpassowrd()" id="eyeopen"></i>
+                                    </span>
+                                </div>
+                                <div class="input-group m-b-1">
+                                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                                    <input type="password" class="form-control keyboard-normal" ng-model="reset.conpassword" placeholder="Confirm New Password" id="conpassword">
+                                    <span class="input-group-addon"style="background: transparent;">
+                                        <i class="fa fa-eye-slash" ng-click="viewconpassowrd()" id="eyeopen"></i>
+                                    </span>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <button type="submit" class="btn btn-success p-x-2" id="login" ng-click="login()">Next</button>
+                                        <button type="submit" class="btn btn-success p-x-2" id="resetPassword" ng-click="resetPassword()">Update password</button>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <button type="submit" class="btn btn-danger p-x-2" id="back" ng-click="back()">Back</button>
-                                    </div>
-                                    <div class="col-xs-6 text-xs-right">
-                                        <button type="button" class="btn btn-link p-x-0" onclick="window.location = 'forgot.html'" style="color: #4dbd74;">Forgot password?</button>
-                                    </div>
-                                   <div class="col-xs-12"><br>
-                                        Create account
-                                        <button type="button" class="btn btn-link p-x-0" onclick="window.location = 'signup.html'" style="color:#4dbd74;"><b>Sign Up</b></button>
-                                  </div>
+
                                 </div>
                             </div>
                         </div>
@@ -145,8 +142,8 @@
 
         <!-- Controllers-->
         <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/globalController.js"></script>
+        <script type="text/javascript" src="js/forgot.js"></script>
+        <script type="text/javascript" src="js/reset.js"></script>
 
         <!-- admin -->
         <script src="modules/admin/config.js"></script>

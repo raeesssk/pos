@@ -92,9 +92,9 @@
                     <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/product/add"><i class="fa fa-plus-circle"></i> Dishes</a>
                     </li>
-                    <li class="nav-item p-x-1">
+                    <!-- <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/subcategory/add"><i class="fa fa-plus-circle"></i> Sub Category</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/unit/add"><i class="fa fa-plus-circle"></i> Unit</a>
                     </li>
@@ -108,7 +108,7 @@
                 <ul class="nav navbar-nav pull-right hidden-md-down">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img ng-src="{{iconimage}}" class="img-avatar" alt="icon">
+                            <img  ng-src="{{corpObj.scm_image}}" alt="icon">
                             <span class="hidden-md-down">{{userid}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -356,6 +356,7 @@
         
     </body>
     <script> 
+        
         $(document).ready(function(){
             $("ul li a").click(function(){
                 $(".nav-item").removeClass("active");

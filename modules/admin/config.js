@@ -17,6 +17,32 @@ angular.module('admin', [])
                         }]
                     }
                 })
+            // .when('/profile',
+            //     {
+            //         templateUrl: 'modules/setcorporate/partials/edit-setcorporate.html',
+            //         controller: 'editCorporateCtrl',
+            //         resolve: {
+            //             lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
+            //                 return $ocLazyLoad.load([{
+            //                     name: 'myApp',
+            //                     files: ['modules/setcorporate/controllers/edit-setcorporate.js']
+            //                 }]);
+            //             }]
+            //         }
+            //     })
+            .when('/profile',
+                {
+                    templateUrl: 'modules/setcorporate/partials/setcorporate-edit.html',
+                    controller: 'editCorporateCtrl',
+                    resolve: {
+                        lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
+                            return $ocLazyLoad.load([{
+                                name: 'myApp',
+                                files: ['modules/setcorporate/controllers/setcorporate-edit.js']
+                            }]);
+                        }]
+                    }
+                })
             .when('/settings',
                 {
                     templateUrl: 'modules/admin/partials/change-pass.html',
@@ -26,19 +52,6 @@ angular.module('admin', [])
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
                                 files: ['modules/admin/controllers/change-password.js']
-                            }]);
-                        }]
-                    }
-                })
-            .when('/profile',
-                {
-                    templateUrl: 'modules/admin/partials/change-image.html',
-                    controller: 'changeImageCtrl',
-                    resolve: {
-                        lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
-                            return $ocLazyLoad.load([{
-                                name: 'myApp',
-                                files: ['modules/admin/controllers/change-image.js']
                             }]);
                         }]
                     }

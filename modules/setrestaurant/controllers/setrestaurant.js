@@ -3,36 +3,27 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
    
    	$('#navbar_hide').hide();
 	$('#sidebar_hide').hide();
+  	$('#srm_restaurant_name').focus();
 
 	$("#countries_states1").attr('data-country','IN');
 	$("#srm_state").attr('data-country','countries_states1');
 	$("#srm_contact_number").attr('data-country','countries_states1');
-  	// $('#srm_restaurant_name').focus();
   	
   	$scope.restaurant={};
-	// $("#my-drop-down-select-element-id").find("option").eq(0).remove();
-	// $(document).ready(function() {
-	//     $("#countries_states1").find("option").eq(0).remove();
-	// });
-
 
 	$scope.getCorpDetails = function () {
 		if($scope.restaurant.select)
 		{	
-
-		console.log($rootScope.corporateObj.scm_currency);
-			
 			$scope.restaurant.srm_restaurant_name=$rootScope.corporateObj.scm_corp_name;
 
 			// $scope.restaurant.srm_country=$rootScope.corporateObj.scm_country;
 			$("#countries_states1").attr('data-country',$rootScope.corporateObj.scm_country);
 			$("#countries_states1").val($rootScope.corporateObj.scm_country);
 
-			 $("#countries_states1").trigger('change');
+			$("#countries_states1").trigger('change');
 				$("#srm_state").attr('data-country',"countries_states1");
 				$("#srm_contact_number").attr('data-country','countries_states1');
 			
-			console.log($rootScope.corporateObj.scm_contact_number);
 			$scope.restaurant.srm_address=$rootScope.corporateObj.scm_address;
 			$scope.restaurant.srm_landmark=$rootScope.corporateObj.scm_landmark;
 			$scope.restaurant.srm_area=$rootScope.corporateObj.scm_area;
@@ -46,7 +37,6 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 
 			// $scope.restaurant.srm_currency=$rootScope.corporateObj.scm_currency;
 			$("#srm_currency").val($rootScope.corporateObj.scm_currency);
-			// $scope.restaurant.srm_currency=$rootScope.corporateObj.scm_currency;
 
 			$scope.restaurant.srm_contact_name=$rootScope.corporateObj.scm_contact_name;
 
@@ -54,26 +44,37 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 			// $scope.restaurant.srm_contact_number=$rootScope.corporateObj.scm_contact_number;
 
 			$scope.restaurant.srm_email=$rootScope.corporateObj.scm_email;
-
-			console.log($scope.restaurant);
 		}
 		else
 		{
+			$("#countries_states1").attr('data-country','IN');	
+			$("#countries_states1").val('IN');
 			
-	$("#countries_states1").attr('data-country','IN');	
-	$("#countries_states1").val('IN');
-	 $("#countries_states1").trigger('change');
-	$("#srm_state").attr('data-country','countries_states1');
+			$("#countries_states1").trigger('change');
+			$("#srm_state").attr('data-country','countries_states1');
 			$scope.restaurant='';
-	$("#srm_contact_number").attr('data-country','countries_states1');
-	$("#srm_currency").val('');
+			$("#srm_contact_number").attr('data-country','countries_states1');
+			$("#srm_currency").val('');
 		}
 	};
 
   	$scope.addSetupRest = function () {
-	    
-	    if($('#srm_restaurant_name').val() == undefined || $('#srm_restaurant_name').val() == ""){
-	    	toastr.error("Please enter Restaurant Name.", 'Error', {
+	    var alpharegex = /^[a-zA-Z ]*$/;
+	    var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var numRegex = /^\d+(\.\d{1,2})?$/;
+
+	    if($scope.restaurant.srm_restaurant_name == undefined || $scope.restaurant.srm_restaurant_name == ""){
+  			toastr.error('Please Enter Restaurant Name.', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    });
+		    $('#srm_restaurant_name').focus(); 
+  		}
+  		else if(!alpharegex.test($scope.restaurant.srm_restaurant_name)){
+            toastr.error('Please Enter A Valid Name.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
 			  	positionClass: "toast-top-center",
@@ -81,7 +82,7 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 			  	extendedTimeOut: "500",
 		    });
 		    $('#srm_restaurant_name').focus();
-	    }
+		}
 	    // else if($('#srm_restaurant_location').val() == undefined || $('#srm_restaurant_location').val() == ""){
 	    // 	toastr.error("Please enter Restaurant Location.", 'Error', {
 		   //      closeButton: true,
@@ -132,8 +133,18 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 		    });
 		    $('#srm_city').focus();
 	    }
-	    else if($('#srm_pincode').val() == undefined || $('#srm_pincode').val() == ""){
-	    	toastr.error("Please enter Pincode.", 'Error', {
+	    else if($scope.restaurant.srm_pincode == undefined || $scope.restaurant.srm_pincode == ""){
+  			toastr.error('Please Enter Pincode.', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    });
+		    $('#srm_pincode').focus(); 
+  		}
+  		else if(!numRegex.test($scope.restaurant.srm_pincode)){
+            toastr.error('Please Enter A Valid Pincode.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
 			  	positionClass: "toast-top-center",
@@ -141,7 +152,7 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 			  	extendedTimeOut: "500",
 		    });
 		    $('#srm_pincode').focus();
-	    }
+		}
 	    // else if($scope.restaurant.srm_state == undefined || $scope.restaurant.srm_state == ""){
 	    else if($('#srm_state').val() == undefined || $('#srm_state').val() == ""){
 	    	toastr.error("Please enter the State.", 'Error', {
@@ -184,8 +195,18 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 		    });
 		    $('#srm_contact_number').focus();
 	    }
-	    else if($('#srm_email').val() == undefined || $('#srm_email').val() == ""){
-	    	toastr.error("Please enter Email.", 'Error', {
+	    else if($scope.restaurant.srm_email == undefined || $scope.restaurant.srm_email == ""){
+  			toastr.error('Please Enter Your Email.', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    });
+		    $('#srm_email').focus(); 
+  		}
+  		else if(!emailRegex.test($scope.restaurant.srm_email)){
+            toastr.error('Please Enter A Valid Email.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,
 			  	positionClass: "toast-top-center",
@@ -193,7 +214,7 @@ angular.module('setrestaurant').controller('restaurantCtrl', function ($rootScop
 			  	extendedTimeOut: "500",
 		    });
 		    $('#srm_email').focus();
-	    }
+		}
 	    else{
 	    		$scope.restaurant.srm_scm_id = $rootScope.corporateObj.scm_id;
 	    		$scope.restaurant.srm_country = $rootScope.corporateObj.scm_country;

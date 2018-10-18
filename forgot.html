@@ -70,37 +70,42 @@
             }
         </style>
     </head>
-    <body class="" ng-controller="LoginCtrl">
+    <body class="" ng-controller="ForgotCtrl">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2" style="margin-top: 90px;">
                     <div class="card-group vamiddle">
                         <div class="card  p-a-2" style="border-bottom: #4dbd74 solid 5px; border-top: #4dbd74 solid 5px; border-left: #4dbd74 solid 5px;">
                             <div class="card-block">
-                                <h1>Login</h1>
-                                <p class="text-muted">Sign In with your Account</p>
+                                <h2>Forgot Password?</h2>
+                                <p class="text-muted">No Worry! Just Enter Your Email</p>
                                 <div class="input-group m-b-1">
                                     <span class="input-group-addon"><i class="icon-user"></i></span>
-                                    <input type="text" class="form-control keyboard-normal" ng-model="loginmaster.username" placeholder="Email" id="username">
+                                    <input type="text" class="form-control keyboard-normal" ng-model="forgotpass.username" placeholder="Email" id="username">
                                 </div>
-                                <div class="input-group m-b-2"  id="password">
+                                <!-- <div class="input-group m-b-2"  id="password">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
                                     <input type="password" class="form-control keyboard-normal" ng-model=" loginmaster.password" placeholder="Password">
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <button type="submit" class="btn btn-success p-x-2" id="login" ng-click="login()">Next</button>
+                                        <button type="submit" class="btn btn-success p-x-2" id="forgot" ng-click="forgot()">Send Email</button>
                                     </div>
-                                    <div class="col-xs-3">
+                                    <!-- <div class="col-xs-3">
                                         <button type="submit" class="btn btn-danger p-x-2" id="back" ng-click="back()">Back</button>
-                                    </div>
-                                    <div class="col-xs-6 text-xs-right">
-                                        <button type="button" class="btn btn-link p-x-0" onclick="window.location = 'forgot.html'" style="color: #4dbd74;">Forgot password?</button>
-                                    </div>
+                                    </div> -->
+                                    <!-- <div class="col-xs-6 text-xs-right">
+                                        <button type="button" class="btn btn-link p-x-0" style="color: #4dbd74;">Forgot password?</button>
+                                    </div> -->
                                    <div class="col-xs-12"><br>
-                                        Create account
-                                        <button type="button" class="btn btn-link p-x-0" onclick="window.location = 'signup.html'" style="color:#4dbd74;"><b>Sign Up</b></button>
+                                        Back to 
+                                        <button type="button" class="btn btn-link p-x-0" onclick="window.location = 'login.html'" style="color:#4dbd74;"><b>Sign In</b></button><br>
+                                        <b>Note:</b>
+                                        <label style="font-size: 12px;"><b>For Reset Password :</b> Link will be sent to your E-mail address where you can reset your password!<br>
+                                        The Link will be valid for 10minutes.
+                                        </label>
                                   </div>
+
                                 </div>
                             </div>
                         </div>
@@ -145,8 +150,7 @@
 
         <!-- Controllers-->
         <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
-        <script type="text/javascript" src="js/globalController.js"></script>
+        <script type="text/javascript" src="js/forgot.js"></script>
 
         <!-- admin -->
         <script src="modules/admin/config.js"></script>

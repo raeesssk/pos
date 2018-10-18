@@ -1,14 +1,68 @@
 
-angular.module('setcorporate').controller('corporateCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route, $filter) {
+angular.module('setcorporate').controller('editCorporateCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route, $filter) {
 
-	$('#navbar_hide').hide();
-	$('#sidebar_hide').hide();
-	 // Main register Function
-	$('#scm_corp_name').focus();
-	 // console.log($rootScope.uid);
+	
+	$scope.corporateObj=JSON.parse(localStorage.getItem("pos_admin_corporate"));
+    $scope.apiURL = $rootScope.baseURL+'/corporate/edit/'+$scope.corporateObj.scm_id;
+	
+
+	$("#countries_states1").attr('data-country','IN');
+	$("#scm_state").attr('data-country','countries_states1');
+	$("#scm_contact_no").attr('data-country','countries_states1');
  	$scope.setCorp = {};
 
-  	$scope.addSetupCorp = function () {
+ 	$scope.getCorporate = function () {
+	     $http({
+	      method: 'GET',
+	      url: $rootScope.baseURL+'/corporate/'+$scope.corporateObj.scm_id,
+	      headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+	    })
+	    .success(function(corporate)
+	    {
+	    	
+      		$scope.setCorp.scm_corp_name=$scope.corporateObj.scm_corp_name;
+
+			$("#countries_states1").attr('data-country',$scope.corporateObj.scm_country);
+			$("#countries_states1").val($scope.corporateObj.scm_country);
+
+			$("#countries_states1").trigger('change');
+				$("#scm_state").attr('data-country',"countries_states1");
+				$("#scm_contact_no").attr('data-country','countries_states1');
+			
+			$scope.setCorp.scm_address=$scope.corporateObj.scm_address;
+			$scope.setCorp.scm_landmark=$scope.corporateObj.scm_landmark;
+			$scope.setCorp.scm_area=$scope.corporateObj.scm_area;
+			$scope.setCorp.scm_city=$scope.corporateObj.scm_city;
+			$scope.setCorp.scm_pincode=$scope.corporateObj.scm_pincode;
+
+			$("#scm_state").val($scope.corporateObj.scm_state);
+
+			$("#scm_currency").val($scope.corporateObj.scm_currency);
+
+			$scope.setCorp.scm_contact_name=$scope.corporateObj.scm_contact_name;
+
+			$scope.setCorp.scm_contact_no=$scope.corporateObj.scm_contact_no;
+
+			$scope.setCorp.scm_email=$scope.corporateObj.scm_email;
+
+			$scope.setCorp.scm_image=$scope.corporateObj.scm_image;
+      		// console.log($scope.corporateObj.scm_image);  
+	    })
+	    .error(function(data) 
+	    {   
+	      toastr.error('Oops, Something Went Wrong.', 'Error', {
+              closeButton: true,
+              progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });              
+	    });
+	};
+
+	// Main register Function
+  	$scope.updateSetupCorp = function () {
   		var alpharegex = /^[a-zA-Z ]*$/;
 	    var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var numRegex = /^\d+(\.\d{1,2})?$/;
@@ -33,16 +87,16 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 		    });
 		    $('#scm_corp_name').focus();
 		}
-	    // else if($scope.setCorp.scm_country == undefined || $scope.setCorp.scm_country  == ""){
-	    // 	toastr.error("Please enter Corporate Country.", 'Error', {
-		   //      closeButton: true,
-		   //      progressBar: true,
-			  // 	positionClass: "toast-top-center",
-			  // 	timeOut: "500",
-			  // 	extendedTimeOut: "500",
-		   //  });
-		   //  $('#countries_states1').focus();
-	    // }
+	    else if($('#countries_states1').val() == undefined || $('#countries_states1').val() == ""){
+	    	toastr.error("Please select Country.", 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    });
+		    $('#countries_states1').focus();
+	    }
 	    else if($('#scm_address').val() == undefined || $('#scm_address').val() == ""){
 	    	toastr.error("Please enter Address.", 'Error', {
 		        closeButton: true,
@@ -103,7 +157,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 		    });
 		    $('#scm_pincode').focus();
 		}
-	    else if($scope.setCorp.scm_state == undefined || $scope.setCorp.scm_state == ""){
+	    else if($('#scm_state').val() == undefined || $('#scm_state').val() == ""){
 	    	toastr.error("Please enter the State.", 'Error', {
 		        closeButton: true,
 		        progressBar: true,
@@ -113,7 +167,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 		    });
 		    // $('#scm_state').focus();
 	    }
-	    else if($scope.setCorp.scm_currency == undefined || $scope.setCorp.scm_currency == ""){
+	    else if($('#scm_currency').val() == undefined || $('#scm_currency').val() == ""){
 	    	toastr.error("Please enter Currency.", 'Error', {
 		        closeButton: true,
 		        progressBar: true,
@@ -166,8 +220,12 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 	    else{  
 	    		// window.location = '#/setrestaurant';
 
-	    		$scope.setCorp.scm_country = $('#countries_states1').val();
+	    		
                         var fd = new FormData();
+
+			    		$scope.setCorp.scm_country = $('#countries_states1').val();
+			    		$scope.setCorp.scm_state = $('#scm_state').val();
+			    		$scope.setCorp.scm_currency = $('#scm_currency').val();
                         
                         fd.append('scm_corp_name', $scope.setCorp.scm_corp_name);
                         fd.append('scm_country', $scope.setCorp.scm_country);
@@ -182,13 +240,13 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
                         fd.append('scm_contact_no', $scope.setCorp.scm_contact_no);
                         fd.append('scm_email', $scope.setCorp.scm_email);
                         fd.append('scm_image', $scope.setCorp.file);
-                        fd.append('scm_user_id', $rootScope.uid);
+
 
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait..."); 
 		    	$http({
 			      method: 'POST',
-			      url: $rootScope.baseURL+'/corporate/add',
+			      url: $scope.apiURL,
 			      data: fd,
 			      transformRequest: angular.identity,
 			      headers: {'Content-Type': undefined,
@@ -196,15 +254,16 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 			    })
 			    .success(function(category)
 			    {	
-			    	toastr.success('WelCome!.', 'Success', {
+			    	localStorage.setItem('pos_admin_corporate', JSON.stringify(category[0]));
+			    	toastr.success('Details Updated.', 'Success', {
 				        closeButton: true,
 				        progressBar: true,
 					  	positionClass: "toast-top-center",
 					  	timeOut: "500",
 					  	extendedTimeOut: "500",
 					});
-			    	$rootScope.corporateObj = category[0];
-	                $('#btnsave').text("Save");
+					
+	                $('#btnsave').text("Update");
 	                $('#btnsave').removeAttr('disabled');
 			       	window.location = "#/";  
 			    }) 	
@@ -217,7 +276,7 @@ angular.module('setcorporate').controller('corporateCtrl', function ($rootScope,
 					  	timeOut: "500",
 					  	extendedTimeOut: "500",
 				    });      
-	                $('#btnsave').text("Save");
+	                $('#btnsave').text("Update");
 	                $('#btnsave').removeAttr('disabled');    
 			    });
 	    }

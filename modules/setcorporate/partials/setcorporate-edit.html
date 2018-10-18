@@ -1,7 +1,13 @@
 <!-- Bootstrap Form Helpers -->
     <link href="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.css" rel="stylesheet" media="screen">
 
-<div class="container-fluid">
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0">
+    <li><a href="#/">Home</a></li>
+    <li class="active">Edit Corporate</li>
+</ol>
+
+<div class="container-fluid" ng-init="getCorporate();">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12">
@@ -24,7 +30,8 @@
                                     <label for="name">Country</label>
                                    <!--  <input type="text" id="scm_country" class="form-control" ng-model="setCorp.scm_country"> -->
                                     <form action="">
-                                      <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="IN" ng-model="setCorp.scm_country"></select>
+                                      <select id="countries_states1" class="form-control input-medium bfh-countries">
+                                      </select>
                                     </form>
                                 </div>
                             </div>
@@ -69,7 +76,7 @@
                                     <label for="name">State</label>
                                     <!-- <input type="text" id="scm_state" class="form-control" ng-model="setCorp.scm_state"> -->
                                     <form action="">
-                                        <select class="form-control input-medium bfh-states" data-country="countries_states1" ng-model="setCorp.scm_state">
+                                        <select id="scm_state" class="form-control input-medium bfh-states" >
                                         </select>
                                     </form>
                                 </div>
@@ -79,7 +86,7 @@
                                     <label for="name">Currency</label>
                                     <!-- <input type="text" id="scm_currency" class="form-control" ng-model="setCorp.scm_currency"> -->
                                     <form action="#">
-                                      <select class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="setCorp.scm_currency" ></select>
+                                      <select id="scm_currency" class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="setCorp.scm_currency" ></select>
                                     </form>
                                 </div>
                             </div>
@@ -94,7 +101,7 @@
                                     <label for="name">Contact Number</label>
                                    <!--  <input type="text" id="scm_contact_no" class="form-control" ng-model="setCorp.scm_contact_no"> -->
                                     <form action="#">
-                                      <input type="text" id="scm_contact_no" class="form-control bfh-phone" data-country="countries_states1" ng-model="setCorp.scm_contact_no">
+                                      <input type="text" id="scm_contact_no" class="form-control bfh-phone"  ng-model="setCorp.scm_contact_no">
                                     </form>
                                 </div>
                             </div>
@@ -104,21 +111,10 @@
                                     <input type="email" id="scm_email" class="form-control" ng-model="setCorp.scm_email">
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-2">
-                                <div class="form-group">
-                                    <input type='file' id="scm_image" name="scm_image" multiple/>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
-                                </div>
-                            </div> -->
-
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label for="name">Company Logo</label><br>
-                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{setCorp.scm_image}}"/>
                                     <input type='file' id="scm_image" name="scm_image" multiple/>
                                 </div>
                             </div>
@@ -127,9 +123,9 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <!-- <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button> -->
+                        <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button>
 
-                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addSetupCorp()">Save</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="updateSetupCorp()">Update</button>
                     </div>
                 </div>
             </div>

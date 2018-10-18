@@ -35,29 +35,32 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
                     data: $scope.loginmaster,
                     headers: {'Content-Type': 'application/json'}
                   })
-                  .success(function(category)
-                  {
-                     
-			        if(category.length > 0 && (category[0].username == $scope.loginmaster.username)){
+	          .success(function(category)
+	          {
+	             
+		        if(category.length > 0 && (category[0].username == $scope.loginmaster.username)){
 
 
-			        $('#username').attr('readonly','true'); 
-			        $('#login').text('Login');
-			        $('#password').show();
-			        $('#back').show();
-			        }
-			        else{
-			        	 var dialog = bootbox.dialog({
-                      message: '<p class="text-center">Please Enter the correct Username.</p>',
-                          closeButton: false
-                      });
-                      setTimeout(function(){
-                      $('#btnsave').html("SAVE");
-                      $('#btnsave').removeAttr('disabled');
-                          dialog.modal('hide'); 
-                      }, 1500);
-			        }
-                  })
+		        $('#username').attr('readonly','true'); 
+		        $('#login').text('Login');
+		        $('#password').show();
+		        $('#back').show();
+		        }
+		        else{
+		        		toastr.error('Please Enter Correct Email.', 'Error', {
+					        closeButton: true,
+					        progressBar: true,
+						  	positionClass: "toast-top-center",
+						  	timeOut: "500",
+						  	extendedTimeOut: "500",
+						});  	
+	                    setTimeout(function(){
+	                    $('#btnsave').html("SAVE");
+	                    $('#btnsave').removeAttr('disabled');
+	                        dialog.modal('hide'); 
+	                    }, 1500);
+		        }
+	          })
                   .error(function(data) 
                   {   
                     // var dialog = bootbox.dialog({
@@ -170,10 +173,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
         $('#back').hide();
   };
 
-	$scope.signup = function(){
-		window.location = 'signup.html';
-	};
-
+	
 }
 
 

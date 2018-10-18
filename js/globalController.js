@@ -7,8 +7,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.userid=localStorage.getItem("pos_admin_username");
     $rootScope.firstname=localStorage.getItem("pos_admin_firstname");
     $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");    
-    $rootScope.uid=localStorage.getItem("pos_admin_uid");
-    
+    $rootScope.uid=localStorage.getItem("pos_admin_uid"); 
     // $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.21:3000';
     $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
@@ -22,7 +21,6 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     // $rootScope.back = function () {
     //     window.history.back();
     // };
-
 
     $rootScope.logOut = function(){
 
@@ -98,8 +96,10 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
           })
           .success(function(deliverycount)
           {   
-            if (deliverycount.length == 1) {
-              $rootScope.corporateObj = deliverycount[0];
+            if (deliverycount.length == 1) {                            
+              localStorage.setItem('pos_admin_corporate',JSON.stringify(deliverycount[0]));
+              $rootScope.corpObj=deliverycount[0];
+              console.log($rootScope.corpObj);
             }
             else {
               window.location = "#/setcorporate";
