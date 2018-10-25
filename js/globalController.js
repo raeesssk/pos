@@ -7,7 +7,9 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.userid=localStorage.getItem("pos_admin_username");
     $rootScope.firstname=localStorage.getItem("pos_admin_firstname");
     $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");    
-    $rootScope.uid=localStorage.getItem("pos_admin_uid"); 
+    $rootScope.uid=localStorage.getItem("pos_admin_uid");                
+    $rootScope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
+    
     // $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.21:3000';
     $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
@@ -86,37 +88,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
         });
       };
 
-      $rootScope.getCorporateId = function(){
-          $http({
-            method: 'GET',
-            url: $rootScope.baseURL+'/corporate/' + $rootScope.uid,
-            // data: 'username='+$rootScope.userid,
-            headers: {'Content-Type': 'application/json',
-            'Authorization' :'Bearer '+$rootScope.tokken}
-          })
-          .success(function(deliverycount)
-          {   
-            if (deliverycount.length == 1) {                            
-              localStorage.setItem('pos_admin_corporate',JSON.stringify(deliverycount[0]));
-              $rootScope.corpObj=deliverycount[0];
-              console.log($rootScope.corpObj);
-            }
-            else {
-              window.location = "#/setcorporate";
-            }
-          })
-          .error(function(data) 
-          {   
-              toastr.error('Oops, Something Went Wrong.', 'Error', {
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-center",
-                timeOut: "500",
-                extendedTimeOut: "500",
-              });
-          });
-      };
-      $rootScope.getCorporateId();
+      
 
     // $scope.Log_Out = function () {
 

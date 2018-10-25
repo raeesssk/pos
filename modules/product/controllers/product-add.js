@@ -1,64 +1,41 @@
 // import admin
 angular.module('product').controller('productAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 	
-
+	$scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
 	$scope.apiURL = $rootScope.baseURL+'/product/add';
 
 	$scope.displayImages = "resources/assets/img/default-image.png";
 
+	$scope.check_isnight = $scope.restaurantObj.srm_isnight;
+	console.log($scope.check_isnight);
 
 	$scope.tableAreaDetails=[];
 	$scope.categoryList = [];
 	$scope.product = {};
-	$scope.product.pm_username = $rootScope.userid;
+	$scope.product.pm_srm_id = localStorage.getItem("pos_admin_srm_id");
 
-	/*$scope.onFileSelect = function ($files) {
-        var reader = new FileReader();
-        reader.readAsDataURL($files[0]);
+    $('#pm_ctm_id').focus();
+	//type a head
+    $scope.getSearchTable = function(vals) {
 
-        reader.onloadend = function () {
-            var img_data = reader.result;
-            var spl_dt = img_data.split(',');
-            $scope.displayImages = 'data:image/png;base64, ' + spl_dt[1];
-            $scope.displayImagesdb = spl_dt[1];
-            $scope.$apply();
-        };
-    };*/
-    $scope.onFileSelect = function ($files) {
-        $scope.speakerIcon.photo = $files[0];
-        $scope.fileName = $scope.speakerIcon.photo.name;
-        var reader = new FileReader();
-        reader.readAsDataURL($files[0]);
-
-        reader.onloadend = function () {
-            var img_data = reader.result;
-            var spl_dt = img_data.split(',');
-            $scope.displayImages = 'data:image/png;base64, ' + spl_dt[1];
-            $scope.displayImagesdb = spl_dt[1];
-            $scope.$apply();
-        };
-    };
-
-//typeahead customer list record for Customer Name input
-    $scope.getCategoryList = function(vals) {
-        var searchTerms = {search: vals};
+      var searchTerms = {search: vals, ctm_srm_id:localStorage.getItem("pos_admin_srm_id")};
         const httpOptions = {
-            headers: {
-              'Content-Type':  'application/json',
-              'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
-            }
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
         };
         return $http.post($rootScope.baseURL+'/category/typeahead/search', searchTerms, httpOptions).then((result) => {
-            return result.data;
-        });
+        return result.data;
+      });
     };
+	//end type a head
 
 	$scope.getDetails = function () {
 		$http({
 		      method: 'GET',
 		      url: $scope.apiURL,
-		      url: $rootScope.baseURL+'/area',
-		      data: $scope.formEntry,
+		      url: $rootScope.baseURL+'/area/restaurant/'+$scope.product.pm_srm_id,
 		      headers: {'Content-Type': 'application/json',
 	                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
 		    })
@@ -86,7 +63,27 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 		    });
 	};
 
-    $('#pm_ctm_id').focus();
+		// Image
+	$scope.displayImage = "resources/default-image.png";
+	  function readURL(input) {
+	    if (input.files && input.files[0]) {
+	          var reader = new FileReader();
+
+	              $scope.product.file = input.files[0];
+	          reader.onload = function (e) {
+	              $('#blah').attr('src', e.target.result);
+	          }
+	          reader.readAsDataURL(input.files[0]);
+
+	      }
+	  }
+	  // $("#ctm_image").change(function(){
+	  //     readURL(this);
+	  // });
+	  checkButton = function(objs){
+          readURL(objs);
+      };
+
 	$scope.addProduct = function () {
 
 	    if($('#pm_ctm_id').val() == undefined || $('#pm_ctm_id').val() == "" || $scope.product.pm_ctm_id.ctm_id == undefined){
@@ -129,69 +126,191 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 		    });
 		    $('#pm_expected_in').focus();
 	    }
-	    else
-	    {
-		    $scope.formEntry = {
-		    	productList : $scope.tableAreaDetails,
-		    	product : $scope.product
-		    }
-            $('#btnsave').attr('disabled','true');
-            $('#btnsave').text("please wait...");
-    		$http({
-		      method: 'POST',
-		      url: $scope.apiURL,
-		      data: $scope.formEntry,
-		      headers: {'Content-Type': 'application/json',
-	                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-		    })
-		    .success(function(login)
-		    {
-                $('#btnsave').text("Save Dishes");
-                $('#btnsave').removeAttr('disabled');
-		       window.location.href = '#/';  
-		    })
-		    .error(function(data) 
-		    {   
-		    	toastr.error('Oops, Something Went Wrong.', 'Error', {
-			        closeButton: true,
-			        progressBar: true,
-				  	positionClass: "toast-top-center",
-				  	timeOut: "500",
-				  	extendedTimeOut: "500",
-			    });
-                $('#btnsave').text("Save Dishes");
-                $('#btnsave').removeAttr('disabled');
+	    else if($('#pm_image').val() != "" && ($('#pm_image').data('max-size') < $('#pm_image').get(0).files[0].size )){
+        	toastr.error('Please Select Image size less than 200KB!', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
 		    });
-		}
+		    $('#pm_image').val("");
+            $('#blah').attr('src', "resources/default-image.png");
+      	}
+      	else{
+                $('#btnsave').attr('disabled','true');
+            	$('#btnsave').text("please wait...");
+
+                $http({
+                  method: 'POST',
+                  url: $rootScope.baseURL+'/product/checkname',
+                  data: $scope.product,
+                  headers: {'Content-Type': 'application/json',
+                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                })
+                .success(function(orderno)
+                {
+                    if(orderno.length == 0){
+                        
+                        var fd = new FormData();
+		            	fd.append('pm_ctm_id', $scope.product.pm_ctm_id);
+		            	fd.append('pm_description', $scope.product.pm_description);
+		            	fd.append('pm_dish_no', $scope.product.pm_dish_no);
+		            	fd.append('pm_expected_in', $scope.product.pm_expected_in);
+		                fd.append('ctm_image', $scope.product.file);
+		            	fd.append('ctm_srm_id', $scope.product.ctm_srm_id);
+
+		            	fd.append('am_name', $scope.product.am_name);
+		            	fd.append('ppm_fullday_price', $scope.product.ppm_fullday_price);
+		            	fd.append('ppm_fullnight_price', $scope.product.ppm_fullnight_price);
+		            	fd.append('ppm_halfday_price', $scope.product.ppm_halfday_price);
+		            	fd.append('ppm_halfnight_price', $scope.product.ppm_halfnight_price);
+
+                        $http({
+					      method: 'POST',
+					      url: $scope.apiURL,
+					      data: fd,
+					      transformRequest: angular.identity,
+					      headers: {'Content-Type': undefined,
+				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+					    })
+                        .success(function(product)
+					    {	
+					    	toastr.success('Dish Added Successfully!', 'Success', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });  
+				                $('#btnsave').text("Save Dishes");
+				                $('#btnsave').removeAttr('disabled');
+						       window.location.href = '#/'; ;   
+					    })
+                        .error(function(data) 
+					    {   
+					    	toastr.error('Oops, Something Went Wrong.', 'Error', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });      
+			                $('#btnsave').text("Save Dishes");
+                			$('#btnsave').removeAttr('disabled');    
+					    });
+                    }
+                    else{
+                            toastr.warning('Dish Already Exist!', 'Warning', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });      
+			                $('#btnsave').text("Save Dishes");
+               				$('#btnsave').removeAttr('disabled');
+                    	}
+                })
+                .error(function(data) 
+                {   
+                    toastr.error('Oops, Something Went Wrong.', 'Error', {
+				        closeButton: true,
+				        progressBar: true,
+					  	positionClass: "toast-top-center",
+					  	timeOut: "500",
+					  	extendedTimeOut: "500",
+				    });      
+	                $('#btnsave').text("Save Dishes");
+               		$('#btnsave').removeAttr('disabled');
+                });
+		    }
+
+
+
+	 //    else
+	 //    {
+		//     $scope.formEntry = {
+		//     	productList : $scope.tableAreaDetails,
+		//     	product : $scope.product
+		//     }
+  //           $('#btnsave').attr('disabled','true');
+  //           $('#btnsave').text("please wait...");
+  //   		$http({
+		//       method: 'POST',
+		//       url: $scope.apiURL,
+		//       data: $scope.formEntry,
+		//       headers: {'Content-Type': 'application/json',
+	 //                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+		//     })
+		//     .success(function(login)
+		//     {
+  //               $('#btnsave').text("Save Dishes");
+  //               $('#btnsave').removeAttr('disabled');
+		//        window.location.href = '#/';  
+		//     })
+		//     .error(function(data) 
+		//     {   
+		//     	toastr.error('Oops, Something Went Wrong.', 'Error', {
+		// 	        closeButton: true,
+		// 	        progressBar: true,
+		// 		  	positionClass: "toast-top-center",
+		// 		  	timeOut: "500",
+		// 		  	extendedTimeOut: "500",
+		// 	    });
+  //               $('#btnsave').text("Save Dishes");
+  //               $('#btnsave').removeAttr('disabled');
+		//     });
+		// }
 	    
 	};
 
+	if ($scope.restaurantObj.srm_isnight == 1) {
+		$(".id_of_4th_td").hide();
+	}
+
+
+
+	$("#check_day_half").change(function() {
+	     var is_checked = $(this).is(":checked");
+	     if(is_checked) {
+	     	$(".id_of_3th_td").val(0);
+	     }
+    });
+
+    $("#check_night_half").change(function() {
+	     var is_checked1 = $(this).is(":checked");
+	     if(is_checked1) {
+	     	$(".id_of_5th_td").val(0);
+	     	console.log($(".id_of_5th_td").val());
+	     }
+    });
+
 // CheckBoxs
-	$("#check_full_night").change(function() {
-	     var is_checked = $(this).is(":checked");
-	     if(!is_checked) {
-	      $(".id_of_3th_td").val(0);
-	     }
-	     $(".id_of_3th_td").prop("readonly", !is_checked);
-	});	
+	// $("#check_full_night").change(function() {
+	//      var is_checked = $(this).is(":checked");
+	//      if(!is_checked) {
+	//       $(".id_of_3th_td").val(0);
+	//      }
+	//      $(".id_of_3th_td").prop("readonly", !is_checked);
+	// });	
 		
-	$("#check_half_night").change(function() {
-	     var is_checked = $(this).is(":checked");
-	     if(!is_checked) {
-	      $(".id_of_5th_td").val(0);
-	     }
-	     $(".id_of_5th_td").prop("readonly", !is_checked);
-	});
+	// $("#check_half_night").change(function() {
+	//      var is_checked = $(this).is(":checked");
+	//      if(!is_checked) {
+	//       $(".id_of_5th_td").val(0);
+	//      }
+	//      $(".id_of_5th_td").prop("readonly", !is_checked);
+	// });
 	
-	$("#check_half").change(function() {
-	     var is_checked = $(this).is(":checked");
-	     if(!is_checked) {
-	      $(".id_of_4th_td").val(0);
-	      $(".id_of_5th_td").val(0);
-	      // $("#check_half_night").prop("checked", false);
-	     }
-	     $(".id_of_4th_td").prop("readonly", !is_checked);
-	});
+	// $("#check_half").change(function() {
+	//      var is_checked = $(this).is(":checked");
+	//      if(!is_checked) {
+	//       $(".id_of_4th_td").val(0);
+	//       $(".id_of_5th_td").val(0);
+	//      }
+	//      $(".id_of_4th_td").prop("readonly", !is_checked);
+	// });
 // END CheckBox
 
 });

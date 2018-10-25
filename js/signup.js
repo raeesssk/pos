@@ -156,9 +156,9 @@ $scope.preventPaste= function() {
 						        localStorage.setItem('pos_admin_expires_in', data.expires_in);
 						        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
 						        localStorage.setItem('pos_admin_token_type', data.token_type);
-		                $('#signup').text("Register");
-		                $('#signup').removeAttr('disabled');
-						         window.location = "/pos/#/setcorporate";
+				                $('#signup').text("Register");
+				                $('#signup').removeAttr('disabled');
+						         window.location = "/pos/#/setuprestaurant";
 					        })
 					        .error(function(data) 
 					        {   

@@ -36,23 +36,26 @@ angular.module('category').controller('categoryListCtrl', function ($rootScope, 
     $scope.categoryListcount=0;
     $scope.loading1 = 0;
 $scope.apiURL = $rootScope.baseURL+'/category/category/total';
-   $scope.getAll = function () {
+    $scope.getAll = function () {
         if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
       }
       else{
         $scope.limit.search = $scope.searchtext;
       }
+      $scope.limit.ctm_srm_id = localStorage.getItem("pos_admin_srm_id");
+
       $http({
-	      method: 'POST',
-	      url: $scope.apiURL,
-        data:$scope.limit,
-	      headers: {'Content-Type': 'application/json',
+        method: 'POST',
+        url: $scope.apiURL,
+        data: $scope.limit,
+        headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(category)
-	    {
-	      category.forEach(function (value, key) {
+      })
+      .success(function(category)
+      {
+
+        category.forEach(function (value, key) {
                   $scope.categoryListcount=value.total;
               });
 
@@ -60,22 +63,62 @@ $scope.apiURL = $rootScope.baseURL+'/category/category/total';
                   function () {
                     $scope.resetpagination();
                   });
-
               
               // $scope.$apply(); 
-	    })
-	    .error(function(data) 
-	    {   
+      })
+      .error(function(data) 
+      {   
               $scope.loading1 = 1;
-	      toastr.error('Oops, Something Went Wrong.', 'Error', {
+         toastr.error('Oops, Something Went Wrong.', 'Error', {
               closeButton: true,
               progressBar: true,
             positionClass: "toast-top-center",
             timeOut: "500",
             extendedTimeOut: "500",
-          });             
-	    });
+          });          
+      });
     };
+   // $scope.getAll = function () {
+   //      if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
+   //      $scope.limit.search = "";
+   //    }
+   //    else{
+   //      $scope.limit.search = $scope.searchtext;
+   //    }
+   //    $scope.limit.ctm_srm_id = localStorage.getItem("pos_admin_srm_id");
+   //    $http({
+	  //     method: 'POST',
+	  //     url: $scope.apiURL,
+   //      data:$scope.limit,
+	  //     headers: {'Content-Type': 'application/json',
+   //                'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+	  //   })
+	  //   .success(function(category)
+	  //   {
+	  //     category.forEach(function (value, key) {
+   //                $scope.categoryListcount=value.total;
+   //            });
+
+   //            $scope.$watch("currentPage + numPerPage",
+   //                function () {
+   //                  $scope.resetpagination();
+   //                });
+
+              
+   //            // $scope.$apply(); 
+	  //   })
+	  //   .error(function(data) 
+	  //   {   
+   //            $scope.loading1 = 1;
+	  //     toastr.error('Oops, Something Went Wrong.', 'Error', {
+   //            closeButton: true,
+   //            progressBar: true,
+   //          positionClass: "toast-top-center",
+   //          timeOut: "500",
+   //          extendedTimeOut: "500",
+   //        });             
+	  //   });
+   //  };
 
    //Pagination Function
     $scope.resetpagination = function () {

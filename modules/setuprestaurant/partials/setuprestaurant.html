@@ -115,7 +115,8 @@
                                 <br><div class="form-group">
                                     <label for="name">Restaurant Logo</label><br>
                                     <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
-                                    <input type='file' id="srm_image" name="srm_image" multiple/><br>
+                                    <input type='file' id="srm_image" name="srm_image" data-max-size="200000" multiple onchange="checkButton(this)" /><br>
+                                    <p style="font-size: 7pt; margin-top: 5px;" class="text-danger"><b>Upload Image less than 200KB</b></p>
                                 </div>
                             </div>
 

@@ -121,21 +121,48 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        })
 			        .success(function(deliverycount)
 			        {	
-			        	$scope.user = deliverycount[0].username;
-			        	$scope.firstname = deliverycount[0].first_name;
-			        	$scope.iconimage = deliverycount[0].icon_image;
-			        	$scope.uid = deliverycount[0].id;
-				  	 	localStorage.setItem('pos_admin_username', $scope.user);
-				  	 	localStorage.setItem('pos_admin_firstname', $scope.firstname);
-				  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);				  	 	
-				  	 	localStorage.setItem('pos_admin_uid', $scope.uid);
-				  	 	localStorage.setItem('pos_admin_access_token', data.access_token);
-				        localStorage.setItem('pos_admin_expires_in', data.expires_in);
-				        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
-				        localStorage.setItem('pos_admin_token_type', data.token_type);
-                $('#login').text("Login");
-                $('#login').removeAttr('disabled');
-				         window.location = "/pos/";
+			        	$http({
+				            method: 'GET',
+				            url: $rootScope.baseURL+'/restaurant/'+deliverycount[0].id,
+				            // data: 'username='+$rootScope.userid,
+				            headers: {'Content-Type': 'application/json',
+				            'Authorization' :'Bearer '+$rootScope.tokken}
+				          })
+				          .success(function(deliverycount1)
+				          {   
+				          	$scope.user = deliverycount[0].username;
+				        	$scope.firstname = deliverycount[0].first_name;
+				        	$scope.iconimage = deliverycount[0].icon_image;
+				        	$scope.uid = deliverycount[0].id;
+				            localStorage.setItem('pos_admin_restaurant',JSON.stringify(deliverycount1[0]));
+				            localStorage.setItem('pos_admin_srm_id',deliverycount1[0].srm_id);
+					  	 	localStorage.setItem('pos_admin_username', $scope.user);
+					  	 	localStorage.setItem('pos_admin_firstname', $scope.firstname);
+					  	 	localStorage.setItem('pos_admin_iconimage', $scope.iconimage);				  	 	
+					  	 	localStorage.setItem('pos_admin_uid', $scope.uid);
+					  	 	localStorage.setItem('pos_admin_access_token', data.access_token);
+					        localStorage.setItem('pos_admin_expires_in', data.expires_in);
+					        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
+					        localStorage.setItem('pos_admin_token_type', data.token_type);
+			                $('#login').text("Login");
+			                $('#login').removeAttr('disabled');
+				            if (deliverycount1.length == 1) {  
+					         window.location = "/pos/";           
+				            }
+				            else {
+				              window.location = "/pos/#/setuprestaurant";
+				            }
+				          })
+				          .error(function(data) 
+				          {   
+				              toastr.error('Oops, Something Went Wrong.', 'Error', {
+				                closeButton: true,
+				                progressBar: true,
+				                positionClass: "toast-top-center",
+				                timeOut: "500",
+				                extendedTimeOut: "500",
+				              });
+				          });
 			        })
 			        .error(function(data) 
 			        {   

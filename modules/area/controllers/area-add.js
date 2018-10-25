@@ -3,7 +3,7 @@ angular.module('area').controller('areaAddCtrl', function ($rootScope, $http, $s
 
 	$scope.apiURL = $rootScope.baseURL+'/area/add';
 	$scope.area = {};
-	$scope.area.am_username = $rootScope.userid;
+	$scope.area.am_srm_id = localStorage.getItem("pos_admin_srm_id");
 	
   	$scope.addArea = function () {
 	    
@@ -18,33 +18,77 @@ angular.module('area').controller('areaAddCtrl', function ($rootScope, $http, $s
 	    }
 	    else{
                 $('#btnsave').attr('disabled','true');
-            	$('#btnsave').text("please wait...");
-	    	$http({
-		      method: 'POST',
-		      url: $scope.apiURL,
-		      data: $scope.area,
-		      headers: {'Content-Type': 'application/json',
-	                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-		    })
-		    .success(function(area)
-		    {
-                $('#btnsave').text("Save Table Area");
-                $('#btnsave').removeAttr('disabled');
-		       window.location.href = '#/';  
-		    })
-		    .error(function(data) 
-		    {   
-		    	toastr.error('Oops, Something Went Wrong.', 'Error', {
-			        closeButton: true,
-			        progressBar: true,
-				  	positionClass: "toast-top-center",
-				  	timeOut: "500",
-				  	extendedTimeOut: "500",
-			    });      
-                $('#btnsave').text("Save Table Area");
-                $('#btnsave').removeAttr('disabled');    
-		    });
-	    }
+                $('#btnsave').text("please wait...");
+
+                $http({
+                  method: 'POST',
+                  url: $rootScope.baseURL+'/area/checkname',
+                  data: $scope.area,
+                  headers: {'Content-Type': 'application/json',
+                          'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                })
+                .success(function(orderno)
+                {
+                    if(orderno.length == 0){
+                        
+                        $http({
+					      method: 'POST',
+					      url: $scope.apiURL,
+					      data: $scope.area,
+					      headers: {'Content-Type': 'application/json',
+				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+					    })
+                        .success(function(area)
+					    {	
+					    	toastr.success('Area Added Successfully!', 'Success', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });  
+				                $('#btnsave').text("Save Table Area");
+				                $('#btnsave').removeAttr('disabled');
+						       	window.location.href = '#/';  
+					    })
+                        .error(function(data) 
+					    {   
+					    	toastr.error('Oops, Something Went Wrong.', 'Error', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });      
+			                $('#btnsave').text("Save Table Area");
+			                $('#btnsave').removeAttr('disabled');    
+					    });
+                    }
+                    else{
+                            toastr.warning('Area Already Exist!', 'Warning', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });      
+			                $('#btnsave').text("Save Table Area");
+			                $('#btnsave').removeAttr('disabled');
+                    	}
+                })
+                .error(function(data) 
+                {   
+                    toastr.error('Oops, Something Went Wrong.', 'Error', {
+				        closeButton: true,
+				        progressBar: true,
+					  	positionClass: "toast-top-center",
+					  	timeOut: "500",
+					  	extendedTimeOut: "500",
+				    });      
+	                $('#btnsave').text("Save Table Area");
+	                $('#btnsave').removeAttr('disabled');
+                });
+		    }
 	     
 	};
 

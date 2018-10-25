@@ -183,6 +183,17 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 		    });
 		    $('#srm_email').focus();
 		}
+		else if($('#srm_image').val() != "" && ($('#srm_image').data('max-size') < $('#srm_image').get(0).files[0].size )){
+        	toastr.error('Please Select Image size less than 200KB!', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    });
+		    $('#srm_image').val("");
+            $('#blah').attr('src', "resources/default-image.png");
+      	}
 	    else if($('#srm_day_start_time').val() == undefined || $('#srm_day_start_time').val() == ""){
             toastr.error('Please Select Day Start Time.', 'Error', {
 		        closeButton: true,
@@ -309,9 +320,9 @@ $scope.displayImage = "resources/default-image.png";
 
       }
   }
-  $("#srm_image").change(function(){
-      readURL(this);
-  });
+  checkButton = function(objs){
+          readURL(objs);
+      };
 
 // Time
 	$("#srm_day_start_time").datetimepicker({

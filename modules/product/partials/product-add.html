@@ -16,13 +16,8 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
-                            <!-- <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Category Name</label>
-                                    <input type="text" id="pm_ctm_id" class="form-control" ng-model="product.pm_ctm_id" placeholder="Select category name" typeahead="state as state.ctm_type for state in categoryList | filter:$viewValue | limitTo:8" />
-                                </div>
-                            </div> -->
-                            <div class="col-lg-6">
+                            
+                            <!-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Category Name</label>
                                     <input type="text"
@@ -35,6 +30,22 @@
                                         placeholder="Type category name">
                                     <i ng-show="loadingCateList" class="glyphicon glyphicon-refresh"></i>
                                     <div ng-show="noCateListResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                    </div>
+                                </div>
+                            </div> -->
+                             <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Category Name</label>
+                                    <input type="text"
+                                        id="pm_ctm_id"
+                                        ng-model="product.pm_ctm_id"
+                                        typeahead="obj as obj.ctm_type for obj in getSearchTable($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
+                                    <i ng-show="loadingCategoryList" class="glyphicon glyphicon-refresh"></i>
+                                    <div ng-show="noCategoryListResults">
                                         <i class="glyphicon glyphicon-remove"></i> No Results Found
                                     </div>
                                 </div>
@@ -77,14 +88,73 @@
                                 </div>
                             </div>
                             
-                            <div class="col-sm-6">
+                            <!-- <div class="col-sm-6">
                                 <div class="form-group">
                                     <img src="{{displayImages}}" onclick="document.getElementById('img-path').click(); return false; " id="app-file-btn" title="Click to add Photo" height="100" width="100">
                                     <input  type="file" 3d="img-path" name="file" id="profilePhotoFileUpload" placeholder="" ng-file-select="onFileSelect($files)" accept="" />
                                 </div>
+                            </div> -->
+                             <div class="col-lg-2">
+                                <div class="form-group">
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group" style="margin-left: -70px;">
+                                    <label for="name">Image</label>
+                                    <input type='file' id="pm_image" name="pm_image" data-max-size="200000" multiple onchange="checkButton(this)" /><br>
+                                    <p style="font-size: 7pt; margin-top: 5px;" class="text-danger"><b>Upload Image less than 200KB</b></p>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-4 table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="text-align: center;" colspan="2">DAY </th>
+                                            <th style="text-align: center;" colspan="2" ng-if="$scope.check_isnight = 0">NIGHT 
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align: center;">Area</th>
+                                            <th style="text-align: center;">Full (Price)</th>
+                                            <th style="text-align: center;">Half (Price)
+                                                <input type="checkbox" class="custom-control-input" id="check_day_half" ng-model="check_day_half" ng-true-value="true" ng-false-value="false">
+                                            </th>
+                                            <th style="text-align: center;" ng-if="$scope.check_isnight = 0">Full (Price)</th>
+                                            <th style="text-align: center;" ng-if="$scope.check_isnight = 0">Half (Price)
+                                                <input type="checkbox" class="custom-control-input" id="check_night_half" ng-model="check_night_half" ng-true-value="true" ng-false-value="false">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="view in tableAreaDetails track by $index">
+                                            <td> {{view.am_name}}</td>
+                                            <td>
+                                                <input type="number" class="form-control id_of_2th_td" ng-model="view.pm_fullday_price"/>
+                                            </td>
+
+                                            <td>
+                                                <input type="number" class="form-control id_of_3th_td" ng-model="view.pm_halfday_price" ng-show="check_day_half"/>
+                                            </td>
+
+                                            <td  ng-if="$scope.check_isnight = 0">
+                                                <input type="number" class="form-control id_of_4th_td" ng-model="view.pm_fullnight_price"/>
+                                            </td>
+
+                                            <td  ng-if="$scope.check_isnight = 0">
+                                                <input type="number" class="form-control id_of_5th_td" ng-model="view.pm_halfnight_price" ng-show="check_night_half"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
                             <div class="col-md-4 table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead>
@@ -132,7 +202,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
+
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/'" id="btncancel">Back</button>

@@ -1,5 +1,5 @@
 <!-- Breadcrumb -->
-<ol class="breadcrumb m-b-0" ng-init="getAreaList();">
+<ol class="breadcrumb m-b-0" ng-init="getTable();">
     <li><a href="#/">Home</a></li>
     <li><a href="#/table">Tables</a></li>
     <li class="active">Edit Tables</li>
@@ -16,10 +16,20 @@
                     </div>
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="name">Table Area Name</label>
-                                    <input type="text" id="tm_am_id" class="form-control" ng-model="table.tm_am" placeholder="Select table area name" typeahead="state as state.am_name for state in areaList | filter:$viewValue | limitTo:8" />
+                                    <label>Table Area Name</label>
+                                    <input type="text"
+                                        id="tm_am_id"
+                                        ng-model="table.tm_am"
+                                        typeahead="obj as obj.am_name for obj in getSearchTable($viewValue)"
+                                        typeahead-loading="loadingTableList"
+                                        typeahead-no-results="noTableListResults"
+                                        class="form-control">
+                                    <i ng-show="loadingTableList" class="glyphicon glyphicon-refresh"></i>
+                                    <div ng-show="noTableListResults">
+                                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">

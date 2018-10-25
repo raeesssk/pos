@@ -22,6 +22,19 @@
                                     <input type="text" id="ctm_type" class="form-control" ng-model="category.ctm_type">
                                 </div>
                             </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group" style="margin-left: -70px;">
+                                    <label for="name">Image</label>
+                                    <input type='file' id="ctm_image" name="ctm_image" data-max-size="200000" multiple onchange="checkButton(this)" /><br>
+                                    <p style="font-size: 7pt; margin-top: 5px;" class="text-danger"><b>Upload Image less than 200KB</b></p>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="card-footer">
