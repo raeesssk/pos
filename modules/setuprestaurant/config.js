@@ -1,20 +1,20 @@
 'use strict';
 /* Account Module */
-angular.module('setcorporate', [])
+angular.module('setuprestaurant', [])
     .config(['$routeProvider', function config($routeProvider) {
         
 
         $routeProvider
             
-            .when('/setcorporate',
+            .when('/setuprestaurant',
                 {
-                    templateUrl: 'modules/setcorporate/partials/setcorporate.html',
-                    controller: 'corporateCtrl',
+                    templateUrl: 'modules/setuprestaurant/partials/setuprestaurant.html',
+                    controller: 'setuprestaurantCtrl',
                     resolve: {
                         lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
-                                files: ['modules/setcorporate/controllers/setcorporate.js']
+                                files: ['modules/setuprestaurant/controllers/setuprestaurant.js']
                             }]);
                         }]
                     }

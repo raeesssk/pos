@@ -17,28 +17,15 @@ angular.module('admin', [])
                         }]
                     }
                 })
-            // .when('/profile',
-            //     {
-            //         templateUrl: 'modules/setcorporate/partials/edit-setcorporate.html',
-            //         controller: 'editCorporateCtrl',
-            //         resolve: {
-            //             lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
-            //                 return $ocLazyLoad.load([{
-            //                     name: 'myApp',
-            //                     files: ['modules/setcorporate/controllers/edit-setcorporate.js']
-            //                 }]);
-            //             }]
-            //         }
-            //     })
             .when('/profile',
                 {
-                    templateUrl: 'modules/setcorporate/partials/setcorporate-edit.html',
-                    controller: 'editCorporateCtrl',
+                    templateUrl: 'modules/setuprestaurant/partials/setuprestaurant-edit.html',
+                    controller: 'setuprestaurantEditCtrl',
                     resolve: {
                         lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
-                                files: ['modules/setcorporate/controllers/setcorporate-edit.js']
+                                files: ['modules/setuprestaurant/controllers/setuprestaurant-edit.js']
                             }]);
                         }]
                     }

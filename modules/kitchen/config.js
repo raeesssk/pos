@@ -32,7 +32,7 @@ angular.module('kitchen', [])
                             }]);
                         }]
                     }
-                })
+                });
 				
 			// .when('/kitchen/edit/:kitchenId',
    //              {

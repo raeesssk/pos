@@ -1,0 +1,200 @@
+<!-- Bootstrap Form Helpers -->
+    <link href="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.css" rel="stylesheet" media="screen">
+
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0">
+    <li><a href="#/">Home</a></li>
+    <li class="active">Edit Restaurant</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Setup Restaurant</strong>
+                        <small>Form</small>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Restaurant Name </label>
+                                    <input type="text" id="srm_restaurant_name" class="form-control" ng-model="setuprestaurant.srm_restaurant_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Country</label>
+                                   <!--  <input type="text" id="scm_country" class="form-control" ng-model="setuprestaurant.scm_country"> -->
+                                    <form action="">
+                                      <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="IN" ng-model="setuprestaurant.srm_country"></select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">State</label>
+                                    <!-- <input type="text" id="scm_state" class="form-control" ng-model="setuprestaurant.scm_state"> -->
+                                    <form action="">
+                                        <select class="form-control input-medium bfh-states" data-country="countries_states1" ng-model="setuprestaurant.srm_state">
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>                          
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">City</label>
+                                    <input type="text" id="srm_city" class="form-control" ng-model="setuprestaurant.srm_city">
+                                </div>
+                            </div>  
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Area</label>
+                                    <input type="text" id="srm_area" class="form-control" ng-model="setuprestaurant.srm_area">
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Landmark (Optional)</label>
+                                    <!-- <textarea type="text" id="scm_landmark" class="form-control" ng-model="purchase.scm_landmark"></textarea> -->
+                                    <input type="text" id="srm_landmark" class="form-control" ng-model="setuprestaurant.srm_landmark">
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Pincode</label>
+                                    <input type="text" id="srm_pincode" class="form-control" ng-model="setuprestaurant.srm_pincode">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Address Line</label>
+                                    <textarea id="srm_address" class="form-control" ng-model="setuprestaurant.srm_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Currency</label>
+                                    <!-- <input type="text" id="scm_currency" class="form-control" ng-model="setuprestaurant.scm_currency"> -->
+                                    <form action="#">
+                                      <select class="form-control input-medium bfh-currencies" data-currency="countries_states1" ng-model="setuprestaurant.srm_currency" ></select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Contact Name</label>
+                                    <input type="text" id="srm_contact_name" class="form-control" ng-model="setuprestaurant.srm_contact_name">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Contact Number</label>
+                                   <!--  <input type="text" id="scm_contact_no" class="form-control" ng-model="setuprestaurant.scm_contact_no"> -->
+                                    <form action="#">
+                                      <input type="text" id="srm_contact_number" class="form-control bfh-phone" data-country="countries_states1" ng-model="setuprestaurant.srm_contact_number">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="name">Email ID</label>
+                                    <input type="email" id="srm_email" class="form-control" ng-model="setuprestaurant.srm_email">
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type='file' id="scm_image" name="scm_image" multiple/>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <img alt="your image" id="blah" height="100" width="100" ng-src="{{displayImage}}"/>
+                                </div>
+                            </div> -->
+
+                            <div class="col-lg-2">
+                                <br><div class="form-group">
+                                    <label for="name">Restaurant Logo</label><br>
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                    <input type='file' id="srm_image" name="srm_image" multiple/><br>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-10">
+                                <br><div class="form-group">
+                                    <div class="col-md-12 table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;" colspan="3">OPERATING TIME</th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th style="text-align: center;">Start Time</th>
+                                                    <th style="text-align: center;">End Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th style="text-align: center;">Day</th>
+                                                    <td>
+                                                        <center>
+                                                            <input type="text" id="srm_day_start_time" class="form-control" ng-model="setuprestaurant.srm_day_start_time" readonly placeholder="Start Time" style="width: 90px;"/>
+                                                        </center>
+                                                    </td>
+                                                    <td>
+                                                        <center>
+                                                            <input type="text" id="srm_day_end_time" class="form-control" ng-model="setuprestaurant.srm_day_end_time" readonly placeholder="End Time" style="width: 90px;"/>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="text-align: center;">Night
+                                                        <input type="checkbox" class="custom-control-input" id="check_night" ng-model="check_night" ng-true-value="true" ng-false-value="false"/>
+                                                    </th>
+
+                                                    <td  style="text-align: center;">
+                                                        <center>
+                                                            <input type="text" id="srm_night_start_time" class="form-control" ng-model="setuprestaurant.srm_night_start_time" readonly placeholder="Start Time" style="width: 90px;"/>
+                                                        </center>    
+                                                    </td>
+                                                    <td>
+                                                        <center>
+                                                            <input type="text" id="srm_night_end_time" class="form-control" ng-model="setuprestaurant.srm_night_end_time" readonly placeholder="End Time" style="width: 90px;"/>
+                                                        </center>    
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button>
+
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="updateSetupRestro()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>   
+
+
+
+ <!-- Bootstrap Form Helpers -->
+<script src="resources/lib/bootstrapsformhelpers/bootstrap-formhelpers.js"></script>
+  <script>
+  function getVal() {
+    // This will get the value of #timepicker
+    alert($("#timepicker").val())
+  }
+  </script>
