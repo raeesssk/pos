@@ -7,12 +7,13 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	$scope.displayImages = "resources/assets/img/default-image.png";
 
 	$scope.check_isnight = $scope.restaurantObj.srm_isnight;
-	console.log($scope.check_isnight);
 
 	$scope.tableAreaDetails=[];
 	$scope.categoryList = [];
 	$scope.product = {};
 	$scope.product.pm_srm_id = localStorage.getItem("pos_admin_srm_id");
+
+	console.log('test 4');
 
     $('#pm_ctm_id').focus();
 	//type a head
@@ -153,19 +154,13 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
                     if(orderno.length == 0){
                         
                         var fd = new FormData();
-		            	fd.append('pm_ctm_id', $scope.product.pm_ctm_id);
+		            	fd.append('pm_ctm_id', $scope.product.pm_ctm_id.ctm_id);
 		            	fd.append('pm_description', $scope.product.pm_description);
 		            	fd.append('pm_dish_no', $scope.product.pm_dish_no);
 		            	fd.append('pm_expected_in', $scope.product.pm_expected_in);
-		                fd.append('ctm_image', $scope.product.file);
-		            	fd.append('ctm_srm_id', $scope.product.ctm_srm_id);
-
-		            	fd.append('am_name', $scope.product.am_name);
-		            	fd.append('ppm_fullday_price', $scope.product.ppm_fullday_price);
-		            	fd.append('ppm_fullnight_price', $scope.product.ppm_fullnight_price);
-		            	fd.append('ppm_halfday_price', $scope.product.ppm_halfday_price);
-		            	fd.append('ppm_halfnight_price', $scope.product.ppm_halfnight_price);
-
+		                fd.append('pm_image', $scope.product.file);
+		            	fd.append('pm_srm_id', $scope.product.pm_srm_id);
+		            	console.log($scope.product.pm_ctm_id.ctm_id);
                         $http({
 					      method: 'POST',
 					      url: $scope.apiURL,

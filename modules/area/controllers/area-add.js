@@ -49,7 +49,8 @@ angular.module('area').controller('areaAddCtrl', function ($rootScope, $http, $s
 						    });  
 				                $('#btnsave').text("Save Table Area");
 				                $('#btnsave').removeAttr('disabled');
-						       	window.location.href = '#/';  
+						       	// window.location.href = '#/';  
+
 					    })
                         .error(function(data) 
 					    {   
