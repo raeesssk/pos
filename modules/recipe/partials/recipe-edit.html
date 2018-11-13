@@ -1,5 +1,5 @@
 <!-- Breadcrumb -->
-<ol class="breadcrumb m-b-0" ng-init="getProductList();">
+<ol class="breadcrumb m-b-0" ng-init="getRecipe();">
     <li><a href="#/">Home</a></li>
     <li><a href="#/recipe">Recipe</a></li>
     <li class="active">Edit Recipe</li>
@@ -19,13 +19,25 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Dishes Name</label>
-                                    <input type="text" id="rm_pm_id" class="form-control" ng-model="recipe.rm_pm" placeholder="Select dishes name" typeahead="state as state.pm_search for state in productList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="rm_pm_id"
+                                        ng-model="recipe.rm_pm"
+                                        typeahead="obj as obj.pm_description for obj in getSearchproduct($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
-                                    <input type="text" id="rm_im_id" class="form-control" ng-model="recipe.rm_im" placeholder="Select product name" typeahead="state as state.im_search for state in inventoryList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="rm_im_id"
+                                        ng-model="recipe.rm_im"
+                                        typeahead="obj as obj.im_name for obj in getSearchInventory($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">

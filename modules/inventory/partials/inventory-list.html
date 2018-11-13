@@ -32,9 +32,9 @@
                               <td>{{inventory.um_name}}</td>
                               <td>{{inventory.im_quantity}}</td>
                               <td>
-                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/inventory/edit/{{inventory.im_id}}"><i class="icon icon-pencil"></i> Edit</a>
-                                <button class="btn btn-danger form-control"  data-toggle="modal" data-target="#confirm-delete" ng-click="deleteInventory(inventory.im_id)" style="width: 100px;">
-                                  <i class="icon icon-trash"></i> Delete
+                                <a class="btn btn-warning" href="#/inventory/edit/{{inventory.im_id}}"><i class="icon icon-pencil"></i></a>
+                                <button class="btn btn-danger"  data-toggle="modal" data-target="#confirm-delete" ng-click="deleteInventory(inventory.im_id)">
+                                  <i class="icon icon-trash"></i>
                                 </button>
                               </td>
                             </tr>

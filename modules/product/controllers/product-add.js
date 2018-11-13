@@ -13,7 +13,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	$scope.product = {};
 	$scope.product.pm_srm_id = localStorage.getItem("pos_admin_srm_id");
 
-	console.log('test 4');
+	
 
     $('#pm_ctm_id').focus();
 	//type a head
@@ -154,16 +154,28 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
                     if(orderno.length == 0){
                         
                         var fd = new FormData();
-		            	fd.append('pm_ctm_id', $scope.product.pm_ctm_id.ctm_id);
-		            	fd.append('pm_description', $scope.product.pm_description);
-		            	fd.append('pm_dish_no', $scope.product.pm_dish_no);
-		            	fd.append('pm_expected_in', $scope.product.pm_expected_in);
+                       
 		                fd.append('pm_image', $scope.product.file);
-		            	fd.append('pm_srm_id', $scope.product.pm_srm_id);
-		            	console.log($scope.product.pm_ctm_id.ctm_id);
+
+		                $scope.obj = {
+		                	list : $scope.tableAreaDetails,
+		                	product : $scope.product
+		                }
+
+		            	
                         $http({
 					      method: 'POST',
 					      url: $scope.apiURL,
+					      data: $scope.obj,
+					      headers: {'Content-Type': 'application/json',
+				                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+					    })
+                        .success(function(product)
+					    {	
+					    
+				    	$http({
+					      method: 'POST',
+					      url: $rootScope.baseURL+'/product/image/'+product[0].pm_id,
 					      data: fd,
 					      transformRequest: angular.identity,
 					      headers: {'Content-Type': undefined,
@@ -171,6 +183,20 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 					    })
                         .success(function(product)
 					    {	
+					    	 
+					    })
+                        .error(function(data) 
+					    {   
+					    	toastr.error('Oops, Something Went Wrong.', 'Error', {
+						        closeButton: true,
+						        progressBar: true,
+							  	positionClass: "toast-top-center",
+							  	timeOut: "500",
+							  	extendedTimeOut: "500",
+						    });      
+			                $('#btnsave').text("Save Dishes");
+                			$('#btnsave').removeAttr('disabled');    
+					    });
 					    	toastr.success('Dish Added Successfully!', 'Success', {
 						        closeButton: true,
 						        progressBar: true,
@@ -194,6 +220,8 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 			                $('#btnsave').text("Save Dishes");
                 			$('#btnsave').removeAttr('disabled');    
 					    });
+
+					    
                     }
                     else{
                             toastr.warning('Dish Already Exist!', 'Warning', {

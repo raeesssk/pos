@@ -8,7 +8,7 @@ function SignupCtrl($scope, $location, $http, $routeParams, $rootScope) {
 	$scope.apiURL = 'http://unitech.3commastechnologies.com:3000';
 	
   $scope.limit={};
-function onSuccess(googleUser) {
+		function onSuccess(googleUser) {
               console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
             }
             function onFailure(error) {
@@ -24,7 +24,7 @@ function onSuccess(googleUser) {
                 'onsuccess': onSuccess,
                 'onfailure': onFailure
               });
-            }
+        }
 
 $scope.preventPaste= function() {
  $('#password').bind('cut copy paste', function (e) {

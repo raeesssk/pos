@@ -19,13 +19,25 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Dishes Name</label>
-                                    <input type="text" id="rm_pm_id" class="form-control" ng-model="recipe.rm_pm_id" placeholder="Select dishes name" typeahead="state as state.pm_search for state in productList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="rm_pm_id"
+                                        ng-model="recipe.rm_pm_id"
+                                        typeahead="obj as obj.pm_description for obj in getSearchproduct($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
-                                    <input type="text" id="rm_im_id" class="form-control" ng-model="recipe.rm_im_id" placeholder="Select product name" typeahead="state as state.im_search for state in inventoryList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="rm_im_id"
+                                        ng-model="recipe.rm_im_id"
+                                        typeahead="obj as obj.im_name for obj in getSearchInventory($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">

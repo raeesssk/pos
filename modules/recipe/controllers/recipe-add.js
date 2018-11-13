@@ -6,56 +6,34 @@ angular.module('recipe').controller('recipeAddCtrl', function ($rootScope, $http
 	$scope.inventoryList = [];
 	$scope.recipe = {};
 	$scope.recipe.rm_username = $rootScope.userid;
+	$scope.recipe.rm_srm_id = localStorage.getItem("pos_admin_srm_id");
+	$scope.getSearchproduct = function(vals) {
 
-	$scope.getProductList = function() {
-    	$http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/product',
-	      //data: $scope.data,
-	      headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(productList)
-	    {
-	    	$scope.productList = angular.copy(productList);
-	    })
-	    .error(function(data) 
-	    {   
-            toastr.error('Oops, Something Went Wrong.', 'Error', {
-		        closeButton: true,
-		        progressBar: true,
-			  	positionClass: "toast-top-center",
-			  	timeOut: "500",
-			  	extendedTimeOut: "500",
-		    });  
-	    });
-	};
-    $scope.getProductList();
+      var searchTerms = {search: vals, pm_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/product/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
 
-    $scope.getInventoryList = function() {
-    	$http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/inventory',
-	      //data: $scope.data,
-	      headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(inventoryList)
-	    {
-	    	$scope.inventoryList = angular.copy(inventoryList);
-	    })
-	    .error(function(data) 
-	    {   
-            toastr.error('Oops, Something Went Wrong.', 'Error', {
-		        closeButton: true,
-		        progressBar: true,
-			  	positionClass: "toast-top-center",
-			  	timeOut: "500",
-			  	extendedTimeOut: "500",
-		    });  
-	    });
-	};
-    $scope.getInventoryList();
+    $scope.getSearchInventory = function(vals) {
+
+      var searchTerms = {search: vals, im_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/inventory/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
 	
   	$scope.addRecipe = function () {
 	    

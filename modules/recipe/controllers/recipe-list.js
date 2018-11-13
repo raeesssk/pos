@@ -43,6 +43,8 @@ $scope.apiURL = $rootScope.baseURL+'/recipe/recipe/total';
       else{
         $scope.limit.search = $scope.searchtext;
       }
+      $scope.limit.rm_srm_id = localStorage.getItem("pos_admin_srm_id");
+      
       $http({
 	      method: 'POST',
 	      url: $scope.apiURL,
@@ -104,6 +106,7 @@ $scope.apiURL = $rootScope.baseURL+'/recipe/recipe/total';
                   recipe.forEach(function (value, key) {
                       $scope.filteredTodos.push(value);
                   });
+
                 }
                 else{
                   

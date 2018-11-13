@@ -25,7 +25,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Unit Name</label>
-                                    <input type="text" id="im_um_id" class="form-control" ng-model="inventory.im_um_id" placeholder="Select unit name" typeahead="state as state.um_name for state in unitList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="im_um_id"
+                                        ng-model="inventory.im_um_id"
+                                        typeahead="obj as obj.um_name for obj in getSearchTable($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>

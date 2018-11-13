@@ -48,6 +48,8 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
       else{
         $scope.limit.search = $scope.searchtext;
       }
+
+      $scope.limit.pm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
 	      method: 'POST',
 	      url: $scope.apiURL,
@@ -58,8 +60,8 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
 	    .success(function(product)
 	    {
 	      product.forEach(function (value, key) {
-                  $scope.productListcount=value.total;
-              });
+            $scope.productListcount=value.total;
+        });
 
               $scope.$watch("currentPage + numPerPage",
                   function () {
@@ -179,16 +181,14 @@ $scope.apiURL = $rootScope.baseURL+'/product/product/total';
       $scope.viewList=[];
       
       $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/product/recipe',
-        data: $scope.filteredTodos[index],
+        method: 'GET',
+        url: $rootScope.baseURL+'/product/recipe/'+$scope.filteredTodos[index].pm_id,
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
-      .success(function(category)
+      .success(function(recipe)
       {
-        category.forEach(function (value, key) {
-            
+        recipe.forEach(function (value, key) {
             $scope.viewList.push(value);
           });    
         // console.log($scope.viewList);

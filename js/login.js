@@ -4,9 +4,9 @@
  //  angular.module('orientfurniture', []).controller('loginCtrl', function($scope, $http) {
 function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
-	// $scope.apiURL = 'http://10.1.0.21:3000';
-	$rootScope.baseURL = 'http://10.1.0.32:3000';
-	// $scope.apiURL = 'http://unitech.3commastechnologies.com:3000';
+	// $rootScope.baseURL = 'http://localhost:3000';
+	// $rootScope.baseURL = 'http://10.1.0.32:3000';
+	$scope.apiURL = 'http://unitech.3commastechnologies.com:3000';
 	// if(localStorage.getItem("pos_admin_access_token") != null)
  //      {
  //          window.location = '/greenair/';

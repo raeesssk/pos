@@ -48,15 +48,15 @@
                             <td>{{product.pm_dish_no}}</td>
                             <td>{{product.pm_expected_in}}</td>
                             <td>
-                              <button class="btn btn-success form-control"  data-toggle="modal" data-target="#orderDetails" ng-click="priceDetails(product.pm_id)" style="width: 100px;">
-                                <i class="icon icon-info"></i> Price
+                              <button class="btn btn-success"  data-toggle="modal" data-target="#orderDetails" ng-click="priceDetails(product.pm_id)">
+                                <i class="icon icon-info"></i>
                               </button>
-                              <button class="btn btn-info form-control"  data-toggle="modal" data-target="#orderDetails" ng-click="recipeDetails($index)" style="width: 100px;">
-                                <i class="icon icon-info"></i> Recipe
+                              <button class="btn btn-info"  data-toggle="modal" data-target="#orderDetails" ng-click="recipeDetails($index)">
+                                <i class="icon icon-info"></i>
                               </button>
-                              <a class="btn btn-warning form-control" style="width: 100px;" href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i> Edit</a>
-                              <button class="btn btn-danger form-control" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)" style="width: 100px;">
-                                <i class="icon icon-trash"></i> Delete
+                              <a class="btn btn-warning" href="#/product/edit/{{product.pm_id}}"><i class="icon icon-pencil"></i></a>
+                              <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ng-click="deleteProduct(product.pm_id)" >
+                                <i class="icon icon-trash"></i>
                               </button>
                             </td>
                           </tr>
@@ -113,7 +113,7 @@
       <div class="modal-header">
         <!-- <div ng-repeat="product in filteredTodos">{{product.pm_description}}</div> --> 
         <button type="button" class="close" data-dismiss="modal" ng-click="closechk()">&times;</button>
-        <h4 class="modal-title">Recipe</h4>
+        <h4 class="modal-title">Day And Night Price</h4>
       </div>
       <div class="modal-body"> 
         <table class="table table-bordered table-hover">

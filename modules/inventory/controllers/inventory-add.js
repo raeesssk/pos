@@ -5,31 +5,22 @@ angular.module('inventory').controller('inventoryAddCtrl', function ($rootScope,
 	$scope.unitList = [];
 	$scope.inventory = {};
 	$scope.inventory.im_username = $rootScope.userid;
+	$scope.inventory.im_srm_id = localStorage.getItem("pos_admin_srm_id");
+	
 
-	$scope.getUnitList = function() {
-    	$http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/unit',
-	      //data: $scope.data,
-	      headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(unitList)
-	    {
-	    	$scope.unitList = angular.copy(unitList);
-	    })
-	    .error(function(data) 
-	    {   
-            toastr.error('Oops, Something Went Wrong.', 'Error', {
-		        closeButton: true,
-		        progressBar: true,
-			  	positionClass: "toast-top-center",
-			  	timeOut: "500",
-			  	extendedTimeOut: "500",
-		    });  
-	    });
-	};
-    $scope.getUnitList();
+     $scope.getSearchTable = function(vals) {
+
+      var searchTerms = {search: vals, um_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/unit/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
 	
   	$scope.addInventory = function () {
 	    

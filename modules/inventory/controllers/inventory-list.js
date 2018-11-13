@@ -43,6 +43,7 @@ $scope.apiURL = $rootScope.baseURL+'/inventory/inventory/total';
       else{
         $scope.limit.search = $scope.searchtext;
       }
+      $scope.limit.im_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
 	      method: 'POST',
 	      url: $scope.apiURL,

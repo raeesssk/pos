@@ -11,8 +11,8 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
     
     // $rootScope.baseURL = 'http://localhost:3000';
-    $rootScope.baseURL = 'http://10.1.0.32:3000';
-    // $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
+    // $rootScope.baseURL = 'http://10.1.0.32:3000';
+    $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
     $rootScope.socket = io.connect($rootScope.baseURL); 
     
     if(localStorage.getItem("pos_admin_access_token") === null)

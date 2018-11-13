@@ -5,19 +5,60 @@ angular.module('product').controller('productEditCtrl', function ($rootScope, $h
 	$scope.productId = $routeParams.productId;
  	$scope.apiURL = $rootScope.baseURL+'/product/edit/'+$scope.productId;
 
+	$scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
 
- 	$scope.onFileSelect = function ($files) {
-        var reader = new FileReader();
-        reader.readAsDataURL($files[0]);
+	$scope.displayImages = "resources/assets/img/default-image.png";
 
-        reader.onloadend = function () {
-            var img_data = reader.result;
-            var spl_dt = img_data.split(',');
-            $scope.displayImages = 'data:image/png;base64,' + spl_dt[1];
-            $scope.displayImagesdb = spl_dt[1];
-            $scope.$apply();
-        };
-    };
+	$scope.check_isnight = $scope.restaurantObj.srm_isnight;
+
+ 	$scope.displayImage = "resources/default-image.png";
+	  function readURL(input) {
+	    if (input.files && input.files[0]) {
+	          var reader = new FileReader();
+
+	              $scope.product.file = input.files[0];
+	          reader.onload = function (e) {
+	              $('#blah').attr('src', e.target.result);
+	          }
+	          reader.readAsDataURL(input.files[0]);
+
+	      }
+	  }
+	  // $("#ctm_image").change(function(){
+	  //     readURL(this);
+	  // });
+	  checkButton = function(objs){
+          readURL(objs);
+      };
+
+      $scope.getDetails = function () {
+		$http({
+		      method: 'GET',
+		      url: $scope.apiURL,
+		      url: $rootScope.baseURL+'/area/restaurant/'+$scope.product.pm_srm_id,
+		      headers: {'Content-Type': 'application/json',
+	                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+		    })
+		    .success(function(area)
+		    {
+                // $scope.tableAreaDetails.push();
+                area.forEach(function (value, key) {
+
+                      $scope.tableAreaDetails.push(value);
+                });
+		    })
+		    .error(function(data) 
+		    {   
+		    	toastr.error('Oops, Something Went Wrong.', 'Error', {
+			        closeButton: true,
+			        progressBar: true,
+				  	positionClass: "toast-top-center",
+				  	timeOut: "500",
+				  	extendedTimeOut: "500",
+			    });
+		    });
+	};
+
 
 	$scope.getCategoryList = function() {
     	$http({
@@ -43,6 +84,20 @@ angular.module('product').controller('productEditCtrl', function ($rootScope, $h
 	    });
 	};
 
+	$scope.getSearchTable = function(vals) {
+
+      var searchTerms = {search: vals, ctm_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/category/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
+
   $scope.getProduct = function () {
 	     $http({
 	      method: 'GET',
@@ -53,15 +108,31 @@ angular.module('product').controller('productEditCtrl', function ($rootScope, $h
 	    .success(function(product)
 	    {
 	    	product.forEach(function (value, key) {
-	    		$scope.categoryList.forEach(function (value1, key1) {
-	    			if(value.pm_ctm_id == value1.ctm_id){
-		    			value.pm_ctm = value1;
-	    			}
-			    	if(value.pm_image!=null)
-		    			$scope.displayImages = 'data:image/png;base64,' + value.pm_image;
-		    		else
-		    			$scope.displayImages = "resources/assets/img/default-image.png";
-		    	});
+	    		$http({
+				      method: 'GET',
+				      url: $rootScope.baseURL+'/category',
+				      headers: {'Content-Type': 'application/json',
+			                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+				    })
+				    .success(function(categoryList)
+				    {
+				    	categoryList.forEach(function(value1,key){
+				    		if(value.pm_ctm_id == value1.ctm_id)
+				    		{
+				    			value.pm_ctm = value1;
+				    		}
+				    	})
+				    })
+				    .error(function(data) 
+				    {   
+				    	toastr.error('Oops, Something Went Wrong.', 'Error', {
+					        closeButton: true,
+					        progressBar: true,
+						  	positionClass: "toast-top-center",
+						  	timeOut: "500",
+						  	extendedTimeOut: "500",
+					    });  
+				    });
 	      		$scope.product = value;
               });
       		  

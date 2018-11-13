@@ -4,6 +4,7 @@ angular.module('unit').controller('unitAddCtrl', function ($rootScope, $http, $s
 	$scope.apiURL = $rootScope.baseURL+'/unit/add';
 	$scope.unit = {};
 	$scope.unit.um_username = $rootScope.userid;
+	$scope.unit.um_srm_id = localStorage.getItem("pos_admin_srm_id");
 	
   	$scope.addUnit = function () {
 	    
