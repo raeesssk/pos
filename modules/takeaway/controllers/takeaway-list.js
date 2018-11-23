@@ -13,7 +13,7 @@
     $scope.printList=[];
 
     $scope.orderObj.om_where='takeaway';
-
+    $scope.orderObj.srm_id = localStorage.getItem("pos_admin_srm_id");
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);

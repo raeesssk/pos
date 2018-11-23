@@ -48,6 +48,8 @@ angular.module('customer').controller('customerAddCtrl', function ($rootScope, $
     // $scope.customer.cm_state = "N/A";
     // $scope.customer.cm_city = "N/A";
     $scope.customer.cm_pin = "N/A";
+
+  $scope.customer.cm_srm_id = localStorage.getItem("pos_admin_srm_id");
     $("#cm_name").focus();
 
     /*$scope.getsamecheck = function(){
@@ -70,6 +72,37 @@ angular.module('customer').controller('customerAddCtrl', function ($rootScope, $
         $scope.customer.cm_del_pin = undefined;
       }
     };*/
+
+     var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/customer/add';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+      // for(var i=0;i<permission.length;i++)
+      // {
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+        /*
+        break;
+      }*/
+
+    };
+    $scope.getrolepermission();
 
 $scope.getAll=function(){
   $scope.loading1=1;
@@ -101,29 +134,7 @@ $scope.getAll=function(){
                 dialog.modal('hide'); 
                 $("#cm_address").focus();
             }, 1500);
-        }/*
-        else if($('#cm_state').val() == undefined || $('#cm_state').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter state.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_state").focus();
-            }, 1500);
         }
-        else if($('#cm_city').val() == undefined || $('#cm_city').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter city.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_city").focus();
-            }, 1500);
-        }*/
         else if($('#cm_pin').val() == undefined || $('#cm_pin').val() == ""){
             var dialog = bootbox.dialog({
             message: '<p class="text-center">please enter pin code.</p>',
@@ -134,51 +145,7 @@ $scope.getAll=function(){
                 dialog.modal('hide'); 
                 $("#cm_pin").focus();
             }, 1500);
-        }/*
-        else if($('#cm_del_address').val() == undefined || $('#cm_del_address').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter delivery address.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_del_address").focus();
-            }, 1500);
         }
-        else if($('#cm_del_state').val() == undefined || $('#cm_del_state').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter delivery state.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_del_state").focus();
-            }, 1500);
-        }
-        else if($('#cm_del_city').val() == undefined || $('#cm_del_city').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter delivery city.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_del_city").focus();
-            }, 1500);
-        }
-        else if($('#cm_del_pin').val() == undefined || $('#cm_del_pin').val() == ""){
-            var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter delivery pin code.</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $("#cm_del_pin").focus();
-            }, 1500);
-        }*/
 	    else if($('#cm_mobile').val() == undefined || $('#cm_mobile').val() == ""){
 	    	var dialog = bootbox.dialog({
             message: '<p class="text-center">please enter Mobile no.</p>',
@@ -190,43 +157,59 @@ $scope.getAll=function(){
                 $("#cm_mobile").focus();
             }, 1500);
 	    }
-	    // else if(!nameRegex.test($('#cm_mobile').val())){
-	    // 	var dialog = bootbox.dialog({
-     //        message: '<p class="text-center">please enter Mobile no. in digits</p>',
-     //            closeButton: false
-     //        });
-     //        dialog.find('.modal-body').addClass("btn-danger");
-     //        setTimeout(function(){
-     //            dialog.modal('hide'); 
-     //        }, 1500);
-	    // }
-	    // else if($('#cm_mobile').val().length < 10){
-	    // 	var dialog = bootbox.dialog({
-     //        message: '<p class="text-center">please enter a valid Mobile no.</p>',
-     //            closeButton: false
-     //        });
-     //        dialog.find('.modal-body').addClass("btn-danger");
-     //        setTimeout(function(){
-     //            dialog.modal('hide'); 
-     //        }, 1500);
-	    // }
-                else{
-
-                  $http({
+      else{
+              $http({
                     method: 'POST',
-                    url: $scope.apiURL,
+                    url: $rootScope.baseURL+'/customer/checkname',
                     data: $scope.customer,
                     headers: {'Content-Type': 'application/json',
                             'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
                   })
                   .success(function(login)
                   {
-                      $('#btnsave').text("Save Dishes");
+                      if(login.length == 0)
+                      {
+                        $http({
+                          method: 'POST',
+                          url: $scope.apiURL,
+                          data: $scope.customer,
+                          headers: {'Content-Type': 'application/json',
+                                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+                        })
+                        .success(function(login)
+                        {
+                            $('#btnsave').text("Save");
+                            $('#btnsave').removeAttr('disabled');
+                            
+                            window.location.href = '#/'; 
+
+                            socket.emit('tobackend', {customer:login})
+                        })
+                        .error(function(data) 
+                        {   
+                          var dialog = bootbox.dialog({
+                            message: '<p class="text-center">Oops, Something Went Wrong! Please Refresh the Page.</p>',
+                                closeButton: false
+                            });
+                            setTimeout(function(){
+                            $('#btnsave').html("SAVE");
+                            $('#btnsave').removeAttr('disabled');
+                                dialog.modal('hide'); 
+                            }, 1500);            
+                        });
+                      }
+                      else
+                      {
+                        toastr.warning('Customer Already Exist!', 'Warning', {
+                            closeButton: true,
+                            progressBar: true,
+                          positionClass: "toast-top-center",
+                          timeOut: "500",
+                          extendedTimeOut: "500",
+                        });      
+                      $('#btnsave').text("Save Customer");
                       $('#btnsave').removeAttr('disabled');
-                      
-                      socket.emit('tobackend', {customer:login})
-                        $scope.customer.push(login);
-                      window.location.href = '#/'; 
+                      }
                   })
                   .error(function(data) 
                   {   
@@ -240,6 +223,7 @@ $scope.getAll=function(){
                           dialog.modal('hide'); 
                       }, 1500);            
                   });
+                  
                 }
               }
             });

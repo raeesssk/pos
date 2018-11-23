@@ -6,6 +6,32 @@ angular.module('unit').controller('unitAddCtrl', function ($rootScope, $http, $s
 	$scope.unit.um_username = $rootScope.userid;
 	$scope.unit.um_srm_id = localStorage.getItem("pos_admin_srm_id");
 	
+	var permission=JSON.parse(localStorage.getItem('permission'));
+	  var value = '#/unit/add';
+	  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+
+    };
+    $scope.getrolepermission();
+
   	$scope.addUnit = function () {
 	    
 	    if($('#um_name').val() == undefined || $('#um_name').val() == ""){

@@ -58,7 +58,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Dealer Name</label>
-                                    <input type="text" id="prm_dm_id" class="form-control" ng-model="purchase.prm_dm_id" placeholder="Select dealer name" typeahead="state as state.dm_search for state in dealerList | filter:$viewValue | limitTo:8" />
+                                    <input type="text"
+                                        id="prm_dm_id"
+                                        ng-model="purchase.prm_dm_id"
+                                        typeahead="obj as obj.dm_firm_name for obj in getSearchDealer($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control" placeholder="Select Dealer Name">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -72,7 +78,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Select product</label>
-                                    <input type="text" id="ppm_im_id" class="form-control" ng-model="productObj.im_search" placeholder="Select product name" typeahead="inventory as inventory.im_search for inventory in inventoryList | filter:$viewValue | limitTo:8"  typeahead-on-select="setItemDetails()"/>
+                                    <input type="text"
+                                        id="ppm_im_id"
+                                        ng-model="productObj.ppm_im_id"
+                                        typeahead="obj as obj.im_name for obj in getSearchInventory($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control" placeholder="Select Dealer Name">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -116,7 +128,7 @@
                                     <tbody id="content">
                                         <tr ng-repeat="data in selectedProductList">
                                             <td style="padding:4px 8px 4px 8px;">{{data.srno}}</td>
-                                            <td style="padding:4px 8px 4px 8px;">{{data.im_search.im_search}}</td>
+                                            <td style="padding:4px 8px 4px 8px;">{{data.ppm_im_id.im_name}}</td>
                                             <td style="padding:4px 8px 4px 8px;">
                                                 <span class="printshow">
                                                 {{data.ppm_qty}}

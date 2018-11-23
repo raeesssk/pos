@@ -36,6 +36,31 @@ angular.module('dealer').controller('dealerListCtrl', function ($rootScope, $htt
     $scope.limit={};
     $scope.loading1 = 0;
 $scope.apiURL = $rootScope.baseURL+'/dealer/dealer/total';
+
+var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/dealer';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
         if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
@@ -43,6 +68,7 @@ $scope.apiURL = $rootScope.baseURL+'/dealer/dealer/total';
       else{
         $scope.limit.search = $scope.searchtext;
       }
+  $scope.limit.dm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
 	      method: 'POST',
 	      url: $scope.apiURL,

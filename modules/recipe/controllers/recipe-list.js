@@ -36,6 +36,31 @@ angular.module('recipe').controller('recipeListCtrl', function ($rootScope, $htt
     $scope.limit={};
     $scope.loading1 = 0;
 $scope.apiURL = $rootScope.baseURL+'/recipe/recipe/total';
+  
+    var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/recipe';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
         if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";

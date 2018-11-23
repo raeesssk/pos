@@ -1,0 +1,78 @@
+
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0" ng-init='getUser(); preventPaste();'>
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/product">User</a></li>
+    <li class="active">New User</li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New User</strong>
+                        <small>Form</small>
+                    </div>
+                    <!-- /.row -->
+                     <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Employee Name</label>
+                                            <input type="text"
+                                                id="um_emp_id"
+                                                ng-model="user.first_name"
+                                                typeahead="obj as obj.emp_name for obj in getSearch($viewValue)"
+                                                class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" id="um_user_name" class="form-control" ng-model="user.um_user_name" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" id="um_user_password" class="form-control" ng-model="user.um_user_password"  />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" id="um_confirm_password" class="form-control" ng-model="user.um_confirm_password" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Assign Roles</label>
+                                            <input type="text" id="um_rm_id" class="form-control" ng-model="user.um_rm"  typeahead="state as state.rm_name for state in getrole($viewValue)"/>
+                                        </div>
+                                    </div>
+                                    <br>  
+                              </div>
+                            </div>
+                                 <!-- col-lg-12 -->
+                        </div>
+                            <!-- row -->
+                    </div>
+                        <!-- /card block-->
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/user'" id="btncancel">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addUser()">Save User</button>
+                    </div>                   
+                </div>
+                    <!-- /.card  -->
+            </div>
+                <!-- /col-lg-12 -->
+        </div>
+    </div>
+</div>

@@ -19,7 +19,13 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="name">Dealer Name</label>
-                                    <input type="text" id="pcm_dm_id" ng-model="purcashbook.pcm_dm_id" typeahead="state as state.dm_search for state in dealerList | filter:$viewValue | limitTo:8" class="form-control"/>
+                                    <input type="text"
+                                        id="pcm_dm_id"
+                                        ng-model="purchase.pcm_dm_id"
+                                        typeahead="obj as obj.dm_firm_name for obj in getSearchDealer($viewValue)"
+                                        typeahead-loading="loadingCategoryList"
+                                        typeahead-no-results="noCategoryListResults"
+                                        class="form-control" placeholder="Select Dealer Name">
                                 </div>
                             </div>
                             <div class="col-sm-3">

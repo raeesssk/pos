@@ -36,6 +36,31 @@ angular.module('area').controller('areaListCtrl', function ($rootScope, $http, $
     $scope.limit={};
     $scope.loading1 = 0;
 $scope.apiURL = $rootScope.baseURL+'/area/area/total';
+
+  var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/area';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
         if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";

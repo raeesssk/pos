@@ -47,6 +47,7 @@
 
     	
     table.om_where = "dinein";
+    table.srm_id = localStorage.getItem("pos_admin_srm_id");
     if ($("#"+table.tm_id).hasClass('color')){
     		$http({
 			      method: 'post',
@@ -74,8 +75,7 @@
 				  	 			localStorage.setItem('tableObj',JSON.stringify(table) );
 				  	 			
 					    		window.location.href = '#/order/add';
-
-		    					
+	
 					    })
 					    .error(function(data) 
 					    {   

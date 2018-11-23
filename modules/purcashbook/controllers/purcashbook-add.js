@@ -6,6 +6,38 @@ angular.module('purcashbook').controller('purcashbookAddCtrl', function ($rootSc
     $scope.purcashbook.pcm_received_by = "N/A";
     $scope.purcashbook.pcm_payment_mode = "Cash";
     $scope.purcashbook.pcm_username = $rootScope.userid;
+
+     var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/cashbook/add';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+      // for(var i=0;i<permission.length;i++)
+      // {
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+        /*
+        break;
+      }*/
+
+    };
+    $scope.getrolepermission();
+
     $('#cheq').hide();
 
     var d = new Date();
@@ -14,6 +46,7 @@ angular.module('purcashbook').controller('purcashbookAddCtrl', function ($rootSc
     var dd  = d.getDate().toString();
     $scope.purcashbook.pcm_date = yyyy +"-"+ (parseInt(mm)+parseInt(1)) +"-"+ dd;
 
+  $scope.purcashbook.pcm_srm_id = localStorage.getItem("pos_admin_srm_id");
     $('#pcm_date').datetimepicker({
         validateOnBlur: false,
         todayButton: false,
@@ -42,29 +75,19 @@ angular.module('purcashbook').controller('purcashbookAddCtrl', function ($rootSc
         }
     });
 
-    $scope.getDealerList = function() {
-    	$http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/dealer/',
-	      headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(dealerList)
-	    {
-	    	$scope.dealerList = angular.copy(dealerList);
-	    })
-	    .error(function(data) 
-	    {   
-            toastr.error('Oops, Something Went Wrong.', 'Error', {
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-center",
-                timeOut: "500",
-                extendedTimeOut: "500",
-            });
-	    });
-	};
-    $scope.getDealerList();
+    $scope.getSearchDealer = function(vals) {
+
+      var searchTerms = {search: vals, dm_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/dealer/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
 
     $scope.chequeShow = function(){
         if ($scope.purcashbook.pcm_payment_mode == "Cheque") {

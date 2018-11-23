@@ -1,0 +1,58 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/product">Employee</a></li>
+    <li class="active">New Employee</li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New Employee</strong>
+                        <small>Form</small>
+                    </div>
+                    <!-- /.row -->
+                     <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Employee Name</label>
+                                            <input type="text" id="emp_name" class="form-control" ng-model="employee.emp_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Mobile Number</label>
+                                            <input type="text" id="emp_mobile" class="form-control" ng-model="employee.emp_mobile" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea id="emp_address" class="form-control" ng-model="employee.emp_address" rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                 <!-- col-lg-12 -->
+                        </div>
+                            <!-- row -->
+                    </div>
+                        <!-- /card block-->
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/customer'" id="btncancel">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addEmployee()">Save Employee</button>
+                    </div>                   
+                </div>
+                    <!-- /.card  -->
+            </div>
+                <!-- /col-lg-12 -->
+        </div>
+    </div>
+</div>

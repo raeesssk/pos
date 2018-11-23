@@ -16,7 +16,7 @@ angular.module('purcashbook', [])
 
         $routeProvider
             
-            .when('/purcashbook',
+            .when('/cashbook',
                 {
                     templateUrl: 'modules/purcashbook/partials/purcashbook-list.html',
                     controller: 'purcashbookCtrl',
@@ -30,7 +30,7 @@ angular.module('purcashbook', [])
                     }
                 })
 
-			.when('/purcashbook/add',
+			.when('/cashbook/add',
                 {
                     templateUrl: 'modules/purcashbook/partials/purcashbook-add.html',
                     controller: 'purcashbookAddCtrl',
@@ -44,7 +44,7 @@ angular.module('purcashbook', [])
                     }
                 })
 				
-			.when('/purcashbook/edit/:emId',
+			.when('/cashbook/edit/:emId',
                 {
                     templateUrl: 'modules/purcashbook/partials/purcashbook-edit.html',
                     controller: 'purcashbookEditCtrl',

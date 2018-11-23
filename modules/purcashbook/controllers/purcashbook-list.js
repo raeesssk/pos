@@ -14,6 +14,30 @@ angular.module('purcashbook').controller('purcashbookCtrl', function ($rootScope
     $scope.limit={};
     $scope.loading1 = 0;
     
+    var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/cashbook';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
         if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
@@ -21,6 +45,7 @@ angular.module('purcashbook').controller('purcashbookCtrl', function ($rootScope
       else{
         $scope.limit.search = $scope.searchtext;
       }
+  $scope.limit.pcm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
 	      method: 'POST',
 	      url: $rootScope.baseURL+'/purcashbook/purcashbook/total',

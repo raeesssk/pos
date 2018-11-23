@@ -11,7 +11,39 @@ angular.module('dealer').controller('dealerAddCtrl', function ($rootScope, $http
 	$scope.dealer.dm_debit ="0";
 	$scope.dealer.dm_opening_debit ="0";
 
+  $scope.dealer.dm_srm_id = localStorage.getItem("pos_admin_srm_id");
 	
+  	 var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/dealer/add';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+      // for(var i=0;i<permission.length;i++)
+      // {
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+        /*
+        break;
+      }*/
+
+    };
+    $scope.getrolepermission();
+
   	$scope.addDealer = function () {
 	    
 	    if($('#dm_firm_name').val() == undefined || $('#dm_firm_name').val() == ""){

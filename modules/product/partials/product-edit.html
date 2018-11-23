@@ -85,7 +85,7 @@
                                         <tr>
                                             <th></th>
                                             <th style="text-align: center;" colspan="2">DAY </th>
-                                            <th style="text-align: center;" colspan="2" ng-if="$scope.check_isnight == 1">NIGHT 
+                                            <th style="text-align: center;" colspan="2" ng-if="$scope.check_isnight == 0">NIGHT 
 
                                             </th>
                                         </tr>
@@ -95,9 +95,9 @@
                                             <th style="text-align: center;">Half (Price)
                                                 <input type="checkbox" class="custom-control-input" id="check_day_half" ng-model="check_day_half" ng-true-value="true" ng-false-value="false">
                                             </th>
-                                            <th style="text-align: center;" ng-if="$scope.check_isnight == 1">Full (Price)</th>
-                                            <th style="text-align: center;" ng-if="$scope.check_isnight == 1">Half (Price)
-                                                <input type="checkbox" class="custom-control-input" id="check_night_half" ng-model="check_night_half" ng-true-value="true" ng-false-value="false">
+                                            <th style="text-align: center;" ng-if="check_isnight == 1">Full (Price)</th>
+                                            <th style="text-align: center;" ng-if="check_isnight == 1">Half (Price)
+                                                <input type="checkbox" class="custom-control-input" id="check_night_half" ng-model="product.check_night_half" ng-change="check()">
                                             </th>
                                         </tr>
                                     </thead>
@@ -105,19 +105,19 @@
                                         <tr ng-repeat="view in tableAreaDetails track by $index">
                                             <td> {{view.am_name}}</td>
                                             <td>
-                                                <input type="number" class="form-control id_of_2th_td" ng-model="view.pm_fullday_price"/>
+                                                <input type="number" class="form-control id_of_2th_td" ng-model="view.ppm_fullday_price"/>
                                             </td>
 
                                             <td>
-                                                <input type="number" class="form-control id_of_3th_td" ng-model="view.pm_halfday_price" ng-show="check_day_half"/>
+                                                <input type="number" class="form-control id_of_3th_td" ng-model="view.ppm_halfday_price" ng-show="check_day_half"/>
                                             </td>
 
-                                            <td  ng-if="$scope.check_isnight == 1">
-                                                <input type="number" class="form-control id_of_4th_td" ng-model="view.pm_fullnight_price"/>
+                                            <td  ng-if="check_isnight == 1">
+                                                <input type="number" class="form-control id_of_4th_td" ng-model="view.ppm_fullnight_price"/>
                                             </td>
 
-                                            <td  ng-if="$scope.check_isnight == 1">
-                                                <input type="number" class="form-control id_of_5th_td" ng-model="view.pm_halfnight_price" ng-show="check_night_half"/>
+                                            <td  ng-if="check_isnight == 1">
+                                                <input type="number" class="form-control id_of_5th_td" ng-model="view.ppm_halfnight_price" ng-show="checknight == 1"/>
                                             </td>
                                         </tr>
                                     </tbody>

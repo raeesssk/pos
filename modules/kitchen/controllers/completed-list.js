@@ -15,6 +15,31 @@ angular.module('kitchen').controller('completedListCtrl', function ($rootScope, 
     $scope.limit={};
     $scope.parseInt = parseInt;
     var socket = io.connect($rootScope.baseURL);
+
+    var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/kitchen/completed';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
 
     $scope.completeList = [];

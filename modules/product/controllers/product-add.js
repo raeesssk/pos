@@ -4,6 +4,38 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	$scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
 	$scope.apiURL = $rootScope.baseURL+'/product/add';
 
+	 var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/product/add';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+      // for(var i=0;i<permission.length;i++)
+      // {
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+        /*
+        break;
+      }*/
+
+    };
+    $scope.getrolepermission();
+
+
 	$scope.displayImages = "resources/assets/img/default-image.png";
 
 	$scope.check_isnight = $scope.restaurantObj.srm_isnight;
@@ -12,9 +44,8 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	$scope.categoryList = [];
 	$scope.product = {};
 	$scope.product.pm_srm_id = localStorage.getItem("pos_admin_srm_id");
-
-	
-
+	$scope.product.check_night = false;
+	$scope.checknight = 0;
     $('#pm_ctm_id').focus();
 	//type a head
     $scope.getSearchTable = function(vals) {
@@ -84,6 +115,18 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	  checkButton = function(objs){
           readURL(objs);
       };
+
+      $scope.check=function(){
+      	
+      	if($scope.product.check_night == true)
+      	{
+      		$scope.checknight = 1;
+      	}
+      	else
+      	{
+      		$scope.checknight = 0;
+      	}
+      }
 
 	$scope.addProduct = function () {
 
@@ -206,7 +249,7 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 						    });  
 				                $('#btnsave').text("Save Dishes");
 				                $('#btnsave').removeAttr('disabled');
-						       window.location.href = '#/'; ;   
+						       window.location.href = '#/';  
 					    })
                         .error(function(data) 
 					    {   
@@ -288,26 +331,11 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
 	    
 	};
 
-	if ($scope.restaurantObj.srm_isnight == 1) {
-		$(".id_of_4th_td").hide();
-	}
+	
 
 
 
-	$("#check_day_half").change(function() {
-	     var is_checked = $(this).is(":checked");
-	     if(is_checked) {
-	     	$(".id_of_3th_td").val(0);
-	     }
-    });
-
-    $("#check_night_half").change(function() {
-	     var is_checked1 = $(this).is(":checked");
-	     if(is_checked1) {
-	     	$(".id_of_5th_td").val(0);
-	     	console.log($(".id_of_5th_td").val());
-	     }
-    });
+	
 
 // CheckBoxs
 	// $("#check_full_night").change(function() {

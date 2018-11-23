@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery-ui.css">
 
 
-        <link rel="stylesheet" type="text/css" href="resources/assets/css/jquery.datetimepicker.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
         <!-- Main styles for this application -->
         <link href="resources/assets/css/style.css" rel="stylesheet">
         <link href="resources/assets/css/chat.css" rel="stylesheet">
@@ -77,7 +77,7 @@
                     <li class="nav-item">
                         <a class="nav-link navbar-toggler layout-toggler" href="#">☰</a>
                     </li>
-                    <li class="nav-item p-x-1">
+                    <!-- <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/area/add"><i class="fa fa-plus-circle"></i> Table Area</a>
                     </li>
                     <li class="nav-item p-x-1">
@@ -88,11 +88,11 @@
                     </li>
                     <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/product/add"><i class="fa fa-plus-circle"></i> Dishes</a>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/subcategory/add"><i class="fa fa-plus-circle"></i> Sub Category</a>
                     </li> -->
-                    <li class="nav-item p-x-1">
+                    <!-- <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/unit/add"><i class="fa fa-plus-circle"></i> Unit</a>
                     </li>
                     <li class="nav-item p-x-1">
@@ -100,7 +100,7 @@
                     </li>
                     <li class="nav-item p-x-1">
                         <a class="nav-link" href="#/recipe/add"><i class="fa fa-plus-circle"></i> Recipe</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="nav navbar-nav pull-right hidden-md-down">
                     <li class="nav-item dropdown">
@@ -125,23 +125,69 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#/"><i class="icon-speedometer"></i> DASHBOARD</a>
                     </li>
+                    <li class="nav-item nav-dropdown" id="{{menu.pmm_id}}" ng-click="test(menu.pm_id)" ng-repeat="menu in role | orderBy:'pmm_id'">
+                        <a class="nav-link nav-dropdown-toggle" href=""><i ng-class="menu.pmm_class"></i>{{menu.pmm_name}}</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item" ng-click="test2(submenu.psm_id);$event.stopPropagation()" ng-repeat="submenu in menu.subpermission">
+                                <a class="nav-link" ng-href="{{submenu.psm_url}}"><i ng-class="submenu.psm_icon"></i>{{submenu.psm_permissions}}</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="#/user"><i class="icon-layers"></i> User List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/role/add"><i class="icon-compass"></i> Add Role</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/role"><i class="icon-layers"></i> Role List</a>
+                            </li> -->
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-layers"></i> Employee Management</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/employee/add"><i class="icon-compass"></i> Add Employee</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#/employee"><i class="icon-layers"></i> Employee List</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-cup"></i> Dishes</a>
                         <ul class="nav-dropdown-items">
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/category/add"><i class="fa fa-plus-circle"></i> Add Category</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/category"><i class="icon-energy"></i> Category</a>
+                            </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/product/add"><i class="fa fa-plus-circle"></i> Add Dishes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/product"><i class="icon-cup"></i> Dishes</a>
                             </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/subcategory/add"><i class="fa fa-plus-circle"></i> Add Sub Category</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/subcategory"><i class="icon-magic-wand"></i> Sub Category</a>
+                            </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/unit/add"><i class="fa fa-plus-circle"></i> Add Unit</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/unit"><i class="icon-puzzle"></i> Unit</a>
                             </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/inventory/add"><i class="fa fa-plus-circle"></i> Add Product</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/inventory"><i class="icon-basket-loaded"></i> Product</a>
+                            </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/recipe/add"><i class="fa fa-plus-circle"></i> Add Recipe</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/recipe"><i class="icon-doc"></i> Recipe</a>
@@ -151,8 +197,14 @@
                     <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-layers"></i> Tables</a>
                         <ul class="nav-dropdown-items">
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/area/add"><i class="fa fa-plus-circle"></i> Add Table Area</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/area"><i class="icon-compass"></i> Table Area</a>
+                            </li>
+                            <li class="nav-item p-x-1">
+                                <a class="nav-link" href="#/table/add"><i class="fa fa-plus-circle"></i> Add Table</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#/table"><i class="icon-layers"></i> Table</a>
@@ -212,7 +264,7 @@
                                 <a class="nav-link" href="#/kitchen/completed"><i class="icon-list"></i> Completed Orders</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-note"></i> Dinning</a>
                         <ul class="nav-dropdown-items">
@@ -316,6 +368,15 @@
 
         <!-- customer -->
         <script src="modules/customer/config.js"></script>
+
+        <!-- employee -->
+        <script src="modules/employee/config.js"></script>
+
+        <!-- role -->
+        <script src="modules/role/config.js"></script>
+
+        <!-- user -->
+        <script src="modules/user/config.js"></script>
 
         <!-- dinein -->
         <script src="modules/dinein/config.js"></script>

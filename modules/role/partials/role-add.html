@@ -1,0 +1,72 @@
+<!-- Breadcrumb -->
+<ol class="breadcrumb m-b-0" ng-init="getPermission();">
+    <li><a href="#/">Home</a></li>
+    <li><a href="#/role">Role</a></li>
+    <li class="active">New Role</li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>New Role</strong>
+                        <small>Form</small>
+                    </div>
+                    <!-- /.row -->
+                     <div class="card-block">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Role Name</label>
+                                            <input type="text" id="rm_name" class="form-control" ng-model="role.rm_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Role Description</label>
+                                            <input type="text" id="rm_description" class="form-control" ng-model="role.rm_description" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                 <!-- col-lg-12 -->
+                                 <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th class="" style="border: 1px solid #ccc; text-align: center;">Modules</th>
+                                  <th class="" style="border: 1px solid #ccc; text-align: center;">Permission</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng-repeat="permission in permissionList">
+                                  <td>{{permission.pmm_name}}</td>
+                                 <td><span ng-repeat="sub in permission.subpermissions"><input type="checkbox"  ng-model='sub.psm_select' ng-change="checksub(sub)">&nbsp;{{sub.psm_permissions}} &nbsp;
+                                  <span ng-repeat="supersub in sub.SuperSubpermissions"><input type="checkbox"  ng-model='supersub.pssm_select' ng-change="checksub(supersub)">&nbsp;{{supersub.pssm_permission}} &nbsp;</span>
+                                 </span>
+                                  
+                                 </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                            <!-- row -->
+                    </div>
+                        <!-- /card block-->
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-sm btn-danger" onclick="window.location = '#/role'" id="btncancel">Back</button>
+                        <button type="button" class="btn btn-sm btn-success" id="btnsave" ng-click="addRole()">Save Role</button>
+                    </div>                   
+                </div>
+                    <!-- /.card  -->
+            </div>
+                <!-- /col-lg-12 -->
+        </div>
+    </div>
+</div>
+
+
+
+<!--   -->

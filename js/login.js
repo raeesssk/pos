@@ -4,9 +4,9 @@
  //  angular.module('orientfurniture', []).controller('loginCtrl', function($scope, $http) {
 function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
-	// $rootScope.baseURL = 'http://localhost:3000';
+	$rootScope.baseURL = 'http://localhost:3000';
 	// $rootScope.baseURL = 'http://10.1.0.32:3000';
-	$scope.apiURL = 'http://unitech.3commastechnologies.com:3000';
+	// $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
 	// if(localStorage.getItem("pos_admin_access_token") != null)
  //      {
  //          window.location = '/greenair/';
@@ -122,6 +122,9 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        })
 			        .success(function(deliverycount)
 			        {	
+
+			        	$scope.role_id = deliverycount[0].user_rm_id;
+			        	localStorage.setItem('rm_id',$scope.role_id);
 			        	$http({
 				            method: 'GET',
 				            url: $rootScope.baseURL+'/restaurant/'+deliverycount[0].id,
@@ -130,7 +133,8 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 				            'Authorization' :'Bearer '+data.access_token}
 				          })
 				        .success(function(deliverycount1)
-				        {   				          	
+				        {   
+				        console.log("test"+deliverycount1);			          	
 			                $('#login').text("Login");
 			                $('#login').removeAttr('disabled');
 

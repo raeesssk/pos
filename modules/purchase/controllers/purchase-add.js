@@ -12,6 +12,40 @@ angular.module('purchase').controller('purchaseAddCtrl', function ($rootScope, $
     $scope.purchase.prm_comment = "N/A";
     $scope.purchase.prm_amount = "0.00";
 
+
+    var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/purchase/add';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+      
+      // for(var i=0;i<permission.length;i++)
+      // {
+        if(access)
+        {
+          return true
+        }
+        else
+        {
+           var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/')
+
+        }
+        /*
+        break;
+      }*/
+
+    };
+    $scope.getrolepermission();
+
+
+  $scope.purchase.prm_srm_id = localStorage.getItem("pos_admin_srm_id");
 	var d = new Date();
     var yyyy = d.getFullYear().toString();
     var mm = (d.getMonth()).toString(); // getMonth() is zero-based
@@ -56,7 +90,6 @@ angular.module('purchase').controller('purchaseAddCtrl', function ($rootScope, $
                 $scope.purchase.prm_invoice_no = 1;
 
 
-    		$scope.getDealerList();
         })
         .error(function(data) 
         {   
@@ -71,28 +104,19 @@ angular.module('purchase').controller('purchaseAddCtrl', function ($rootScope, $
     };
     $scope.getOrderNo();
 
-    $scope.getDealerList = function() {
-    	$http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/dealer/',
-	      headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-	    })
-	    .success(function(dealerList)
-	    {
-	    	$scope.dealerList = angular.copy(dealerList);
-	    })
-	    .error(function(data) 
-	    {   
-	    	toastr.error('Oops, Something Went Wrong.', 'Error', {
-		        closeButton: true,
-		        progressBar: true,
-			  	positionClass: "toast-top-center",
-			  	timeOut: "500",
-			  	extendedTimeOut: "500",
-		    });
-	    });
-	};
+    $scope.getSearchDealer = function(vals) {
+
+      var searchTerms = {search: vals, dm_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/dealer/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
+    };
 
 	$scope.creditShow = function(){
         if($scope.purchase.prm_credit == 'cash'){
@@ -105,29 +129,20 @@ angular.module('purchase').controller('purchaseAddCtrl', function ($rootScope, $
         }
     }
 
-    $scope.getInventoryList = function(){
-        $http({
-          method: 'GET',
-          url: $rootScope.baseURL+'/inventory',
-          headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-        })
-        .success(function(inventoryList)
-        {
-            $scope.inventoryList = angular.copy(inventoryList);
-        })
-        .error(function(data) 
-        {   
-            toastr.error('Oops, Something Went Wrong.', 'Error', {
-		        closeButton: true,
-		        progressBar: true,
-			  	positionClass: "toast-top-center",
-			  	timeOut: "500",
-			  	extendedTimeOut: "500",
-		    });
-        });
+    $scope.getSearchInventory = function(vals) {
+
+      var searchTerms = {search: vals, im_srm_id:localStorage.getItem("pos_admin_srm_id")};
+        const httpOptions = {
+          headers: {
+            'Content-Type':  'application/json',
+            'Authorization': 'Bearer '+localStorage.getItem("pos_admin_access_token")
+          }
+        };
+        return $http.post($rootScope.baseURL+'/inventory/typeahead/search', searchTerms, httpOptions).then((result) => {
+        return result.data;
+      });
     };
-    $scope.getInventoryList();
+    
 
     $scope.setItemDetails = function(){
         $scope.productObj.ppm_qty = 1;
@@ -140,7 +155,7 @@ angular.module('purchase').controller('purchaseAddCtrl', function ($rootScope, $
         var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var numRegex = /^\d+(\.\d{1,2})?$/;
 
-        if($('#ppm_im_id').val() == undefined || $('#ppm_im_id').val() == "" || $scope.productObj.im_search.im_id == undefined){
+        if($('#ppm_im_id').val() == undefined || $('#ppm_im_id').val() == "" || $scope.productObj.ppm_im_id.im_id == undefined){
             toastr.error('please select product.', 'Error', {
 		        closeButton: true,
 		        progressBar: true,

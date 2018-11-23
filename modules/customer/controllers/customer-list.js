@@ -57,6 +57,31 @@ angular.module('customer').controller('customerListCtrl', function ($rootScope, 
 
 
 $scope.apiURL = $rootScope.baseURL+'/customer/customer/total';
+
+var permission=JSON.parse(localStorage.getItem('permission'));
+  var value = '#/customer';
+  var access = permission.includes(value);
+    $scope.getrolepermission=function(){
+        if(access)
+        {
+          return true;
+        }
+        else
+        {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">You Are Not Authorized</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+          $location.path('/');
+        }
+          
+    };
+    $scope.getrolepermission();
+
    $scope.getAll = function () {
           if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
         $scope.limit.search = "";
@@ -64,6 +89,7 @@ $scope.apiURL = $rootScope.baseURL+'/customer/customer/total';
       else{
         $scope.limit.search = $scope.searchtext;
       }
+      $scope.limit.cm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
         method: 'POST',
         url: $scope.apiURL,

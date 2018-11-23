@@ -88,6 +88,7 @@ angular.module('customer').controller('customerEditCtrl', function ($rootScope, 
             }, 1500);
         }
         else{
+                
                   $http({
                     method: 'POST',
                     url: $scope.apiURL,
