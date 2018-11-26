@@ -34,7 +34,7 @@
                                     <input type="text"
                                         id="rm_im_id"
                                         ng-model="recipe.rm_im_id"
-                                        typeahead="obj as obj.im_name for obj in getSearchInventory($viewValue)"
+                                        typeahead="obj as obj.im_search for obj in getSearchInventory($viewValue)"
                                         typeahead-loading="loadingCategoryList"
                                         typeahead-no-results="noCategoryListResults"
                                         class="form-control">
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">Quantity</label>
+                                    <label for="name">Quantity(Kg)</label>
                                     <input type="text" id="rm_quantity" class="form-control keyboard-num" ng-model="recipe.rm_quantity"/>
                                 </div>
                             </div>

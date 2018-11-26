@@ -13,6 +13,16 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
   	$("#srm_night_end_time").hide();
   	$scope.setuprestaurant.srm_isnight = 0;
 
+  	$scope.check = function(){
+  		if($scope.setuprestaurant.srm_checkgst){
+  			$scope.setuprestaurant.srm_check = 1;
+  		}
+  		else
+  		{
+
+  			$scope.setuprestaurant.srm_check = 0;
+  		}
+  	};
   	$scope.addSetupRestro = function () {
   		var alpharegex = /^[a-zA-Z ]*$/;
 	    var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -244,6 +254,9 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
                         fd.append('srm_night_start_time',$('#srm_night_start_time').val());
                         fd.append('srm_night_end_time',$('#srm_night_end_time').val());
                         fd.append('srm_isnight',$scope.setuprestaurant.srm_isnight);
+                        fd.append('srm_checkgst',$scope.setuprestaurant.srm_checkgst);
+                        fd.append('srm_gst_no',$scope.setuprestaurant.srm_gst_no);
+                        fd.append('srm_gst_per',$scope.setuprestaurant.srm_gst_per);
 
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait..."); 

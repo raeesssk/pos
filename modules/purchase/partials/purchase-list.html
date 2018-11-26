@@ -30,7 +30,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr ng-repeat="purchase in filteredTodos | filter : purchase">
+                            <tr ng-repeat="purchase in filteredTodos">
                               <td>{{purchase.prm_invoice_no}}</td>
                               <td>{{purchase.prm_date | date : 'mediumDate'}}</td>
                               <td>{{purchase.dm_firm_name}} - {{purchase.dm_number}} - {{purchase.dm_address}}</td>
@@ -38,12 +38,12 @@
                               <td>{{purchase.prm_payment_date | date : 'mediumDate'}}</td>
                               <td>{{purchase.prm_amount}}</td>
                               <td ng-if="purchase.prm_status == 0">
-                                <button class="btn btn-info form-control"  data-toggle="modal" data-target="#view-details" ng-click="viewPurchaseDetails($index)" style="width: 100px;">
-                                  <i class="icon icon-info"></i> View
+                                <button class="btn btn-info"  data-toggle="modal" data-target="#view-details" ng-click="viewPurchaseDetails($index)">
+                                  <i class="icon icon-info"></i>
                                 </button>
-                                <a class="btn btn-warning form-control" style="width: 100px;" href="#/purchase/edit/{{purchase.prm_id}}"><i class="icon icon-pencil"></i> Edit</a>
-                                <button class="btn btn-danger form-control"  data-toggle="modal" data-target="#confirm-delete" ng-click="deletePurchase(purchase)" style="width: 100px;">
-                                  <i class="icon icon-trash"></i> Delete
+                                <a class="btn btn-warning" href="#/purchase/edit/{{purchase.prm_id}}"><i class="icon icon-pencil"></i></a>
+                                <button class="btn btn-danger"  data-toggle="modal" data-target="#confirm-delete" ng-click="deletePurchase(purchase)">
+                                  <i class="icon icon-trash"></i>
                                 </button>
                               </td>
                               <td ng-if="purchase.prm_status == 1">

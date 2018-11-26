@@ -46,22 +46,49 @@
             </div>
           </div>
               <div class="row">
+                <div class="col-lg-12">
                 <div class="col-lg-8">
-                  <div class="card" ng-show="pro == 1">
-                    <div class="card-header">
-                      <strong>Items</strong><br>
-                    </div>
-                      <!-- row -->
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="col-lg-3" ng-repeat="product in productList | filter : product">
-                            <button ng-click="addOrder(product);" id="{{product.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                              <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80" style="border-radius: 5px;"><p>{{product.pm_description}} {{product.pm_quantity}}</p></div>
-                            </button>
+                  <div class="col-lg-12">
+                    <div class="card" ng-show="pro == 1">
+                      <div class="card-header">
+                        <strong>Items</strong><br>
+                      </div>
+                        <!-- row -->
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="col-lg-3" ng-repeat="product in productList | filter : product">
+                              <button ng-click="addOrder(product);" id="{{product.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
+                                <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80" style="border-radius: 5px;"><p>{{product.pm_description}} {{product.pm_quantity}}</p></div>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                      <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <strong>Current order</strong><br>
+                          </div>
+                            <!-- row -->
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="card bg-success col-lg-4" style="margin-top: 2%; margin-left: 1%;" ng-if="print.opm_status_type != 'cancel'" ng-repeat="print in printList track by $index">
+                                  <div class="card-body">
+                                    <h5 style="margin-top: 6%">{{print.opm_quantity}} {{print.pm_description}}</h5>
+                                    <p class="card-text">Expected In-{{print.pm_expected_in}}</p>
+                                    <p class="card-text">Amount-{{print.opm_rate}}</p>
+                                    <div class="pull-right"><i class="icon icon-pencil" ng-if="print.opm_status_type == 'pending'" ng-click="om_update(print,$index)"></i>
+                                    <i class="icon icon-trash" ng-click="om_status($index)"></i></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card-footer">
+                              Sub-Total: <strong style="margin-left: 82%;">{{orderObj.total_amount | number:2}}</strong><br><br>
+                            </div>
+                        </div>
+                      </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="card" ng-show="pro == 1">
@@ -80,7 +107,8 @@
                             <small style="margin-left: 15px;"> x </small>
                             <strong style="margin-left: 105px;">{{(item.price * item.quantity) | number:2}}</strong>
                           </li>
-                        </div>
+                        </ul>
+                      </div>
                         <div class="card-footer">
                           Sub-Total: <strong style="margin-left: 195px;">{{orderObj.om_total | number:2}}</strong><br><br>
                           <button class="btn btn-block btn-success" id="stop" ng-click="orderConfirm()">Place Order</button>
@@ -88,6 +116,7 @@
                       </div>
                     </div>
                   </div>
+                </div>
                       <!-- <div class="col-lg-12"><hr>
                           <table class="table table-bordered table-striped">
                             <thead>
@@ -263,6 +292,35 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="del" class="btn btn-success" ng-click="cart()">Add to cart</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="updateQuantity">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Customization</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <h5>{{updateqty.pm_description}}</h5>
+          <div class="btn-group btn-group-xs" role="group" aria-label="...">
+            <button class="btn btn-success" ng-click="qminus($index)"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-default" disabled>{{updateqty.opm_quantity}}</button>
+            <button class="btn btn-success" ng-click="qplus($index)"><i class="fa fa-plus"></i></button>
+          </div>
+          <small style="margin-left: 15px;"> x </small>
+          <strong style="margin-left: 105px;">{{(updateqty.opm_rate * updateqty.quantity) | number:2}}</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="del" class="btn btn-success" ng-click="orderchange()">Update</button>
       </div>
     </div>
     <!-- /.modal-content -->

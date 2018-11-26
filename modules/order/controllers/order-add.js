@@ -2,7 +2,6 @@
  angular.module('order').controller('orderAddCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
 
     $scope.tableObj = JSON.parse(localStorage.getItem("tableObj"));
-    console.log($scope.tableObj);
     $scope.orderObj = JSON.parse(localStorage.getItem("orderObj"));
     $scope.pro=0;
     $scope.tab=0;
@@ -63,6 +62,7 @@
       })
       .success(function(category)
       {
+        console.log(category);
         category.forEach(function (value, key) {
           value.opm_quantity_old = value.opm_quantity;
           // $scope.orderObj.total_amount = parseFloat(parseFloat($scope.orderObj.total_amount) + parseFloat(value.opm_total));
@@ -521,22 +521,26 @@
         {
           var flag = 0;
           
+            $scope.customization.price = $scope.customization.ppm_fullday_price;
           if ($scope.itemList.length == 0) 
           {
-            $scope.customization.price = $scope.customization.ppm_fullday_price;
             $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
             $scope.customization.total = $scope.customization.price * product.quantity;
             $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + product.price);
           }
           else{
+
                 $scope.itemList.forEach(function (value, key) {
+                  console.log(value);
                   if (value.pm_id == $scope.customization.pm_id) 
                     {
                       value.quantity++;
                       value.total = value.price * value.quantity;
                       $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + value.price);;
                       flag=1;
+
+                      $('#stop').removeAttr("disabled");
                     }
                 });
                 if (flag==0)
@@ -544,6 +548,8 @@
                     $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
                     $scope.orderObj.om_total =  parseFloat($scope.orderObj.om_total + $scope.customization.price);
                     $scope.itemList.push($scope.customization);
+
+                    $('#stop').removeAttr("disabled");
                   }
               }
         }
@@ -557,10 +563,10 @@
         else
         {
           var flag = 0;
-        
+          
+          $scope.customization.price = $scope.customization.ppm_fullnight_price;
           if ($scope.itemList.length == 0) 
           {
-            $scope.customization.price = $scope.customization.ppm_fullnight_price;
             $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
             $scope.customization.total = $scope.customization.price * product.quantity;
@@ -574,6 +580,7 @@
                       value.total = value.price * value.quantity;
                       $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + value.price);;
                       flag=1;
+                      $('#stop').removeAttr("disabled");
                     }
                 });
                 if (flag==0)
@@ -581,6 +588,7 @@
                     $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
                     $scope.orderObj.om_total =  parseFloat($scope.orderObj.om_total + $scope.customization.price);
                     $scope.itemList.push($scope.customization);
+                      $('#stop').removeAttr("disabled");
                   }
               }
         }
@@ -618,8 +626,8 @@
           $scope.customization.price = $scope.customization.ppm_fullday_price;
           $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
-            $scope.customization.total = $scope.customization.ppm_fullday_price * $scope.customization.quantity;
-            $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + $scope.customization.ppm_fullday_price);
+            $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
+            $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + $scope.customization.price);
              $('#customize').modal('hide');
         }
         else if($scope.customization.selecthalf)
@@ -627,8 +635,8 @@
           $scope.customization.price = $scope.customization.ppm_halfday_price;
           $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
-            $scope.customization.total = $scope.customization.ppm_halfday_price * $scope.customization.quantity;
-            $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + $scope.customization.ppm_halfday_price);
+            $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
+            $scope.orderObj.om_total = parseFloat($scope.orderObj.om_total + $scope.customization.price);
              $('#customize').modal('hide');
         }
       }
@@ -664,40 +672,42 @@
     };
 
     
-
-    $scope.om_update = function(index){
-      $scope.updateList={
-        list:$scope.printList[index], 
-        total:$scope.orderObj.total_amount
-      };
-      $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/product/update',
-        data: $scope.updateList,
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      { 
-        toastr.success('Order Updated', 'Successfully', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          }); 
-        $scope.getPrintDetails();
-      })
-      .error(function(data) 
-      {   
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
+    $scope.updateqty={}
+    $scope.om_update = function(item,index){
+      $scope.updateqty = item;
+      $('#updateQuantity').modal('show');
+      // $scope.updateList={
+      //   list:$scope.printList[index], 
+      //   total:$scope.orderObj.total_amount
+      // };
+      // $http({
+      //   method: 'POST',
+      //   url: $rootScope.baseURL+'/order/product/update',
+      //   data: $scope.updateList,
+      //   headers: {'Content-Type': 'application/json',
+      //             'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      // })
+      // .success(function(category)
+      // { 
+      //   toastr.success('Order Updated', 'Successfully', {
+      //       closeButton: true,
+      //       progressBar: true,
+      //       positionClass: "toast-top-center",
+      //       timeOut: "500",
+      //       extendedTimeOut: "500",
+      //     }); 
+      //   $scope.getPrintDetails();
+      // })
+      // .error(function(data) 
+      // {   
+      //     toastr.error('Oops, Something Went Wrong.', 'Error', {
+      //       closeButton: true,
+      //       progressBar: true,
+      //       positionClass: "toast-top-center",
+      //       timeOut: "500",
+      //       extendedTimeOut: "500",
+      //     });          
+      // });
     };
 
     $scope.om_status = function(index){
@@ -736,7 +746,7 @@
     };
 
     $scope.orderConfirm = function(){
-      
+      $scope.placed = 1;
       $scope.objList={
         list:$scope.itemList, 
         obj:$scope.orderObj
