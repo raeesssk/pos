@@ -25,7 +25,8 @@
                                         typeahead="obj as obj.pm_description for obj in getSearchproduct($viewValue)"
                                         typeahead-loading="loadingCategoryList"
                                         typeahead-no-results="noCategoryListResults"
-                                        class="form-control">
+                                        class="form-control"
+                                        typeahead-on-select= "getProduct()">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -42,8 +43,14 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">Quantity(Kg)</label>
+                                    <label for="name">Quantity (As per inventory unit)</label>
                                     <input type="text" id="rm_quantity" class="form-control keyboard-num" ng-model="recipe.rm_quantity"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" ng-show="recipe.qty_half == 1">
+                                <div class="form-group">
+                                    <label for="name">Half Quantity (As per inventory unit)</label>
+                                    <input type="text" id="rm_quantity" class="form-control keyboard-num" ng-model="recipe.rm_quantity_half"/>
                                 </div>
                             </div>
                         </div>

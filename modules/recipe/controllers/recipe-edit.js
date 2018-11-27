@@ -34,6 +34,39 @@ angular.module('recipe').controller('recipeEditCtrl', function ($rootScope, $htt
         return result.data;
       });
     };
+
+    $scope.getProduct = function(){
+    	$http({
+          method: 'GET',
+          url: $rootScope.baseURL+'/product/price/'+$scope.recipe.rm_pm.pm_id,
+          //data: $scope.data,
+          headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+        })
+        .success(function(productlist)
+        {
+            if(productlist[0].pm_half == 1)
+            {
+            	$scope.recipe.qty_half = 1;
+            }
+            else
+            {
+            	$scope.recipe.qty_half = 0;
+              $scope.recipe.rm_quantity_half = 0;
+            }
+        })
+        .error(function(data) 
+        {   
+            var dialog = bootbox.dialog({
+            message: '<p class="text-center">Oops, Something Went Wrong!</p>',
+                closeButton: false
+            });
+            setTimeout(function(){
+                dialog.modal('hide');  
+                $('#addCustomer').modal('hide');
+            }, 1500);
+        });
+    };
 	
   $scope.getRecipe = function () {
 	     $http({

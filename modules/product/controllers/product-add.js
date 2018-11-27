@@ -184,7 +184,10 @@ angular.module('product').controller('productAddCtrl', function ($rootScope, $ht
       	else{
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait...");
-
+            	if($scope.check_day_half == true || $scope.product.check_night == true)
+            	{
+            		$scope.product.pm_half = 1;
+            	}
                 $http({
                   method: 'POST',
                   url: $rootScope.baseURL+'/product/checkname',

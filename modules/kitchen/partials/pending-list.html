@@ -23,38 +23,54 @@
                               <th>Order No</th>
                               <th>Where</th>
                               <th>Table</th>
-                              <th>Product</th>
+                              <th>Product and Price</th>
                               <th>Quantity</th>
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr ng-if="kitchen.opm_status_type == 'cancel'" ng-style=" {'background-color': 'red'}" ng-repeat="kitchen in kitchenList">
-                              <td>{{kitchen.om_no}}</td>
-                              <td>{{kitchen.om_where}}</td>
-                              <td>{{kitchen.tm_description}} {{kitchen.am_name}}</td>
-                              <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
-                              <td>{{kitchen.opm_quantity}}</td>
-                              <td><button class="btn btn-info" ng-click="ordercomplete($index)">
-                                <i class="fa fa-check"> Done</button></td>
-                            </tr>
-                            <tr ng-if="kitchen.opm_status_type == 'update'" ng-style=" {'background-color': 'yellow'}" ng-repeat="kitchen in kitchenList">
+                            <tr ng-if="kitchen.opm_status_type == 'In progress'" ng-style=" {'background-color': 'green','color':'white'}" ng-repeat="kitchen in kitchenList">
                               <td>{{kitchen.om_no}}</td>
                               <td>{{kitchen.om_where}}</td>
                               <td >{{kitchen.tm_description}} {{kitchen.am_name}}</td>
-                              <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
+                              <td>{{kitchen.pm_description}} ({{kitchen.opm_half}})</td>
                               <td>{{kitchen.opm_quantity}}</td>
                               <td><button class="btn btn-info" ng-click="ordercomplete($index)">
-                                <i class="fa fa-check"> Done</button></td>
+                                 <i class="fa fa-check"></i> Done</button>
+                              </td>
+                            </tr>
+                            <tr ng-if="kitchen.opm_status_type == 'cancel'" ng-style=" {'background-color': 'red','color':'white'}" ng-repeat="kitchen in kitchenList">
+                              <td>{{kitchen.om_no}}</td>
+                              <td>{{kitchen.om_where}}</td>
+                              <td>{{kitchen.tm_description}} {{kitchen.am_name}}</td>
+                              <td>{{kitchen.pm_description}} ({{kitchen.opm_half}})</td>
+                              <td>{{kitchen.opm_quantity}}</td>
+                              <td></td>
+                            </tr>
+                            <tr ng-if="kitchen.opm_status_type == 'update'" ng-style=" {'background-color': 'yellow', 'color':'white'}" ng-repeat="kitchen in kitchenList">
+                              <td>{{kitchen.om_no}}</td>
+                              <td>{{kitchen.om_where}}</td>
+                              <td >{{kitchen.tm_description}} {{kitchen.am_name}}</td>
+                              <td>{{kitchen.pm_description}} ({{kitchen.opm_half}})</td>
+                              <td>{{kitchen.opm_quantity}}</td>
+                              <td><button class="btn btn-info" ng-click="ordercomplete($index)">
+                                <i class="fa fa-check"></i>Done</button>
+                                <button class="btn btn-danger" ng-click="progress($index)">
+                                 <i class="fas fa-utensil-spoon"></i> In Progress</button>
+                               </td>
                             </tr>
                             <tr ng-if="kitchen.opm_status_type == 'pending'" ng-repeat="kitchen in kitchenList">
                               <td>{{kitchen.om_no}}</td>
                               <td>{{kitchen.om_where}}</td>
                               <td >{{kitchen.tm_description}} {{kitchen.am_name}}</td>
-                              <td>{{kitchen.pm_description}} {{kitchen.pm_quantity}}</td>
+                              <td>{{kitchen.pm_description}} ({{kitchen.opm_half}})</td>
                               <td>{{kitchen.opm_quantity}}</td>
                               <td><button class="btn btn-info" ng-click="ordercomplete($index)">
-                                 <i class="fa fa-check"></i> Done</button></td>
+                                 <i class="fa fa-check"></i> Done</button>
+
+                                 <button class="btn btn-danger" ng-click="progress($index)">
+                                 <i class="fas fa-utensil-spoon"></i> In Progress</button></td>
+                              </td>
                             </tr>
                           </tbody>
                         </table>

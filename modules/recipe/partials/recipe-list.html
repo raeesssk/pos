@@ -23,6 +23,7 @@
                               <th>Dishes</th>
                               <th>Product</th>
                               <th>Quantity</th>
+                              <th>Quantity Half</th>
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -31,6 +32,7 @@
                               <td>{{recipe.ctm_type}} {{recipe.pm_description}}</td>
                               <td>{{recipe.im_name}} ({{recipe.um_name}})</td>
                               <td>{{recipe.rm_quantity}}</td>
+                              <td>{{recipe.rm_quantity_half}}</td>
                               <td>
                                 <a class="btn btn-warning" href="#/recipe/edit/{{recipe.rm_id}}"><i class="icon icon-pencil"></i></a>
                                 <button class="btn btn-danger"  data-toggle="modal" data-target="#confirm-delete" ng-click="deleteRecipe(recipe.rm_id)">

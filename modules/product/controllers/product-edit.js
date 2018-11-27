@@ -196,7 +196,10 @@ angular.module('product').controller('productEditCtrl', function ($rootScope, $h
 	    	var fd = new FormData();
                        
             fd.append('pm_image', $scope.product.file);
-
+            if($scope.check_day_half == true || $scope.product.check_night_half == true)
+            	{
+            		$scope.product.pm_half = 1;
+            	}
 	  		$scope.obj = {
             	list : $scope.tableAreaDetails,
             	product : $scope.product

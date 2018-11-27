@@ -102,8 +102,41 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
             timeOut: "500",
             extendedTimeOut: "500",
           });
-   });
+      });
  };
+
+    $scope.progress = function(index){
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/kitchen/progress',
+        data: $scope.kitchenList[index],
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+        toastr.success('Order Completed', 'Success', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });
+          $rootScope.socket.emit('order-update',{
+            obj:category[0]
+          });
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });
+      });
+    };
        $rootScope.socket.on('order-update', function(data){
         $route.reload();
        });
