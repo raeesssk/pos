@@ -15,7 +15,7 @@
     $scope.viewList=[];   
 var socket = io.connect($rootScope.baseURL);
 $scope.apiURL = $rootScope.baseURL+'/order/order/total';
-
+  
   // Main Function
   $scope.getAll = function () {
           if ($('#searchtext').val() == undefined || $('#searchtext').val() == "") {
@@ -23,6 +23,8 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       }
       else{
         $scope.limit.search = $scope.searchtext;
+        $scope.limit.om_srm_id = localStorage.getItem("pos_admin_srm_id");
+        console.log($scope.limit);
       }
       // console.log($scope.limit);
       $http({

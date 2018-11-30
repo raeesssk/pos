@@ -4,15 +4,20 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 	
 	$scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
     $scope.apiURL = $rootScope.baseURL+'/restaurant/edit/'+$scope.restaurantObj.srm_id;
-	
 	$("#countries_states1").attr('data-country',$scope.restaurantObj.srm_country);
 	$("#countries_states1").trigger('change');
 	$("#srm_state").attr('data-country',"countries_states1");
 	$("#srm_contact_number").attr('data-country','countries_states1');
  	$scope.setuprestaurant = {};
-	
+	$scope.restaurantObj.srm_state = 'Madrid';
+
 	$scope.setuprestaurant = $scope.restaurantObj;
-	
+	console.log($scope.setuprestaurant);
+	if($scope.setuprestaurant.srm_checkgst == 1){
+		$scope.setuprestaurant.srm_check_gst = true;
+		$scope.setuprestaurant.srm_check = 1;
+	};
+	 		
 	if ($scope.setuprestaurant.srm_isnight == 0) {
 		$("#srm_night_start_time").hide();
 		$("#srm_night_end_time").hide();	
@@ -26,6 +31,18 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
   		$("#srm_night_end_time").show();
 	}
 	 	
+	 	$scope.check = function(){
+
+  		if($scope.setuprestaurant.srm_check_gst){
+  			$scope.setuprestaurant.srm_check = 1;
+  		}
+  		else
+  		{
+
+  			$scope.setuprestaurant.srm_check = 0;
+  		}
+  	};
+
 	// Main register Function
   	$scope.updateSetupRestro = function () {
   		var alpharegex = /^[a-zA-Z ]*$/;
@@ -365,8 +382,47 @@ $scope.displayImage = "resources/default-image.png";
   			$("#srm_night_end_time").show();
 	     }
     });
-	// END Operating time for night
 
+
+	// END Operating time for night
+	 //  <label for="country">Country *</label>
+  // <select id="country" ng-model="countrySrc" ng-options="country for (country, states) in countries" ng-change="GetSelectedCountry()">
+  //   <option value=''>Select</option>
+  // </select>
+  // <label for="state">State *</label>
+  // <select id="state" ng-disabled="!countrySrc" ng-model="stateSrc" ng-options="state for (state,city) in countrySrc" ng-change="GetSelectedState()">
+  //   <option value=''>Select</option>
+  // </select>
+  // <label for="city">City *</label>
+  // <select id="city" ng-disabled="!countrySrc || !stateSrc" ng-model="city" ng-options="city for city in stateSrc">
+  //   <option value=''>Select</option>
+
+  // </select>
+
+	 // $scope.countries = {
+
+  //           'USA': {
+  //             'Alabama': ['Montgomery', 'Birmingham'],
+  //             'California': ['Sacramento', 'Fremont'],
+  //             'Illinois': ['Springfield', 'Chicago']
+  //           },
+  //           'India': {
+  //             'Maharashtra': ['Pune', 'Mumbai', 'Nagpur', 'Akola'],
+  //             'Madhya Pradesh': ['Indore', 'Bhopal', 'Jabalpur'],
+  //             'Rajasthan': ['Jaipur', 'Ajmer', 'Jodhpur']
+  //           },
+  //           'Australia': {
+  //             'New South Wales': ['Sydney'],
+  //             'Victoria': ['Melbourne']
+  //           }
+  //         };
+
+  //         $scope.GetSelectedCountry = function() {
+  //           $scope.strCountry = $scope.countrySrc;
+  //         };
+  //         $scope.GetSelectedState = function() {
+  //           $scope.strState = $scope.stateSrc;
+  //         };
 
 });
 

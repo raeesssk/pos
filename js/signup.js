@@ -8,23 +8,23 @@ function SignupCtrl($scope, $location, $http, $routeParams, $rootScope) {
 	// $scope.apiURL = 'http://unitech.3commastechnologies.com:3000';
 	
   $scope.limit={};
-		function onSuccess(googleUser) {
-              console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-            }
-            function onFailure(error) {
-              console.log(error);
-            }
-            function renderButton() {
-              gapi.signin2.render('my-signin2', {
-                'scope': 'profile email',
-                'width': 240,
-                'height': 50,
-                'longtitle': true,
-                'theme': 'dark',
-                'onsuccess': onSuccess,
-                'onfailure': onFailure
-              });
-        }
+		// function onSuccess(googleUser) {
+  //             console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  //           }
+  //           function onFailure(error) {
+  //             console.log(error);
+  //           }
+  //           function renderButton() {
+  //             gapi.signin2.render('my-signin2', {
+  //               'scope': 'profile email',
+  //               'width': 240,
+  //               'height': 50,
+  //               'longtitle': true,
+  //               'theme': 'dark',
+  //               'onsuccess': onSuccess,
+  //               'onfailure': onFailure
+  //             });
+  //       }
 
 $scope.preventPaste= function() {
  $('#password').bind('cut copy paste', function (e) {
@@ -108,7 +108,6 @@ $scope.preventPaste= function() {
   		else{
                 $('#signup').attr('disabled','true');
                 $('#signup').text("please wait...");
-               console.log($scope.limit);
                 $http({
 				    method: 'POST',
 				   	url: $scope.apiURL+'/signup',
@@ -117,7 +116,7 @@ $scope.preventPaste= function() {
 			    })
 			    .success(function(product)
 			    {
-			      	toastr.success('Hoola, Account Created!', 'Success', {
+			      	toastr.success('Hola, Account Created!', 'Success', {
 			              closeButton: true,
 			              progressBar: true,
 			            positionClass: "toast-top-center",
@@ -133,9 +132,7 @@ $scope.preventPaste= function() {
 					 })
 				  	 .success(function(data, status, headers, config)
 				  	 {
-				  	 	
-
-					        $http({
+				  	 	 $http({
 					          method: 'POST',
 					          url: $scope.apiURL+'/login/isonline',
 					          data: 'username='+$scope.limit.email,
@@ -144,6 +141,7 @@ $scope.preventPaste= function() {
 					        })
 					        .success(function(deliverycount)
 					        {	
+			        			$scope.role_id = deliverycount[0].user_rm_id;
 					        	$scope.user = deliverycount[0].username;
 					        	$scope.firstname = deliverycount[0].first_name;
 					        	$scope.iconimage = deliverycount[0].icon_image;
@@ -156,6 +154,7 @@ $scope.preventPaste= function() {
 						        localStorage.setItem('pos_admin_expires_in', data.expires_in);
 						        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
 						        localStorage.setItem('pos_admin_token_type', data.token_type);
+		        				localStorage.setItem('rm_id',$scope.role_id);
 				                $('#signup').text("Register");
 				                $('#signup').removeAttr('disabled');
 						         window.location = "/pos/#/setuprestaurant";

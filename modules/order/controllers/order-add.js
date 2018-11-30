@@ -244,7 +244,7 @@
                   
                     $http({
                         method: 'post',
-                        url: $rootScope.baseURL+'/order/order/status',
+                        url: $rootScope.baseURL+'/order/order/close',
                         data: $scope.orderObj,
                         headers: {'Content-Type': 'application/json',
                                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
@@ -487,7 +487,6 @@
       })
       .success(function(category)
       {
-        console.log(category)
           $('#stop').attr("disabled","true");
             category.forEach(function (value, key) {
               value.quantity = 1;
@@ -521,6 +520,7 @@
           var flag = 0;
           
             $scope.customization.price = $scope.customization.ppm_fullday_price;
+          $scope.customization.opm_half = 'Full';
           if ($scope.itemList.length == 0) 
           {
             $scope.itemList.push($scope.customization);
@@ -564,6 +564,8 @@
           var flag = 0;
           
           $scope.customization.price = $scope.customization.ppm_fullnight_price;
+
+          $scope.customization.opm_half = 'Full';
           if ($scope.itemList.length == 0) 
           {
             $scope.itemList.push($scope.customization);
@@ -624,6 +626,7 @@
         {
 
           $scope.customization.price = $scope.customization.ppm_fullday_price;
+          $scope.customization.opm_half = 'Full';
           $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
             $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
@@ -633,6 +636,7 @@
         else if($scope.customization.selecthalf)
         {
           $scope.customization.price = $scope.customization.ppm_halfday_price;
+          $scope.customization.opm_half = 'Half';
           $scope.itemList.push($scope.customization);
             $('#stop').removeAttr("disabled");
             $scope.customization.total = $scope.customization.price * $scope.customization.quantity;
@@ -795,6 +799,8 @@
           });          
       });
     };
+
+
     $rootScope.socket.on('orderPlace', function(data){
         $route.reload();
        });

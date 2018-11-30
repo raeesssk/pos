@@ -232,7 +232,7 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
 		}  		
 	    else{  
 	    		// window.location = '#/setrestaurant';
-
+	    		console.log($scope.setuprestaurant);
 	    		$scope.setuprestaurant.srm_country = $('#countries_states1').val();
                         var fd = new FormData();
                         fd.append('srm_restaurant_name', $scope.setuprestaurant.srm_restaurant_name);
@@ -248,15 +248,15 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
                         fd.append('srm_contact_number', $scope.setuprestaurant.srm_contact_number);
                         fd.append('srm_email', $scope.setuprestaurant.srm_email);
                         fd.append('srm_image', $scope.setuprestaurant.file);
-                        fd.append('srm_user_id', $rootScope.uid);
+                        fd.append('srm_user_id', localStorage.getItem("pos_admin_uid"));
                         fd.append('srm_day_start_time',$('#srm_day_start_time').val());
                         fd.append('srm_day_end_time',$('#srm_day_end_time').val());
                         fd.append('srm_night_start_time',$('#srm_night_start_time').val());
                         fd.append('srm_night_end_time',$('#srm_night_end_time').val());
                         fd.append('srm_isnight',$scope.setuprestaurant.srm_isnight);
-                        fd.append('srm_checkgst',$scope.setuprestaurant.srm_checkgst);
                         fd.append('srm_gst_no',$scope.setuprestaurant.srm_gst_no);
                         fd.append('srm_gst_per',$scope.setuprestaurant.srm_gst_per);
+                        fd.append('srm_check',$scope.setuprestaurant.srm_check)
 
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait..."); 

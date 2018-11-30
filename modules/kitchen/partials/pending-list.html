@@ -55,7 +55,7 @@
                               <td>{{kitchen.opm_quantity}}</td>
                               <td><button class="btn btn-info" ng-click="ordercomplete($index)">
                                 <i class="fa fa-check"></i>Done</button>
-                                <button class="btn btn-danger" ng-click="progress($index)">
+                                <button ng-hide="kitchen.om_where == 'takeaway'" class="btn btn-danger" ng-click="progress($index)">
                                  <i class="fas fa-utensil-spoon"></i> In Progress</button>
                                </td>
                             </tr>
@@ -68,7 +68,7 @@
                               <td><button class="btn btn-info" ng-click="ordercomplete($index)">
                                  <i class="fa fa-check"></i> Done</button>
 
-                                 <button class="btn btn-danger" ng-click="progress($index)">
+                                 <button ng-hide="kitchen.om_where == 'takeaway'" class="btn btn-danger" ng-click="progress($index)">
                                  <i class="fas fa-utensil-spoon"></i> In Progress</button></td>
                               </td>
                             </tr>

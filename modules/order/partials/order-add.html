@@ -58,7 +58,7 @@
                           <div class="col-lg-12">
                             <div class="col-lg-3" ng-repeat="product in productList | filter : product">
                               <button ng-click="addOrder(product);" id="{{product.ctm_id}}" style="border-radius: 5px;" class="btn form-control">
-                                <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80" style="border-radius: 5px;"><p>{{product.pm_description}} {{product.pm_quantity}}</p></div>
+                                <div><img ng-src="data:image/png;base64,{{product.pm_image}}" height="80" width="80" style="border-radius: 5px;"><p>{{product.pm_description}}</p></div>
                               </button>
                             </div>
                           </div>

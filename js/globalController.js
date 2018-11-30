@@ -9,7 +9,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");    
     $rootScope.uid=localStorage.getItem("pos_admin_uid");                
     $rootScope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
-    $rootScope.roleId = localStorage.getItem("rm_id")
+    $rootScope.roleId = localStorage.getItem("rm_id");
     $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.32:3000';
     // $rootScope.baseURL = 'http://unitech.3commastechnologies.com:3000';
@@ -28,7 +28,8 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     $scope.url=[];
     $scope.checksupermission=[];
       $scope.getpermission=function(){
-        $http({
+          if($rootScope.roleId != null || $rootScope.roleId != undefined){
+              $http({
                   method: 'GET',
                   url: $rootScope.baseURL+'/login/permission/'+$rootScope.roleId,
                   headers: {'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
                           dialog.modal('hide'); 
                       }, 1500);            
                 });
-                /*$http({
+                $http({
                         method: 'GET',
                         url: $rootScope.baseURL+'/login/superole/'+$rootScope.roleId,
                         //data: $scope.data,
@@ -106,11 +107,12 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
                               timeOut: "500",
                               extendedTimeOut: "500",
                           });  
-                      });*/
+                      });
+            }
 
-            };
-            $scope.getpermission();
+      };
             
+      $scope.getpermission();
 
 
     $rootScope.logOut = function(){
