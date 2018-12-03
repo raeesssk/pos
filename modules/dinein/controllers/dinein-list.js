@@ -3,14 +3,17 @@
  	$scope.loading1=0;
     $scope.tableList = [];
     $scope.opmId = $routeParams.opmId;
+    $scope.table={};
     // $scope.isreserved = 0;
 	// var socket = io.connect($rootScope.baseURL);
 	$scope.getAll = function () {
-        
+    
+	$scope.table.tm_srm_id = localStorage.getItem("pos_admin_srm_id");   
     $scope.tableList = [];
       $http({
-	      method: 'GET',
+	      method: 'post',
 	      url: $rootScope.baseURL+'/table',
+	      data:$scope.table,
 	      headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
 	    })

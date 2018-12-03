@@ -140,14 +140,14 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 				        localStorage.setItem('pos_admin_refresh_token', data.refresh_token);
 				        localStorage.setItem('pos_admin_token_type', data.token_type);
 			        	localStorage.setItem('rm_id',$scope.role_id);
-			        		// if(deliverycount[0].user_srm_id != null || deliverycount[0].user_srm_id != undefined)
-			        		// {
-					        // 	window.location = "/pos/";           
-			        		// }
-				         //    else 
-				         //    {
-				         //    	window.location = "/pos/#/setuprestaurant";
-				         //    }
+			        		if(deliverycount[0].user_srm_id != null || deliverycount[0].user_srm_id != undefined)
+			        		{
+					        	window.location = "/pos/";           
+			        		}
+				            else 
+				            {
+				            	window.location = "/pos/#/setuprestaurant";
+				            }
 
 					  	 })
 					  	 .error(function(data, status, headers, config)

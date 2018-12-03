@@ -119,7 +119,8 @@
                               </div>
                             </div>
                             <div class="card-footer">
-                              Sub-Total: <strong style="margin-left: 82%;">{{orderObj.total_amount | number:2}}</strong><br><br>
+                              Sub-Total: <strong style="margin-left: 82%;">{{orderObj.total_amount | number:2}}</strong>
+                              <button class="btn  btn-success" ng-click="printComplete()">Print</button>
                             </div>
                         </div>
                       </div>

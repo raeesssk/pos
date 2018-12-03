@@ -2,7 +2,7 @@
 <!-- Breadcrumb -->
 <ol class="breadcrumb m-b-0">
     <li><a href="#/">Home</a></li>
-    <li class="active">Open Order's</li>
+    <li class="active">Closed Order's</li>
 </ol>
 
 <div class="container-fluid" ng-init="getAll();">
@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Open Order's</strong>
+                        <strong>Closed Order's</strong>
                         <small>Form</small>
                     </div>
                     <!-- /.row -->
@@ -46,8 +46,7 @@
                                     <button class="btn btn-info" data-toggle="modal" data-target="#order-details" ng-click="   orderDetails($index)">
                                       <i class="icon icon-info"></i>
                                     </button>
-                                    <button class="btn btn-danger" ng-click="deleteOrder($index)"><i class="icon icon-trash"></i></button>
-                                  </td>
+                                  </td><!-- 
                                   <td ng-if="orderli.om_status_type == 'complete'">
                                     <button class="btn btn-info" data-toggle="modal" data-target="#order-details" ng-click="   orderDetails($index)">
                                       <i class="icon icon-info"></i>
@@ -55,7 +54,7 @@
                                     <button class="btn btn-danger" ng-click="deleteOrder($index)"><i class="icon icon-trash"></i></button>
                                     <button class="btn btn-success" ng-click="printComplete($index)">
                                     <i class="fa fa-print"></i>
-                                  </td>
+                                  </td> -->
                                 </tr>
                               </tbody>
                             </table>

@@ -13,6 +13,7 @@
     $scope.orderObj.om_total=0;
     $scope.printList=[];
     $scope.customization={};
+    $scope.category = {};
     var d = new Date();
     $scope.currentime = d.getHours();
     // $scope.orderObj.where='dinein';
@@ -23,10 +24,11 @@
 
   // Main function
   $scope.getAll = function () {
-        
+      $scope.category.ctm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
-        method: 'GET',
+        method: 'post',
         url: $rootScope.baseURL+'/category',
+        data:$scope.category,
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
@@ -766,6 +768,7 @@
         list:$scope.itemList, 
         obj:$scope.orderObj
       };
+      console.log($scope.objList.obj);
       $http({
         method: 'POST',
         url: $rootScope.baseURL+'/order/placeorder',
@@ -800,7 +803,43 @@
       });
     };
 
-
+    $scope.printComplete=function(){
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/order/order/complete',
+        data: $scope.orderObj,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+          $rootScope.socket.emit('status',{
+            obj:category[0]
+          });
+          toastr.success('Table Orders Completed', 'Success', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });     
+          window.location.href = '#/dinein'; 
+          
+      })
+      .error(function(data) 
+      {   
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+    };
+    $rootScope.socket.on('status',function(data){
+          $route.reload();
+      });
     $rootScope.socket.on('orderPlace', function(data){
         $route.reload();
        });

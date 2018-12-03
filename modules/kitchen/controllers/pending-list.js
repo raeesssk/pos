@@ -115,7 +115,7 @@ angular.module('kitchen').controller('pendingListCtrl', function ($rootScope, $h
       })
       .success(function(category)
       {
-        toastr.success('Order Completed', 'Success', {
+        toastr.success('Order In Progress', 'Success', {
             closeButton: true,
             progressBar: true,
             positionClass: "toast-top-center",

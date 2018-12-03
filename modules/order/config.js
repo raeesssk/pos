@@ -34,15 +34,15 @@ angular.module('order', [])
                     }
                 })
 				
-			.when('/order/edit/:ctmId',
+			.when('/order/closed',
                 {
-                    templateUrl: 'modules/order/partials/order-edit.html',
-                    controller: 'orderEditCtrl',
+                    templateUrl: 'modules/order/partials/order-close.html',
+                    controller: 'ordercloseCtrl',
                     resolve: {
                         lazy: ['$ocLazyLoad',"$q", "$location","$rootScope", function ($ocLazyLoad, $q, $location, $rootScope) {
                             return $ocLazyLoad.load([{
                                 name: 'myApp',
-                                files: ['modules/order/controllers/order-edit.js']
+                                files: ['modules/order/controllers/order-close.js']
                             }]);
                         }]
                     }

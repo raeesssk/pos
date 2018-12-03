@@ -69,6 +69,7 @@ $scope.apiURL = $rootScope.baseURL+'/table/table/total';
         $scope.limit.search = $scope.searchtext;
       }
       $scope.limit.tm_srm_id = localStorage.getItem("pos_admin_srm_id");
+      console.log($scope.limit);
       $http({
 	      method: 'POST',
 	      url: $scope.apiURL,

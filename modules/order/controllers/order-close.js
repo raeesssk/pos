@@ -1,5 +1,5 @@
 // import admin
- angular.module('order').controller('orderListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
+ angular.module('order').controller('ordercloseCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
     
     $scope.filteredTodos = [];
     $scope.currentPage = 1;
@@ -14,7 +14,7 @@
     $scope.orderListcount=0;
     $scope.viewList=[];   
 var socket = io.connect($rootScope.baseURL);
-$scope.apiURL = $rootScope.baseURL+'/order/order/total';
+$scope.apiURL = $rootScope.baseURL+'/order/close/total';
   
   // Main Function
   $scope.getAll = function () {
@@ -76,7 +76,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
               $scope.limit.end = end;
               $http({
                 method: 'POST',
-                url: $rootScope.baseURL+'/order/order/limit',
+                url: $rootScope.baseURL+'/order/close/limit',
                 data: $scope.limit,
                 headers: {'Content-Type': 'application/json',
                           'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
