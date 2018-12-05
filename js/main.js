@@ -3,6 +3,7 @@ angular.module('pos',
 // External Dependencies
         'ngRoute',
         'oc.lazyLoad',
+        'angularCharts',
         // 'ngValidate',
         'ui.bootstrap',
         'angularFileUpload',

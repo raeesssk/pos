@@ -1,4 +1,10 @@
-Breadcrumb -->
+<style type="text/css">
+   .chart {
+             width: 500px;
+             height: 500px;
+        } 
+</style>
+
 <ol class="breadcrumb m-b-0">
     <li><a href="#">Home</a></li>
     <li><a href="#">Library</a></li>
@@ -61,9 +67,15 @@ Breadcrumb -->
 
        
 
-
-
-
+        
+        <!-- <div zingchart id="chart-1" zc-json="myJson" zc-width="100%" zc-height="480px"></div> -->
+        <div 
+            data-ac-chart="'bar'" 
+            data-ac-data="data" 
+            data-ac-config="config" 
+            class="chart">
+        </div> 
+  
         <div class="row row-equal">
             <div class="col-md-9">
                 <div class="card">
@@ -74,22 +86,7 @@ Breadcrumb -->
                                 <div class="small text-muted" style="margin-top:-10px;">November 2015</div>
                             </div>
                             <div class="col-xs-7 p-x-1">
-                                <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
-                                    <div class="btn-group" data-toggle="buttons" aria-label="First group">
-                                        <label class="btn btn-sm btn-secondary-outline">
-                                            <input type="radio" name="options" id="option1"> Day
-                                        </label>
-                                        <label class="btn btn-sm btn-secondary-outline active">
-                                            <input type="radio" name="options" id="option2" checked> Month
-                                        </label>
-                                        <label class="btn btn-sm btn-secondary-outline">
-                                            <input type="radio" name="options" id="option3"> Year
-                                        </label>
-                                    </div>
-                                    <div class="btn-group hidden-sm-down" role="group" aria-label="Second group">
-                                        <button type="button" class="btn btn-sm btn-success"><i class="icon-cloud-download"></i></button>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="chart-wrapper" style="height:289px;margin-top:30px;">
