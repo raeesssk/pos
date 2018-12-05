@@ -6,7 +6,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	// $rootScope.baseURL = 'http://localhost:3000';
 	// $rootScope.baseURL = 'http://10.1.0.32:3000';
-	$rootScope.baseURL = 'http://restromaticz.3commastechnologies.com:3000';
+	$scope.apiURL = 'http://pos.restromaticz.com:3000';
 	// if(localStorage.getItem("pos_admin_access_token") != null)
  //      {
  //          window.location = '/greenair/';
@@ -142,11 +142,11 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        	localStorage.setItem('rm_id',$scope.role_id);
 			        		if(deliverycount[0].user_srm_id != null || deliverycount[0].user_srm_id != undefined)
 			        		{
-					        	window.location = "/";           
+					        	window.location = "/pos/";           
 			        		}
 				            else 
 				            {
-				            	window.location = "#/setuprestaurant";
+				            	window.location = "/pos/#/setuprestaurant";
 				            }
 
 					  	 })

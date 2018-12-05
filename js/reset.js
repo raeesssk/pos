@@ -6,7 +6,7 @@ function ResetCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	// $scope.apiURL = 'http://localhost:3000';
 	// $rootScope.baseURL = 'http://10.1.0.21:3000';
-	$scope.apiURL = 'http://restromaticz.3commastechnologies.com:3000';
+	$scope.apiURL = 'http://pos.restromaticz.com:3000';
 
 	var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),

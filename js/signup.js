@@ -5,7 +5,7 @@
 function SignupCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	// $scope.apiURL = 'http://localhost:3000';
-	$scope.apiURL = 'http://restromaticz.3commastechnologies.com:3000';
+	$scope.apiURL = 'http://pos.restromaticz.com:3000';
 	
   $scope.limit={};
 		// function onSuccess(googleUser) {
