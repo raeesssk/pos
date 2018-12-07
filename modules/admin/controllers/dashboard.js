@@ -11,40 +11,36 @@ angular.module("admin").controller('dashboardCtrl', function ($rootScope, $http,
 	//     ]
 	// };
 
+	$scope.limit={};
+	 $scope.srm_id = localStorage.getItem("pos_admin_srm_id");
+	
+    $scope.getAll = function () {
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/dashboard/salereport/'+$scope.srm_id,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(report)
+      {
+        report.forEach(function (value, key) {
+        	
+        	$scope.limit=value;
+        });
+      })
+      .error(function(data) 
+      {   
+        toastr.error('Oops, Something Went Wrong.', 'Error', {
+          closeButton: true,
+          progressBar: true,
+          positionClass: "toast-top-center",
+          timeOut: "500",
+          extendedTimeOut: "500",
+          }); 
+      });
+      
+   };
 
-		$scope.config = {
-		  title: 'Products',
-		  tooltips: true,
-		  labels: false,
-		  mouseover: function() {},
-		  mouseout: function() {},
-		  click: function() {},
-		  legend: {
-		    display: true,
-		    //could be 'left, right'
-		    position: 'left'
-		  },
-		  innerRadius: 0, // applicable on pieCharts, can be a percentage like '50%'
-		  lineLegend: 'lineEnd' // can be also 'traditional'
-		}
-
-	$scope.data = {
-    series: ['Sales', 'Income', 'Expense'],
-    data: [{
-      x: "Laptops",
-      y: [100, 500, 0],
-      tooltip: "this is tooltip"
-    }, {
-      x: "Desktops",
-      y: [300, 100, 100]
-    }, {
-      x: "Mobiles",
-      y: [351]
-    }, {
-      x: "Tablets",
-      y: [54, 0, 879]
-    }]
-  };
-
+   $scope.getAll();
        
 });

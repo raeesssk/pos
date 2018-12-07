@@ -11,35 +11,69 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12">
-                <div id="tabs">
-                  <ul>
-                    <li><a  ng-click="getAll()">Daily Sale</a></li>
-                    <li><a >Weekly Sale</a></li>
-                    <li><a >Monthly Sale</a></li>
-                  </ul>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="card">
-                  
-                      <div class="card bg-primary col-lg-2" ng-repeat="report in reportList track by $index">
-                        <div class="card-body">
-                          <h6>Total Orders - {{report.total}}</h6>
-                          <p class="card-text">Total Sale - {{report.amount}}</p>
+                
+                <div class="card">
+                  <div class="card-block">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="col-lg-3">
+                          <div class="form-group">
+                            <label>From Date</label>
+                            <div class="input-group date">
+                              <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control pull-right" id="user-datepicker-from" placeholder="From Date" readonly="readonly">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                          <div class="form-group">
+                            <label>To Date</label>
+                            <div class="input-group date">
+                              <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control pull-right" id="user-datepicker-to" placeholder="To Date" readonly="readonly">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <button class="btn btn-primary" style="margin-top: 2%">Daily Sale</button>
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <button class="btn btn-warning">Monthly Sale</button>
+                          </div>
                         </div>
                       </div>
-                    
+                      <div class="col-lg-12">
+                        <table class="table table-bordered table-striped" id="checkrecord">
+                          <thead>
+                            <tr>
+                              <th>Total Order.No</th>
+                              <th>Total Sale Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody id="orderli">
+                            <tr ng-repeat="orderli in reportList">
+                              <td>{{orderli.total}}</td>
+                              <td>{{orderli.amount}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                  </div>          <!-- row -->
+                  </div>
                 </div>
-                        <!-- /card block-->
-                                      
-                </div>
-                    <!-- /.card  -->
+                    
+                                                            
             </div>
-                <!-- /col-lg-12 -->
         </div>
     </div>
+</div>
 
 <!-- // modal for view -->
 <div id="orderDetails" class="modal" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel" aria-hidden="true">

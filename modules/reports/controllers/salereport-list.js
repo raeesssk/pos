@@ -121,6 +121,23 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
     $scope.getSearch = function () {
       $scope.getAll();
     };*/
+
+    $('#user-datepicker-from').datepicker({
+     timepicker:false,
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+     maxDate:'+1970/01/02',
+     scrollInput:false
+    });
+
+    $('#user-datepicker-to').datepicker({
+     timepicker:false,
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+     maxDate:'+1970/01/02',
+     scrollInput:false
+
+    });
     $scope.srm_id = localStorage.getItem("pos_admin_srm_id");
     $scope.getAll = function () {
       $http({
@@ -132,7 +149,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       .success(function(report)
       {
         report.forEach(function (value, key) {
-        $scope.reportList.push(value);
+          $scope.reportList.push(value);
         });
       })
       .error(function(data) 
@@ -147,6 +164,84 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       });
       
    };
+
+   $scope.check=function(){
+      $scope.toDate = $("#user-datepicker-to").val();
+    $scope.fromDate = $("#user-datepicker-from").val();
+    if(angular.isUndefined($scope.fromDate) || $scope.fromDate === null || $scope.fromDate == "")
+      {
+         var dialog = bootbox.dialog({
+          message: '<p class="text-center">please select from-date.</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+        return;
+      }
+
+      if(angular.isUndefined($scope.toDate) || $scope.toDate === null || $scope.toDate == "")
+      {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">please select to-date.</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+        return;
+      }
+
+      $scope.dateFilter = '&startTime='+ $scope.fromDate + '&endTime=' + $scope.toDate;
+
+      
+      $scope.fDate = new Date($scope.fromDate);
+      $scope.fDate.setHours(0,0,0,0);
+      $scope.tDate = new Date($scope.toDate);
+      $scope.tDate.setHours(0,0,0,0);
+      if($scope.fDate > $scope.tDate)
+      {
+          var dialog = bootbox.dialog({
+          message: '<p class="text-center">oops!!! to-date greater than from-date.</p>',
+              closeButton: false
+          });
+          dialog.find('.modal-body').addClass("btn-danger");
+          setTimeout(function(){
+              dialog.modal('hide'); 
+          }, 1500);
+        return;
+      }
+     $scope.getAll();
+    };
+
+    Date.prototype.setFromDate = function() {
+     var yyyy = this.getFullYear().toString();
+     var mm = (this.getMonth()).toString(); // getMonth() is zero-based
+     var dd  = this.getDate().toString();
+     if(mm == 0){
+      document.getElementById("user-datepicker-from").value = yyyy-1 +"-"+ ("12") +"-"+ (dd[1]?dd:"0"+dd[0]);
+     }
+     else if(mm==2||mm==4||mm==6||mm==7||mm==9||mm==11){
+      document.getElementById("user-datepicker-from").value = yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd-1:"0"+dd[0]);
+     }
+     else{
+      document.getElementById("user-datepicker-from").value = yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]);
+     }
+    };
+
+    Date.prototype.setToDate = function() {
+     var yyyy = this.getFullYear().toString();
+     var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+     var dd  = this.getDate().toString();
+     document.getElementById("user-datepicker-to").value = yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]);
+     $scope.check();
+    };
+
+    d = new Date();
+    d.setFromDate();
+    d.setToDate();
 
     // icon-info VIEW 
     $scope.orderDetails = function (index) {
