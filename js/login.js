@@ -19,6 +19,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 
   	$scope.login = function() {
   		
+  		var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   		if($scope.loginmaster.username == undefined || $scope.loginmaster.username == ""){
   			toastr.error('Please Enter Your Email.', 'Error', {
 		        closeButton: true,
@@ -28,6 +29,18 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			  	extendedTimeOut: "500",
 		    });
   		}
+  		else if(!emailRegex.test($scope.loginmaster.username)){
+      
+		    var dialog = bootbox.dialog({
+            message: '<p class="text-center">please enter a valid email..</p>',
+                closeButton: false
+            });
+            dialog.find('.modal-body').addClass("btn-danger");
+            setTimeout(function(){
+                dialog.modal('hide'); 
+                $('#username').focus();
+            }, 1500); 
+		}
   		if ($("#login").text() == 'Next'){
   			$http({
                     method: 'POST',

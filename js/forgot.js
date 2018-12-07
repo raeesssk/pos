@@ -5,8 +5,8 @@
 function ForgotCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	// $scope.apiURL = 'http://10.1.0.21:3000';
-	$scope.apiURL = 'http://localhost:3000';
-	// $scope.apiURL = 'http://pos.restromaticz.com:3000';
+	// $scope.apiURL = 'http://localhost:3000';
+	$scope.apiURL = 'http://pos.restromaticz.com:3000';
 		// if(localStorage.getItem("pos_admin_access_token") != null)
 	 //      {
 	 //          window.location = '/greenair/';
@@ -15,7 +15,7 @@ function ForgotCtrl($scope, $location, $http, $routeParams, $rootScope) {
   	$scope.forgotpass = {};
   
   	$scope.forgot = function() {
-  		
+  		var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   		if($scope.forgotpass.username == undefined || $scope.forgotpass.username == ""){
   			toastr.error('Please Enter Your Email.', 'Error', {
 		        closeButton: true,
@@ -25,6 +25,18 @@ function ForgotCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			  	extendedTimeOut: "500",
 		    });
   		}
+  		else if(!emailRegex.test($scope.forgotpass.username)){
+      
+		    var dialog = bootbox.dialog({
+            message: '<p class="text-center">please enter a valid email..</p>',
+                closeButton: false
+            });
+            dialog.find('.modal-body').addClass("btn-danger");
+            setTimeout(function(){
+                dialog.modal('hide'); 
+                $('#username').focus();
+            }, 1500); 
+		}
   		else{
   			$('#forgot').attr('readonly','true'); 
 		    $('#forgot').text('Please Wait..');
