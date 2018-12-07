@@ -6,7 +6,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
     
 	// $rootScope.baseURL = 'http://localhost:3000';
 	// $rootScope.baseURL = 'http://10.1.0.32:3000';
-	$scope.apiURL = 'http://pos.restromaticz.com:3000';
+	$rootScope.baseURL = 'http://pos.restromaticz.com:3000';
 	// if(localStorage.getItem("pos_admin_access_token") != null)
  //      {
  //          window.location = '/greenair/';

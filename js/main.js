@@ -3,7 +3,6 @@ angular.module('pos',
 // External Dependencies
         'ngRoute',
         'oc.lazyLoad',
-        'angularCharts',
         // 'ngValidate',
         'ui.bootstrap',
         'angularFileUpload',
@@ -42,7 +41,7 @@ angular.module('pos',
         // 'expense',
         // 'expensetype',
         // 'dailyexpense',
-        // 'report',
+        'report',
     // ]).config(cityMotorRouter);
 
 ]).config(function($routeProvider, IdleProvider, KeepaliveProvider, $controllerProvider) {

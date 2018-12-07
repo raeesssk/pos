@@ -2,17 +2,44 @@
 angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route, $filter) {
 
 	
-	$scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
-    $scope.apiURL = $rootScope.baseURL+'/restaurant/edit/'+$scope.restaurantObj.srm_id;
-	$("#countries_states1").attr('data-country',$scope.restaurantObj.srm_country);
+	$scope.srm_id = localStorage.getItem("pos_admin_srm_id");
+	// $scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
+    $scope.apiURL = $rootScope.baseURL+'/restaurant/edit/'+$scope.srm_id;
+	// $("#countries_states1").attr('data-country',$scope.restaurantObj.srm_country);
 	$("#countries_states1").trigger('change');
 	$("#srm_state").attr('data-country',"countries_states1");
 	$("#srm_contact_number").attr('data-country','countries_states1');
  	$scope.setuprestaurant = {};
-	$scope.restaurantObj.srm_state = 'Madrid';
+	// $scope.restaurantObj.srm_state = 'Madrid';
 
-	$scope.setuprestaurant = $scope.restaurantObj;
-	console.log($scope.setuprestaurant);
+
+	 $scope.getrest = function () {
+	     $http({
+	      method: 'GET',
+	      url: $rootScope.baseURL+'/restaurant/'+$scope.srm_id,
+	      headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+	    })
+	    .success(function(obj)
+	    {
+	    	console.log(obj);
+	    	obj.forEach(function (value, key) {
+	    		$scope.setuprestaurant=value;
+              });
+	    })
+	    .error(function(data) 
+	    {   
+	      var dialog = bootbox.dialog({
+            message: '<p class="text-center">Oops, Something Went Wrong! Please Refresh the Page.</p>',
+                closeButton: false
+            });
+            setTimeout(function(){
+                dialog.modal('hide'); 
+            }, 1500);            
+	    });
+	};
+	$scope.getrest();
+
 	if($scope.setuprestaurant.srm_checkgst == 1){
 		$scope.setuprestaurant.srm_check_gst = true;
 		$scope.setuprestaurant.srm_check = 1;
