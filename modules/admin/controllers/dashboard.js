@@ -63,6 +63,11 @@ angular.module("admin").controller('dashboardCtrl', function ($rootScope, $http,
       .success(function(report)
       {
         report.forEach(function (value, key) {
+          if(value.amount == null)
+          {
+            value.amount = 0;
+          }
+            
           $scope.reportListmonthly=value;
         });
       })

@@ -1,31 +1,35 @@
 
 angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route, $filter) {
 
-	
-	$scope.srm_id = localStorage.getItem("pos_admin_srm_id");
+	$scope.resto = {};
+	$scope.resto.srm_id = localStorage.getItem("pos_admin_srm_id");
 	// $scope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
     $scope.apiURL = $rootScope.baseURL+'/restaurant/edit/'+$scope.srm_id;
 	// $("#countries_states1").attr('data-country',$scope.restaurantObj.srm_country);
-	$("#countries_states1").trigger('change');
-	$("#srm_state").attr('data-country',"countries_states1");
-	$("#srm_contact_number").attr('data-country','countries_states1');
  	$scope.setuprestaurant = {};
 	// $scope.restaurantObj.srm_state = 'Madrid';
 
 
-	 $scope.getrest = function () {
-	     $http({
-	      method: 'GET',
-	      url: $rootScope.baseURL+'/restaurant/'+$scope.srm_id,
+	 $scope.getrestro = function () {
+	 	$http({
+	      method: 'POST',
+	      url: $rootScope.baseURL+'/restaurant',
+	      data: $scope.resto,
 	      headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
 	    })
 	    .success(function(obj)
 	    {
-	    	console.log(obj);
 	    	obj.forEach(function (value, key) {
-	    		$scope.setuprestaurant=value;
+	    		if(value.srm_checkgst == 1){
+					console.log('test');
+					value.srm_check_gst = true;
+					value.srm_check = 1;
+				};
+	      		$scope.setuprestaurant = value;
               });
+      		  
+				
 	    })
 	    .error(function(data) 
 	    {   
@@ -38,12 +42,12 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
             }, 1500);            
 	    });
 	};
-	$scope.getrest();
+	$scope.getrestro();
 
-	if($scope.setuprestaurant.srm_checkgst == 1){
-		$scope.setuprestaurant.srm_check_gst = true;
-		$scope.setuprestaurant.srm_check = 1;
-	};
+	$("#countries_states1").attr('data-country',$scope.setuprestaurant.srm_country);
+				$("#countries_states1").trigger('change');
+				$("#srm_state").attr('data-country',"countries_states1");
+				$("#srm_contact_number").attr('data-country','countries_states1');
 	 		
 	if ($scope.setuprestaurant.srm_isnight == 0) {
 		$("#srm_night_start_time").hide();

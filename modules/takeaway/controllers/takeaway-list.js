@@ -9,6 +9,7 @@
     $scope.itemList = [];
     $scope.om_add=0;
     $scope.orderObj = {};
+    $scope.category = {};
     $scope.orderObj.om_total=0;
     $scope.printList=[];
     var d = new Date();
@@ -19,13 +20,51 @@
     // console.log($scope.tableObj);
 // localStorage.setItem("tableObj");
 // localStorage["tablesList"]=JSON.stringify($scope.tableObj);
+  $scope.checkTable = function(){
+    $http({
+        method: 'post',
+        url: $rootScope.baseURL+'/takeaway/'+$scope.orderObj.srm_id,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(category)
+      {
+         if(category.length == 0)
+         {
+          toastr.error('Oops, No takeaway area Created!!! Create one', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });
+          setTimeout(function(){
 
+          window.location.href = "#/area/add";
+        },2000);
+         }
+
+      })
+      .error(function(data) 
+      {   
+          $scope.loading1 = 1;
+          toastr.error('Oops, Something Went Wrong.', 'Error', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            timeOut: "500",
+            extendedTimeOut: "500",
+          });          
+      });
+  };
+  $scope.checkTable();
 
   $scope.getAll = function () {
-        
+       $scope.category.ctm_srm_id = localStorage.getItem("pos_admin_srm_id");
       $http({
-        method: 'GET',
+        method: 'post',
         url: $rootScope.baseURL+'/category',
+        data:$scope.category,
         headers: {'Content-Type': 'application/json',
                   'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
       })
@@ -46,7 +85,6 @@
             extendedTimeOut: "500",
           });          
       });
-
     };
 
  /* $scope.getPrintDetails = function () {
