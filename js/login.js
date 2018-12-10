@@ -155,11 +155,11 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
 			        	localStorage.setItem('rm_id',$scope.role_id);
 			        		if(deliverycount[0].user_srm_id != null || deliverycount[0].user_srm_id != undefined)
 			        		{
-					        	window.location = "/pos/";           
+					        	window.location = "/";           
 			        		}
 				            else 
 				            {
-				            	window.location = "/pos/#/setuprestaurant";
+				            	window.location = "#/setuprestaurant";
 				            }
 
 					  	 })

@@ -198,11 +198,33 @@
         </div> -->
         <!--/row-->
         <div class="row row-equal">
+            <div class="col-lg-3" ng-show="show == 1">
+              <div class="form-group">
+                <label>From Date</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="user-datepicker-from" placeholder="From Date" readonly="readonly">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3" ng-show="show == 1">
+              <div class="form-group">
+                <label>To Date</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="user-datepicker-to" placeholder="To Date" readonly="readonly">
+                </div>
+              </div>
+            </div>
             <div class="col-sm-6 col-lg-3">
                 <a style="text-decoration-line: none;" href="#/report">
                     <div class="social-box facebook">
                         
-                        <i class="">Total Sale</i>
+                        <i class="">Daily Sale</i>
                         <div class="chart-wrapper">
                             <canvas id="social-box-chart-1" height="90"></canvas>
                         </div>
@@ -213,7 +235,7 @@
                             </li>
                             <li>
                                 <span>Total Amount</span>
-                                <strong>{{limit.amount}}</strong>
+                                <strong>{{limit.amount | number:2}}</strong>
                             </li>
                         </ul>
 
@@ -223,22 +245,24 @@
             </div>
             <!--/.col-->
             <div class="col-sm-6 col-lg-3">
-                <div class="social-box twitter">
-                    <i class="fa fa-twitter"></i>
-                    <div class="chart-wrapper">
-                        <canvas id="social-box-chart-2" height="90"></canvas>
+                <a style="text-decoration-line: none;" href="#/report">
+                    <div class="social-box twitter">
+                        <i class="">Monthly Sale</i>
+                        <div class="chart-wrapper">
+                            <canvas id="social-box-chart-2" height="90"></canvas>
+                        </div>
+                        <ul>
+                            <li>
+                                <span>Order's</span>
+                                <strong>{{reportListmonthly.total}}</strong>
+                            </li>
+                            <li>
+                                <span>Total Amount</span>
+                                <strong>{{reportListmonthly.amount | number:2}}</strong>
+                            </li>
+                        </ul>
                     </div>
-                    <ul>
-                        <li>
-                            <strong>973k</strong>
-                            <span>followers</span>
-                        </li>
-                        <li>
-                            <strong>1.792</strong>
-                            <span>tweets</span>
-                        </li>
-                    </ul>
-                </div>
+                </a>
                 <!--/.social-box-->
             </div>
             <!--/.col-->

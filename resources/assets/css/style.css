@@ -13583,7 +13583,6 @@ body:not(.top-nav) .sidebar {
       line-height: 1.3125rem;
       color: #2a2c36;
       text-decoration: none;
-      text-transform: uppercase;
       background: transparent;
       border-radius: 0.25rem; }
       body:not(.top-nav) .sidebar ul.nav li.nav-item a.nav-link:hover {

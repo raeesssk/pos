@@ -38,14 +38,14 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-1">
                           <div class="form-group">
-                            <button class="btn btn-primary" style="margin-top: 2%">Daily Sale</button>
+                            <button class="btn btn-primary" style="margin-top: 2em" ng-click="getAll()">Daily Sale</button>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <button class="btn btn-warning">Monthly Sale</button>
+                            <button class="btn btn-warning" style="margin-top: 2em" ng-click="check()">Monthly Sale</button>
                           </div>
                         </div>
                       </div>
@@ -58,9 +58,13 @@
                             </tr>
                           </thead>
                           <tbody id="orderli">
-                            <tr ng-repeat="orderli in reportList">
-                              <td>{{orderli.total}}</td>
-                              <td>{{orderli.amount}}</td>
+                            <tr ng-if="dailysale == 1" ng-repeat="daily in reportList">
+                              <td>{{daily.total}}</td>
+                              <td>{{daily.amount}}</td>
+                            </tr>
+                            <tr ng-if="monthlysale == 1" ng-repeat="monthly in reportListmonthly">
+                              <td>{{monthly.total}}</td>
+                              <td>{{monthly.amount}}</td>
                             </tr>
                           </tbody>
                         </table>

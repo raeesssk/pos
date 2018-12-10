@@ -2,6 +2,7 @@
  angular.module('report').controller('reportListCtrl', function ($rootScope, $http, $scope, $location, $routeParams, $route) {
     
     $scope.reportList = [];
+    $scope.reportListmonthly=[];
     $scope.currentPage = 1;
     $scope.maxSize = 5;
     $scope.entryLimit = 5;
@@ -16,9 +17,9 @@
 var socket = io.connect($rootScope.baseURL);
 $scope.apiURL = $rootScope.baseURL+'/order/order/total';
 
-    $(function() {
-      $( "#tabs" ).tabs();
-    });
+    // $(function() {
+    //   $( "#tabs" ).tabs();
+    // });
   
   // Main Function
   /*$scope.getAll = function () {
@@ -123,23 +124,33 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
     };*/
 
     $('#user-datepicker-from').datepicker({
-     timepicker:false,
-      format: 'yyyy-mm-dd',
-      autoclose: true,
-     maxDate:'+1970/01/02',
-     scrollInput:false
+        validateOnBlur: false,
+        todayButton: false,
+        timepicker: false,
+        scrollInput: false,
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: 'bottom',
+          onChangeDateTime: function (dp, $input) {
+              $scope.limit.from_date = $('#user-datepicker-from').val();
+          }
     });
 
     $('#user-datepicker-to').datepicker({
-     timepicker:false,
-      format: 'yyyy-mm-dd',
-      autoclose: true,
-     maxDate:'+1970/01/02',
-     scrollInput:false
-
-    });
+        validateOnBlur: false,
+        todayButton: false,
+        timepicker: false,
+        scrollInput: false,
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: 'bottom',
+          onChangeDateTime: function (dp, $input) {
+              $scope.limit.to_date = $('#user-datepicker-to').val();
+          }
+    }).datepicker('setDate', 'today');
     $scope.srm_id = localStorage.getItem("pos_admin_srm_id");
     $scope.getAll = function () {
+      
       $http({
         method: 'POST',
         url: $rootScope.baseURL+'/dashboard/salereport/'+$scope.srm_id,
@@ -148,8 +159,43 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
       })
       .success(function(report)
       {
+        $scope.dailysale = 1;
+        $scope.monthlysale = 0;
         report.forEach(function (value, key) {
           $scope.reportList.push(value);
+        });
+      })
+      .error(function(data) 
+      {   
+        toastr.error('Oops, Something Went Wrong.', 'Error', {
+          closeButton: true,
+          progressBar: true,
+          positionClass: "toast-top-center",
+          timeOut: "500",
+          extendedTimeOut: "500",
+          }); 
+      });
+      
+   };
+
+   $scope.getMonthly = function () {
+      
+      $scope.limit.from_date = $('#user-datepicker-from').val();
+      $scope.limit.to_date = $('#user-datepicker-to').val();
+      $scope.limit.srm_id = localStorage.getItem("pos_admin_srm_id");
+      $http({
+        method: 'POST',
+        url: $rootScope.baseURL+'/dashboard/monthlyreport',
+        data: $scope.limit,
+        headers: {'Content-Type': 'application/json',
+                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+      })
+      .success(function(report)
+      {
+        $scope.dailysale = 0;
+        $scope.monthlysale = 1;
+        report.forEach(function (value, key) {
+          $scope.reportListmonthly.push(value);
         });
       })
       .error(function(data) 
@@ -213,7 +259,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
           }, 1500);
         return;
       }
-     $scope.getAll();
+      $scope.getMonthly();
     };
 
     Date.prototype.setFromDate = function() {
@@ -236,7 +282,7 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
      var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
      var dd  = this.getDate().toString();
      document.getElementById("user-datepicker-to").value = yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]);
-     $scope.check();
+     // $scope.check();
     };
 
     d = new Date();
@@ -244,141 +290,136 @@ $scope.apiURL = $rootScope.baseURL+'/order/order/total';
     d.setToDate();
 
     // icon-info VIEW 
-    $scope.orderDetails = function (index) {
-      $('#orderDetails').modal('show');
-      $scope.viewList=[];
+    // $scope.orderDetails = function (index) {
+    //   $('#orderDetails').modal('show');
+    //   $scope.viewList=[];
 
-      $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/complete',
-        data: $scope.filteredTodos[index],
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      {
-        category.forEach(function (value, key) {
-            value.opm_quantity_old = value.opm_quantity;
+    //   $http({
+    //     method: 'POST',
+    //     url: $rootScope.baseURL+'/order/complete',
+    //     data: $scope.filteredTodos[index],
+    //     headers: {'Content-Type': 'application/json',
+    //               'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+    //   })
+    //   .success(function(category)
+    //   {
+    //     category.forEach(function (value, key) {
+    //         value.opm_quantity_old = value.opm_quantity;
           
-            $scope.viewList.push(value);
+    //         $scope.viewList.push(value);
 
-          });    
+    //       });    
 
-      $scope.total_amount = $scope.filteredTodos[index].om_amount; 
-        // console.log($scope.viewList);
-      })
-      .error(function(data) 
-      {   
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
-    };
+    //   $scope.total_amount = $scope.filteredTodos[index].om_amount; 
+    //     // console.log($scope.viewList);
+    //   })
+    //   .error(function(data) 
+    //   {   
+    //       toastr.error('Oops, Something Went Wrong.', 'Error', {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         positionClass: "toast-top-center",
+    //         timeOut: "500",
+    //         extendedTimeOut: "500",
+    //       });          
+    //   });
+    // };
 
     // order Stop
-    $scope.deleteOrder = function(index){
-      $scope.obj = $scope.filteredTodos[index];
-      $('#confirm-delete').modal('show');
-    };
+    // $scope.deleteOrder = function(index){
+    //   $scope.obj = $scope.filteredTodos[index];
+    //   $('#confirm-delete').modal('show');
+    // };
 
     // cancel Order conformation
-    $scope.cancelOrder = function(){
-      $scope.viewList=[];
+    // $scope.cancelOrder = function(){
+    //   $scope.viewList=[];
       
-      // socket.on('deleteshow',function(data){
-      $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/order/cancel',
-        data: $scope.obj,
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      {
+    //   // socket.on('deleteshow',function(data){
+    //   $http({
+    //     method: 'POST',
+    //     url: $rootScope.baseURL+'/order/order/cancel',
+    //     data: $scope.obj,
+    //     headers: {'Content-Type': 'application/json',
+    //               'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+    //   })
+    //   .success(function(category)
+    //   {
 
         
-        $('#confirm-delete').modal('hide');
-        if(category == "completed"){
-          toastr.success('Your Order cannot be Cancelled.', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          }); 
-        }
-        else
-        {
-          toastr.success('Your Order has been Cancelled.', {
-              closeButton: true,
-              progressBar: true,
-              positionClass: "toast-top-center",
-              timeOut: "500",
-              extendedTimeOut: "500",
-            });  
-        }
+    //     $('#confirm-delete').modal('hide');
+    //     if(category == "completed"){
+    //       toastr.success('Your Order cannot be Cancelled.', {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         positionClass: "toast-top-center",
+    //         timeOut: "500",
+    //         extendedTimeOut: "500",
+    //       }); 
+    //     }
+    //     else
+    //     {
+    //       toastr.success('Your Order has been Cancelled.', {
+    //           closeButton: true,
+    //           progressBar: true,
+    //           positionClass: "toast-top-center",
+    //           timeOut: "500",
+    //           extendedTimeOut: "500",
+    //         });  
+    //     }
 
-        socket.emit('deleteshow',{
-          objs:category[0]
-        });
-          // $scope.getAll();
-      })
-      .error(function(data) 
-      {   
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
-        // });
+    //     socket.emit('deleteshow',{
+    //       objs:category[0]
+    //     });
+    //       // $scope.getAll();
+    //   })
+    //   .error(function(data) 
+    //   {   
+    //       toastr.error('Oops, Something Went Wrong.', 'Error', {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         positionClass: "toast-top-center",
+    //         timeOut: "500",
+    //         extendedTimeOut: "500",
+    //       });          
+    //   });
+    //     // });
      
-    };
-    $scope.printComplete=function(index){
-    $scope.obj=$scope.filteredTodos[index];
-    $http({
-        method: 'POST',
-        url: $rootScope.baseURL+'/order/order/print',
-        data: $scope.obj,
-        headers: {'Content-Type': 'application/json',
-                  'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
-      })
-      .success(function(category)
-      {
+    // };
+    // $scope.printComplete=function(index){
+    // $scope.obj=$scope.filteredTodos[index];
+    // $http({
+    //     method: 'POST',
+    //     url: $rootScope.baseURL+'/order/order/print',
+    //     data: $scope.obj,
+    //     headers: {'Content-Type': 'application/json',
+    //               'Authorization' :'Bearer '+localStorage.getItem("pos_admin_access_token")}
+    //   })
+    //   .success(function(category)
+    //   {
           
-          toastr.success('Table Orders Closed,Print Coming....', 'Success', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "800",
-            extendedTimeOut: "500",
-          });     
-          // window.location.href = '#/kitchen/pending'; 
+    //       toastr.success('Table Orders Closed,Print Coming....', 'Success', {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         positionClass: "toast-top-center",
+    //         timeOut: "800",
+    //         extendedTimeOut: "500",
+    //       });     
+    //       // window.location.href = '#/kitchen/pending'; 
           
-      })
-      .error(function(data) 
-      {   
-          toastr.error('Oops, Something Went Wrong.', 'Error', {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-center",
-            timeOut: "500",
-            extendedTimeOut: "500",
-          });          
-      });
-    };
+    //   })
+    //   .error(function(data) 
+    //   {   
+    //       toastr.error('Oops, Something Went Wrong.', 'Error', {
+    //         closeButton: true,
+    //         progressBar: true,
+    //         positionClass: "toast-top-center",
+    //         timeOut: "500",
+    //         extendedTimeOut: "500",
+    //       });          
+    //   });
+    // };
 
-    socket.on('deleteshow',function(data){
-      $scope.getAll();
-    });
-    $rootScope.socket.on('status',function(data){
-          $scope.getAll();
-      });
+   
     
 });
