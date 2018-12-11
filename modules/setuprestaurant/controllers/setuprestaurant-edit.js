@@ -22,15 +22,15 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 	    {
 	    	obj.forEach(function (value, key) {
 	    		if(value.srm_checkgst == 1){
-					console.log('test');
 					value.srm_check_gst = true;
 					value.srm_check = 1;
 				};
+
 	      		$scope.setuprestaurant = value;
-              });
-      		  
-				
-	    })
+          	});
+          	localStorage.setItem("pos_admin_restaurant",JSON.stringify($scope.setuprestaurant));
+          	console.log(localStorage.getItem("pos_admin_restaurant"));
+  	 	})
 	    .error(function(data) 
 	    {   
 	      var dialog = bootbox.dialog({
@@ -45,9 +45,9 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 	$scope.getrestro();
 
 	$("#countries_states1").attr('data-country',$scope.setuprestaurant.srm_country);
-				$("#countries_states1").trigger('change');
-				$("#srm_state").attr('data-country',"countries_states1");
-				$("#srm_contact_number").attr('data-country','countries_states1');
+	$("#countries_states1").trigger('change');
+	$("#srm_state").attr('data-country',"countries_states1");
+	$("#srm_contact_number").attr('data-country','countries_states1');
 	 		
 	if ($scope.setuprestaurant.srm_isnight == 0) {
 		$("#srm_night_start_time").hide();

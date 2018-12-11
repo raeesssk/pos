@@ -100,6 +100,14 @@
                                     <input type="email" id="srm_email" class="form-control" ng-model="setuprestaurant.srm_email">
                                 </div>
                             </div>
+                            <div class="col-lg-3">
+                                <br><div class="form-group">
+                                    <label for="name">Restaurant Logo</label><br>
+                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
+                                    <input type='file' id="srm_image" name="srm_image" data-max-size="200000" multiple onchange="checkButton(this)" /><br>
+                                    <p style="font-size: 7pt; margin-top: 5px;" class="text-danger"><b>Upload Image less than 200KB</b></p>
+                                </div>
+                            </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="name">Check box if applicable for GST</label>
@@ -118,6 +126,7 @@
                                     <input type="text" id="srm_gst_per" class="form-control" ng-model="setuprestaurant.srm_gst_per">
                                 </div>
                             </div>
+
                             <!-- <div class="col-lg-2">
                                 <div class="form-group">
                                     <input type='file' id="scm_image" name="scm_image" multiple/>
@@ -129,16 +138,90 @@
                                 </div>
                             </div> -->
 
-                            <div class="col-lg-2">
-                                <br><div class="form-group">
-                                    <label for="name">Restaurant Logo</label><br>
-                                    <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
-                                    <input type='file' id="srm_image" name="srm_image" data-max-size="200000" multiple onchange="checkButton(this)" /><br>
-                                    <p style="font-size: 7pt; margin-top: 5px;" class="text-danger"><b>Upload Image less than 200KB</b></p>
+                            
+
+                            
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Select Version mode:</label>
+                                    <input type="radio" ng-model="pricing" value="Free-Trial">Free-Trial
+                                    <input type="radio" ng-model="pricing" value="Monthly">Monthly
+                                    <input type="radio" ng-model="pricing" value="Annually">Annually
                                 </div>
                             </div>
-
-                            <div class="col-lg-10">
+                            <div ng-switch="pricing">
+                              <div ng-switch-when="Free-Trial">
+                                 <div class="col-lg-4 pricing py-5">
+                                    <div class="card mb-5 mb-lg-0">
+                                      <div class="card-body">
+                                        <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
+                                        <h6 class="card-price text-center">1st<span class="period"> month</span></h6>
+                                        <hr>
+                                        <ul class="fa-ul">
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div ng-switch-when="Monthly">
+                                 <div class="col-lg-4 pricing py-5">
+                                    <div class="card mb-5 mb-lg-0">
+                                      <div class="card-body">
+                                        <h5 class="card-title text-muted text-uppercase text-center">Starter</h5>
+                                        <h6 class="card-price text-center">$15<span class="period">/month</span></h6>
+                                        <hr>
+                                        <ul class="fa-ul">
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div ng-switch-when="Annually">
+                                 <div class="col-lg-4 pricing py-5">
+                                    <div class="card mb-5 mb-lg-0">
+                                      <div class="card-body">
+                                        <h5 class="card-title text-muted text-uppercase text-center">Annual</h5>
+                                        <h6 class="card-price text-center">$150<span class="period">/year</span></h6>
+                                        <hr>
+                                        <ul class="fa-ul">
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
+                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
+                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <br><div class="form-group">
                                     <div class="col-md-12 table-responsive">
                                         <table class="table table-bordered table-hover">
@@ -187,79 +270,9 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
-                        <section class="pricing py-5">
-                              <div class="container">
-                                <div class="row">
-                                  <!-- Free Tier -->
-                                  <div class="col-lg-4">
-                                    <div class="card mb-5 mb-lg-0">
-                                      <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
-                                        <h6 class="card-price text-center">$0<span class="period">/month</span></h6>
-                                        <hr>
-                                        <ul class="fa-ul">
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Unlimited Private Projects</li>
-                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Dedicated Phone Support</li>
-                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Free Subdomain</li>
-                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- Plus Tier -->
-                                  <div class="col-lg-4">
-                                    <div class="card mb-5 mb-lg-0">
-                                      <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Plus</h5>
-                                        <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
-                                        <hr>
-                                        <ul class="fa-ul">
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>5 Users</strong></li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>50GB Storage</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Free Subdomain</li>
-                                          <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- Pro Tier -->
-                                  <div class="col-lg-4">
-                                    <div class="card">
-                                      <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-                                        <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
-                                        <hr>
-                                        <ul class="fa-ul">
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited Users</strong></li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>150GB Storage</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Community Access</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited</strong> Free Subdomains</li>
-                                          <li><span class="fa-li"><i class="fas fa-check"></i></span>Monthly Status Reports</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-block btn-primary text-uppercase">Button</a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </section>
+                        
+                        
                     </div>
                     <div class="card-footer">
                         <!-- <button type="button" class="btn btn-sm btn-danger" id="btncancel" onclick="window.location = '#/'">Back</button> -->
