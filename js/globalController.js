@@ -3,12 +3,13 @@
  */
 function GlobalCtrl($rootScope, $http, $scope, $timeout) {
 
+     
+
     $rootScope.tokken=localStorage.getItem("pos_admin_access_token");
     $rootScope.userid=localStorage.getItem("pos_admin_username");
     $rootScope.firstname=localStorage.getItem("pos_admin_firstname");
     $rootScope.iconimage=localStorage.getItem("pos_admin_iconimage");    
-    $rootScope.uid=localStorage.getItem("pos_admin_uid");                
-    $rootScope.restaurantObj=JSON.parse(localStorage.getItem("pos_admin_restaurant"));
+    $rootScope.uid=localStorage.getItem("pos_admin_uid");
     $rootScope.roleId = localStorage.getItem("rm_id");
     // $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.32:3000';
@@ -59,6 +60,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
                           val.subpermission.push(value);
                         }); 
                         $scope.role.push(val);
+                        $scope.activeMenu = $scope.role[0];
                       })
                       .error(function(data) 
                       {   
@@ -179,7 +181,16 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
         });
       };
 
+      $scope.setActive = function(menuitem){
+        console.log(menuitem);
+        $scope.activeMenu = menuitem
+      };
       
+      // $('.nav ').on('click', 'li', function() {
+        
+      //     $('.nav li.active').removeClass('active');
+      //     $("a").addClass('active');
+      // });
 
     // $scope.Log_Out = function () {
 

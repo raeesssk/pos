@@ -29,7 +29,7 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 	      		$scope.setuprestaurant = value;
           	});
           	localStorage.setItem("pos_admin_restaurant",JSON.stringify($scope.setuprestaurant));
-          	console.log(localStorage.getItem("pos_admin_restaurant"));
+          
   	 	})
 	    .error(function(data) 
 	    {   

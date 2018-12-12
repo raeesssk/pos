@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="pos">
+<html lang="en" ng-app="pos" ng-cloak>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,6 +66,12 @@
                 border: 1px solid #1581EF !important;
                 box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), 0 0 4px rgba(21, 129, 239, 0.5) inset !important;
             }
+            .act
+            {
+                background-color: #4dbd74;
+                color: white;
+            }
+
         </style>
     </head>
     <body class="navbar-fixed sidebar-nav fixed-nav" ng-controller="GlobalCtrl">
@@ -121,14 +127,14 @@
         </header>
         <div class="sidebar" style="overflow: auto">
             <nav class="sidebar-nav">
-                <ul class="nav" id="sidebar_hide">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#/"><i class="icon-speedometer"></i> DASHBOARD</a>
+                <ul class="nav" id="sidebar_hide" ng-click="selectClass()">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#/"><i class="icon-speedometer"></i> DASHBOARD</a>
                     </li>
-                    <li class="nav-item nav-dropdown" id="{{menu.pmm_id}}" ng-click="test(menu.pm_id)" ng-repeat="menu in role | orderBy:'pmm_id'">
-                        <a class="nav-link nav-dropdown-toggle" href=""><i ng-class="menu.pmm_class"></i>{{menu.pmm_name}}</a>
+                    <li class="nav-item nav-dropdown" id="Menu-{{menu.pmm_id}}"  ng-repeat="menu in role | orderBy:'pmm_id'">
+                        <a class="nav-link nav-dropdown-toggle" ng-class="active : activeMenu === menu" ng-click="setActive(menu)" href=""><i ng-class="menu.pmm_class"></i>{{menu.pmm_name}}</a>
                         <ul class="nav-dropdown-items">
-                            <li class="nav-item" ng-click="test2(submenu.psm_id);$event.stopPropagation()" ng-repeat="submenu in menu.subpermission">
+                            <li class="nav-item index" id="SubMenu-{{submenu.psm_id}}" ng-click="test2(submenu.psm_id);$event.stopPropagation()" ng-repeat="submenu in menu.subpermission">
                                 <a class="nav-link" ng-href="{{submenu.psm_url}}"><i ng-class="submenu.psm_icon"></i>{{submenu.psm_permissions}}</a>
                             </li>
                             <!-- <li class="nav-item">
@@ -409,11 +415,7 @@
     <script> 
         
         $(document).ready(function(){
-            $("ul li a").click(function(){
-                $(".nav-item").removeClass("active");
-                $('a').removeClass('active');
-                $(this).addClass('active');
-            });     
+               
         });
     </script>
 </html>

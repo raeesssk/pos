@@ -13477,7 +13477,7 @@ body {
     padding: 0 !important; }
 
 .sidebar {
-  left: -200px;
+  left: -240px;
   transition-duration: 0.25s, 0.25s, 0.25s, 0.25s, 0.25s, 0.25s;
   transition-property: left, right, padding-left, padding-right, margin-left, margin-right; }
 
@@ -13560,7 +13560,7 @@ body:not(.top-nav).sidebar-opened.sidebar-off-canvas-with-shadow {
 body.sidebar-nav .sidebar {
   left: 0; }
 body.sidebar-nav .main {
-  padding-left: 200px; }
+  padding-left: 240px; }
 body.sidebar-nav .footer {
   left: 200px; }
 
@@ -13584,7 +13584,7 @@ body:not(.top-nav) .sidebar {
   top: 0;
   z-index: 1;
   display: inline !important;
-  width: 200px;
+  width: 240px;
   height: 100%;
   padding: 0 0 0 1rem;
   color: #fff;

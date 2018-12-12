@@ -149,12 +149,12 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Select Version mode:</label>
-                                    <input type="radio" ng-model="pricing" value="Free-Trial">Free-Trial
-                                    <input type="radio" ng-model="pricing" value="Monthly">Monthly
-                                    <input type="radio" ng-model="pricing" value="Annually">Annually
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Free-Trial">Free-Trial
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Monthly">Monthly
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Annually">Annually
                                 </div>
                             </div>
-                            <div ng-switch="pricing">
+                            <div ng-switch="setuprestaurant.pricing">
                               <div ng-switch-when="Free-Trial">
                                  <div class="col-lg-4 pricing py-5">
                                     <div class="card mb-5 mb-lg-0">

@@ -106,7 +106,7 @@
                                     <input type="email" id="srm_email" class="form-control" ng-model="setuprestaurant.srm_email">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <br><div class="form-group">
                                     <label for="name">Restaurant Logo</label><br>
                                     <img id="blah" alt="your image" height="100" width="100" ng-src="{{displayImage}}"/>
@@ -123,13 +123,13 @@
                             <div class="col-sm-3" ng-show="setuprestaurant.srm_check == 1">
                                 <div class="form-group">
                                     <label for="name">GST No</label>
-                                    <input type="email" id="srm_gst_no" class="form-control" ng-model="setuprestaurant.srm_gst_no">
+                                    <input type="text" id="srm_gst_no" class="form-control" ng-model="setuprestaurant.srm_gst_no">
                                 </div>
                             </div>
                             <div class="col-sm-3" ng-show="setuprestaurant.srm_check == 1">
                                 <div class="form-group">
                                     <label for="name">GST %</label>
-                                    <input type="email" id="srm_gst_per" class="form-control" ng-model="setuprestaurant.srm_gst_per">
+                                    <input type="text" id="srm_gst_per" class="form-control" ng-model="setuprestaurant.srm_gst_per">
                                 </div>
                             </div>
                             <!-- <div class="col-lg-2">
@@ -152,12 +152,12 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Select Version mode:</label>
-                                    <input type="radio" ng-model="pricing" value="Free-Trial">Free-Trial
-                                    <input type="radio" ng-model="pricing" value="Monthly">Monthly
-                                    <input type="radio" ng-model="pricing" value="Annually">Annually
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Free-Trial">Free-Trial
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Monthly">Monthly
+                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Annually">Annually
                                 </div>
                             </div>
-                            <div ng-switch="pricing">
+                            <div ng-switch="setuprestaurant.pricing">
                               <div ng-switch-when="Free-Trial">
                                  <div class="col-lg-4 pricing py-5">
                                     <div class="card mb-5 mb-lg-0">

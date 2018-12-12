@@ -3,43 +3,9 @@ angular.module('customer').controller('customerAddCtrl', function ($rootScope, $
 
   
 
-  $('#dashboardindex').removeClass("active");
-  $('#vendorindex').removeClass("active");
-  $('#employeeindex').removeClass("active");
-  $('#productindex').removeClass("active");
-  $('#moneyindex').removeClass("active");
-  $('#purchaseindex').removeClass("active");
-  $('#purchasereturnindex').removeClass("active");
-  $('#inrindex').removeClass("active");
-  $('#saleindex').removeClass("active");
-  $('#salereturnindex').removeClass("active");
-  $('#bookindex').removeClass("active");
-  $('#expenseindex').removeClass("active");
-  $('#purexpenseindex').removeClass("active");
-  $('#expensetypeindex').removeClass("active");
-  $('#dailyexpenseindex').removeClass("active");
-  $('#filesindex').removeClass("active");
-  $('#salereportindex').removeClass("active");
-  $('#purchasereportindex').removeClass("active");
-  $('#paymentdatereportindex').removeClass("active");
-  $('#chequereceivedateindex').removeClass("active");
-  $('#chequepaymentdateindex').removeClass("active");
-  $('#balancesheetreportindex').removeClass("active");
-  $('#customerreportindex').removeClass("active");
-  $('#vendorreportindex').removeClass("active");
-  $('#productsalecountindex').removeClass("active");
-  $('#newvendorindex').removeClass("active");
-  $('#customerindex').removeClass("active");
-  $('#newemployeeindex').removeClass("active");
-  $('#newpurchaseindex').removeClass("active");
-  $('#newpurchasereturnindex').removeClass("active");
-  $('#newsaleindex').removeClass("active");
-  $('#newsalereturnindex').removeClass("active");
-  $('#newexpenseindex').removeClass("active");
-  $('#newpurexpenseindex').removeClass("active");
-  $('#newproductindex').removeClass("active");
-  $('#usersindex').addClass("active");
-  $('#newcustomerindex').addClass("active");
+  $('.index').removeClass("active");
+  $('#Menu-6').addClass("active");
+  $('#SubMenu-29').addClass("active");
     $scope.loading1=0;
     $scope.customer = {};
     $scope.customer.cm_com_id = localStorage.getItem("com_id");

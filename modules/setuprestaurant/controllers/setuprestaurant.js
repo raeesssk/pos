@@ -36,7 +36,6 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
 			  	timeOut: "500",
 			  	extendedTimeOut: "500",
 		    });
-		    console.log($scope.setuprestaurant.srm_isnight);
 		    $('#srm_restaurant_name').focus();
   		}
   		else if(!alpharegex.test($scope.setuprestaurant.srm_restaurant_name)){
@@ -260,7 +259,7 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
 
                 $('#btnsave').attr('disabled','true');
             	$('#btnsave').text("please wait..."); 
-		    	$http({
+		    	/*$http({
 			      method: 'POST',
 			      url: $rootScope.baseURL+'/restaurant/add',
 			      data: fd,
@@ -293,7 +292,7 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
 				    });      
 	                $('#btnsave').text("Save");
 	                $('#btnsave').removeAttr('disabled');    
-			    });
+			    });*/
 	    }
 	     
 	};
