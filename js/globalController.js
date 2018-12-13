@@ -181,10 +181,7 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
         });
       };
 
-      $scope.setActive = function(menuitem){
-        console.log(menuitem);
-        $scope.activeMenu = menuitem
-      };
+      
       
       // $('.nav ').on('click', 'li', function() {
         
