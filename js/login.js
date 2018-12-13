@@ -31,17 +31,15 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
   		}
   		else if(!emailRegex.test($scope.loginmaster.username)){
       
-		    var dialog = bootbox.dialog({
-            message: '<p class="text-center">please enter a valid email..</p>',
-                closeButton: false
-            });
-            dialog.find('.modal-body').addClass("btn-danger");
-            setTimeout(function(){
-                dialog.modal('hide'); 
-                $('#username').focus();
-            }, 1500); 
+		    toastr.error('Please Enter Valid Email.', 'Error', {
+		        closeButton: true,
+		        progressBar: true,
+			  	positionClass: "toast-top-center",
+			  	timeOut: "500",
+			  	extendedTimeOut: "500",
+		    }); 
 		}
-  		if ($("#login").text() == 'Next'){
+  		else if ($("#login").text() == 'Next'){
   			$http({
                     method: 'POST',
                     url: $rootScope.baseURL+'/login/check',
@@ -87,30 +85,7 @@ function LoginCtrl($scope, $location, $http, $routeParams, $rootScope) {
                     //       // dialog.modal('hide'); 
                     //   }, 1500);            
                   });
-  			// $http({
-			  //       method: 'POST',
-			  //       url: $scope.apiURL+'/login/check',
-			  //       data: $scope.login,
-			  //       headers: {'Content-Type': 'application/json'}
-			  //     })
-			  //     .success(function(category)
-			  //     {
-			  //       if(category.length > 0 && (category[0].username == $scope.login.username)){
-
-
-			  //       $('#username').attr('readonly','true'); 
-			  //       $('#login').text('Login');
-			  //       $('#password').show();
-			  //       $('#back').show();
-			  //       }
-			  //       else{
-
-			  //       }
-			  //     })
-			  //     .error(function(data) 
-			  //     {   
-			          
-			  //  });
+  			
   		}
   		if ($("#login").text() == 'Login')
 	 	{
