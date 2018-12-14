@@ -145,23 +145,14 @@
 
 
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Select Version mode:</label>
-                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Free-Trial">Free-Trial
-                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Monthly">Monthly
-                                    <input type="radio" ng-model="setuprestaurant.pricing" value="Annually">Annually
-                                </div>
-                            </div>
-                            <div ng-switch="setuprestaurant.pricing">
-                              <div ng-switch-when="Free-Trial">
-                                 <div class="col-lg-4 pricing py-5">
-                                    <div class="card mb-5 mb-lg-0">
+                        <div>
+                              <div>
+                                 <div class="col-lg-4 pricing py-5"  ng-click="free()">
+                                    <div class="card mb-5 mb-lg-0" id="free">
                                       <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
-                                        <h6 class="card-price text-center">1st<span class="period"> month</span></h6>
-                                        <hr>
+                                        
+                                        <h5 style="background-color: green; color: white" class="card-price text-muted text-uppercase text-center">Free <i class="fa fa-check-square-o pull-right" ng-show="setuprestaurant.pricing=='Free-Trial'"></i></h5>
+                                        <h6 style="background-color: green; color: white" class="card-price text-center">1st<span class="period"> month</span></h6>
                                         <ul class="fa-ul">
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
@@ -176,13 +167,12 @@
                                     </div>
                                   </div>
                               </div>
-                              <div ng-switch-when="Monthly">
-                                 <div class="col-lg-4 pricing py-5">
+                              <div>
+                                 <div class="col-lg-4 pricing py-5" id="monthly" ng-click="monthly()">
                                     <div class="card mb-5 mb-lg-0">
                                       <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Starter</h5>
-                                        <h6 class="card-price text-center">$15<span class="period">/month</span></h6>
-                                        <hr>
+                                        <h5 class="card-price text-muted text-uppercase text-center" style="background-color: blue; color: white">Starter <i class="fa fa-check-square-o pull-right" ng-show="setuprestaurant.pricing=='Monthly'"></i></h5>
+                                        <h6 style="background-color: #0c0fc9; color: white" class="card-price text-center">$15<span class="period">/month</span></h6>
                                         <ul class="fa-ul">
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>
@@ -197,13 +187,13 @@
                                     </div>
                                   </div>
                               </div>
-                              <div ng-switch-when="Annually">
-                                 <div class="col-lg-4 pricing py-5">
+                              <div>
+                                 <div class="col-lg-4 pricing py-5" id="annual" ng-click="annual()">
                                     <div class="card mb-5 mb-lg-0">
                                       <div class="card-body">
-                                        <h5 class="card-title text-muted text-uppercase text-center">Annual</h5>
-                                        <h6 class="card-price text-center">$150<span class="period">/year</span></h6>
-                                        <hr>
+
+                                        <h5 style="background-color: red; color: white" class="card-price text-muted text-uppercase text-center">Annual <i class="fa fa-check-square-o pull-right" ng-show="setuprestaurant.pricing=='Annual'"></i></h5>
+                                        <h6 style="background-color: #ce1010; color: white" class="card-price text-center">$150<span class="period">/year</span></h6>
                                         <ul class="fa-ul">
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>Single User</li>
                                           <li><span class="fa-li"><i class="fas fa-check"></i></span>5GB Storage</li>

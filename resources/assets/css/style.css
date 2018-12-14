@@ -43,14 +43,10 @@ summary {
 
 .pricing .card {
   border: none;
-  border-radius: 1rem;
   transition: all 0.2s;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
-.pricing hr {
-  margin: 1.5rem 0;
-}
 
 .pricing .card-title {
   margin: 0.5rem 0;

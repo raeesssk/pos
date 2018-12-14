@@ -23,6 +23,32 @@ angular.module('setuprestaurant').controller('setuprestaurantCtrl', function ($r
   			$scope.setuprestaurant.srm_check = 0;
   		}
   	};
+
+  	$scope.free = function(){
+		$scope.setuprestaurant.pricing = 'Free-Trial';
+		
+		document.getElementById('free').style.opacity=1;
+		document.getElementById('monthly').style.opacity=0.5;
+		document.getElementById('annual').style.opacity=0.5;
+  	};
+
+  	$scope.monthly = function(){
+  		
+		$scope.setuprestaurant.pricing = 'Monthly';
+
+		document.getElementById('free').style.opacity=0.5;
+		document.getElementById('monthly').style.opacity=1;
+		document.getElementById('annual').style.opacity=0.5;
+  	};
+
+  	$scope.annual = function(){
+
+		$scope.setuprestaurant.pricing = 'Annual';
+		document.getElementById('free').style.opacity=0.5;
+		document.getElementById('monthly').style.opacity=0.5;
+		document.getElementById('annual').style.opacity=1;
+  	};
+  	
   	$scope.addSetupRestro = function () {
   		var alpharegex = /^[a-zA-Z ]*$/;
 	    var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -9,7 +9,6 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
  	$scope.setuprestaurant = {};
 	// $scope.restaurantObj.srm_state = 'Madrid';
 
-
 	 $scope.getrestro = function () {
 	 	$http({
 	      method: 'POST',
@@ -21,11 +20,25 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 	    .success(function(obj)
 	    {
 	    	obj.forEach(function (value, key) {
+
 	    		if(value.srm_checkgst == 1){
 					value.srm_check_gst = true;
 					value.srm_check = 1;
 				};
-
+				if(value.srm_version_type == 'Free-Trial')
+				{
+					$scope.free();
+				}
+				else if (value.srm_version_type == 'Monthly')
+				{
+					$scope.monthly();
+				}
+				else if(value.srm_version_type == 'Annual')
+				{
+					$scope.annual();
+				}
+				
+				value.pricing = value.srm_version_type;
 	      		$scope.setuprestaurant = value;
           	});
           	localStorage.setItem("pos_admin_restaurant",JSON.stringify($scope.setuprestaurant));
@@ -72,6 +85,31 @@ angular.module('setuprestaurant').controller('setuprestaurantEditCtrl', function
 
   			$scope.setuprestaurant.srm_check = 0;
   		}
+  	};
+
+  	$scope.free = function(){
+		$scope.setuprestaurant.pricing = 'Free-Trial';
+
+		document.getElementById('free').style.opacity=1;
+		document.getElementById('monthly').style.opacity=0.5;
+		document.getElementById('annual').style.opacity=0.5;
+  	};
+
+  	$scope.monthly = function(){
+  		
+		$scope.setuprestaurant.pricing = 'Monthly';
+
+		document.getElementById('free').style.opacity=0.5;
+		document.getElementById('monthly').style.opacity=1;
+		document.getElementById('annual').style.opacity=0.5;
+  	};
+
+  	$scope.annual = function(){
+
+		$scope.setuprestaurant.pricing = 'Annual';
+		document.getElementById('free').style.opacity=0.5;
+		document.getElementById('monthly').style.opacity=0.5;
+		document.getElementById('annual').style.opacity=1;
   	};
 
 	// Main register Function
