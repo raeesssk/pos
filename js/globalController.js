@@ -14,7 +14,9 @@ function GlobalCtrl($rootScope, $http, $scope, $timeout) {
     // $rootScope.baseURL = 'http://localhost:3000';
     // $rootScope.baseURL = 'http://10.1.0.32:3000';
   $rootScope.baseURL = 'http://pos.restromaticz.com:3000';
-    $rootScope.socket = io.connect($rootScope.baseURL); 
+    $rootScope.socket = io.connect($rootScope.baseURL,{transports: ['websocket']}); 
+     $rootScope.socket.on('connect',function(){
+     });
     
     if(localStorage.getItem("pos_admin_access_token") === null)
       {
